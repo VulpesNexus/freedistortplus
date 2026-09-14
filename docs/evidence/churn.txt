@@ -1,0 +1,19 @@
+Enhanced Free Distort -- document churn A/B, 2026-09-14 13:07
+cycle 1 tool: survived (active yes)
+cycle 1 control: survived (active no)
+cycle 2 tool: survived (active yes)
+cycle 2 control: survived (active no)
+cycle 3 tool: survived (active yes)
+cycle 3 control: survived (active no)
+cycle 4 tool: survived (active yes)
+cycle 4 control: survived (active no)
+cycle 5 tool: survived (active yes)
+cycle 5 control: survived (active no)
+cycle 6 tool: survived (active yes)
+cycle 6 control: survived (active no)
+cycle 7 tool: survived (active yes)
+cycle 7 control: survived (active no)
+cycle 8 tool: survived (active yes)
+cycle 8 control: survived (active no)
+tool: 8 survived, 0 crashed
+control: 8 survived, 0 crashed

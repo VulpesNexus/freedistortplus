@@ -1,0 +1,11 @@
+Enhanced Free Distort -- a drag made with the real mouse, read over COM, 2026-09-14 14:45
+By hand: one corner dragged and released; Ctrl+Z once.
+tool messages: down 1 drag 345 up 1 last hit 1 at 429.666666667,407.666666667
+preview: preview of 1 paths, 5 segments (captured before the drag)
+[PASS] a real drag through Illustrator's own tool dispatch reaches the editor: down 1 drag 345 up 1 last hit 1 at 429.666666667,407.666666667
+[PASS] a real drag begins with a preview captured before the mouse-down: preview of 1 paths, 5 segments (captured before the drag)
+[PASS] after the real drag and one Undo, the dictionary is back exactly: (90,330 390,350 90,100 340,100)
+[PASS] a real drag of hundreds of events is one undo step: past 0, future 1
+[PASS] a real drag commits its corners, at the pointer's own coordinates, unrounded: (90,330 429.666666667,407.666666667 90,100 340,100); 1 corners moved (drawing 90,330,340,100;90,357.96,402.376811594202,100)
+[PASS] the magenta preview outline follows a real drag: reported yes
+[PASS] Adobe's fill updates when a real drag is released: reported yes

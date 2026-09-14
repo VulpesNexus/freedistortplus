@@ -1,0 +1,8 @@
+probe	group	case	expected	observed	status
+mouse	real mouse	a real drag through Illustrator's own tool dispatch reaches the editor	1 press(es), as many releases, many drag events	down 1 drag 345 up 1 last hit 1 at 429.666666667,407.666666667	PASS
+mouse	real mouse	a real drag begins with a preview captured before the mouse-down	a preview of the art, captured before the drag	preview of 1 paths, 5 segments (captured before the drag)	PASS
+mouse	real mouse	after the real drag and one Undo, the dictionary is back exactly	(90,330 390,350 90,100 340,100)	(90,330 390,350 90,100 340,100)	PASS
+mouse	real mouse	a real drag of hundreds of events is one undo step	past 0, future 1 after one Undo	past 0, future 1	PASS
+mouse	real mouse	a real drag commits its corners, at the pointer's own coordinates, unrounded	one corner moved, or two for a mode that moves a partner	(90,330 429.666666667,407.666666667 90,100 340,100); 1 corners moved (drawing 90,330,340,100;90,357.96,402.376811594202,100)	PASS
+mouse	real mouse	the magenta preview outline follows a real drag	yes, as reported by the person dragging	reported: yes	PASS
+mouse	real mouse	Adobe's fill updates when a real drag is released	yes, as reported by the person dragging	reported: yes	PASS

@@ -1,0 +1,18 @@
+probe	group	case	expected	observed	status
+poc	find	the plugin adds an Adobe Free Distort to the selected object	result 0, post-effect 0	result 0 index 0	PASS
+poc	find	the effect is registered by Adobe, with the title the Appearance panel shows	Adobe Free Distort / Free Distort	93 Adobe Free Distort Free Distort 1.0 0x87 0x2	PASS
+poc	find	the plugin finds it again by name	object, post-effect 0	object 0	PASS
+poc	bounds	Adobe's own edit path answers the input bounds	from Adobe, [90 330 340 100]	Adobe, [90 330 340 100]	PASS
+poc	bounds	measuring leaves the appearance exactly as it was	identical appearance dump	identical	PASS
+poc	bounds	measuring leaves no undo step behind	past 3	past 3	PASS
+poc	write	the destination corner the plugin wrote is in the dictionary	dst corner 1 = 400,330, source [90 330 340 100]	entries 16 src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 340,100)	PASS
+poc	write	the source path is untouched	90,330,340,100	90,330,340,100	PASS
+poc	write	Adobe's renderer draws the new corner where the bilinear model says	381.73913043478262	381.739130435	PASS
+poc	write	the appearance holds Adobe Free Distort and nothing of this plugin	Adobe Free Distort	Adobe Free Distort	PASS
+poc	write	the dictionary holds only the sixteen Adobe keys	16 entries, none of them ours	16 entries	PASS
+poc	vanilla	Adobe's dialog opens on the plugin's edit, and Cancel leaves it	entries 16 src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 340,100)	entries 16 src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 340,100)	PASS
+poc	vanilla	a corner dragged in Adobe's dialog is what the plugin reads	dst corner 3 moved, corner 1 still 400,330	entries 17 src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 390,65)	PASS
+poc	vanilla	the editor's quad is Adobe's new state, read fresh	quad equals the dictionary destination	(90,330 400,330 90,100 390,65)	PASS
+poc	persistence	save, close, and reopen keep all sixteen numbers to the digit	src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 390,65)	src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 390,65)	PASS
+poc	persistence	keys present before saving that the reopened dictionary lacks		before: entries 17; after reopen: entries 16; -DefaultApplyEffectsKey after reopen: absent	MEASURED
+poc	persistence	the reopened appearance is still only Adobe Free Distort	Adobe Free Distort	Adobe Free Distort	PASS

@@ -1,0 +1,55 @@
+Printable strings of Distort.aip that name suites, the effect, or parameter keys.
+Illustrator.exe file version 30.7.0; Plug-ins\Illustrator Filters\Distort.aip, 43512 bytes, SHA-256 3FE72C8A159BC8442ECB6B04D23CDC3D519583B77FCD357BAC10F12871AFA17A
+Extracted by reading the file as ASCII and as UTF-16 and keeping runs of four or more printable characters. Kept: suite names, strings naming the effect, words starting with a minus sign, and src/dst key names.
+
+AI Art Suite
+AI Filter Suite
+AI Menu Suite
+AI Live Effect Suite
+AI Dictionary Suite
+AI Document Suite
+AI Matching Art Suite
+AI MdMemory Suite
+AI Plugin Group Suite
+AI Path Suite
+AI Real Math Suite
+AI User Suite
+Adobe Graphics Manager Suite
+SP Basic Suite
+SP Access Suite
+SP Blocks Suite
+AI Runtime Suite
+ADM Basic Suite
+AI Context Suite
+Distort v2
+AI Exception 
+AI DistortUI Suite
+??Adobe Free Distort
+Free Distort
+-doingFakeGo
+-liveDistortPreviewArt
+src0h
+src0v
+src1h
+src1v
+src2h
+src2v
+src3h
+src3v
+dst0h
+dst0v
+dst1h
+dst1v
+dst2h
+dst2v
+dst3h
+dst3v
+AI AdobeDunamis Suite
+AI Counted Object Suite
+PFW Plugin Suite
+SP Access
+SP Interface
+PFW Basic Suite
+<First Mac index is 1>!$$$/Distort/Str/Filter/1=&Distort)$$$/Distort/Str/Filter/2=&Free Distort...
+$$$/Distort/Str/Filter/3=Reset.$$$/Distort/Str/Filter/4=&Distort && Transform
+ $$$/Distort/Str/Action/1=Distort%$$$/Distort/Str/Action/2=Free Distort

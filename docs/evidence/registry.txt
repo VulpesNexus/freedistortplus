@@ -1,0 +1,97 @@
+Every live effect registered with the running Illustrator, as AILiveEffectSuite reports it.
+
+idx	name	title	version	inputPrefs	styleFlags
+0	PSAdapter_plugin_SmrB	Smart Blur	1.0	0x0	0x2
+1	PSAdapter_plugin_RdlB	Radial Blur	1.0	0x0	0x2
+2	PSAdapter_plugin_Pntl	Pointillize	1.0	0x0	0x2
+3	PSAdapter_plugin_Mztn	Mezzotint	1.0	0x0	0x2
+4	PSAdapter_plugin_Dntr	De-Interlace	1.0	0x0	0x2
+5	PSAdapter_plugin_Crst	Crystallize	1.0	0x0	0x2
+6	PSAdapter_plugin_ClrH	Color Halftone	1.0	0x0	0x2
+7	VulpesNexus Shear	Shear	1.0	0xfdff	0x2
+8	org.strokemaster.proposed.line-replacement.v1	StrokeMaster PROPOSED line replacement	1.0	0x3	0x3
+9	Adobe Trim Marks	Crop Marks	1.0	0x2ffff	0x2
+10	Adobe Pathfinder	Pathfinder	1.0	0x20007	0x10001
+11	Adobe Dither	Dither	1.0	0x7	0xa40002
+12	Adobe Geometry3D	3D and Materials	1.0	0x7	0x260002
+13	Adobe 3D Effect	3D Effect	1.0	0x2ffff	0x170002
+14	Adobe Scatter Brush Tool	Scatter Brush Tool	1.0	0x20006	0x100003
+15	Adobe dBrush Brush Tool	dBrush	1.0	0x20006	0x3
+16	Adobe Calligraphic Brush Tool	Calligraphic Brush	1.0	0x20006	0x800003
+17	Adobe ArtOnPath Brush Tool	Art Brush	1.0	0x20006	0xb00003
+18	Adobe PatternOnPath Brush Tool	Pattern Brush	1.0	0x20006	0x300003
+19	Adobe Art Converters	Adobe Art Converters	1.0	0x800	0x1
+20	Adobe Outline Type	Outline Object	1.0	0xffff	0x1
+21	PSAdapter_plugin_USMk	Unsharp Mask	1.0	0x0	0x2
+22	PSAdapter_plugin_NTSC	NTSC Colors	1.0	0x0	0x2
+23	PSAdapter_plugin_WtrP	Water Paper	1.0	0x0	0x2
+24	PSAdapter_plugin_Wtrc	Watercolor	1.0	0x0	0x2
+25	PSAdapter_plugin_Undr	Underpainting	1.0	0x0	0x2
+26	PSAdapter_plugin_TrnE	Torn Edges	1.0	0x0	0x2
+27	PSAdapter_plugin_Txtz	Texturizer	1.0	0x0	0x2
+28	PSAdapter_plugin_Smie	Sumi-e	1.0	0x0	0x2
+29	PSAdapter_plugin_Stmp	Stamp	1.0	0x0	0x2
+30	PSAdapter_plugin_StnG	Stained Glass	1.0	0x0	0x2
+31	PSAdapter_plugin_SprS	Sprayed Strokes	1.0	0x0	0x2
+32	PSAdapter_plugin_Spng	Sponge	1.0	0x0	0x2
+33	PSAdapter_plugin_Spt 	Spatter	1.0	0x0	0x2
+34	PSAdapter_plugin_SmdS	Smudge Stick	1.0	0x0	0x2
+35	PSAdapter_plugin_RghP	Rough Pastels	1.0	0x0	0x2
+36	PSAdapter_plugin_Rtcl	Reticulation	1.0	0x0	0x2
+37	PSAdapter_plugin_PstE	Poster Edges	1.0	0x0	0x2
+38	PSAdapter_plugin_PlsW	Plastic Wrap	1.0	0x0	0x2
+39	PSAdapter_plugin_Plst	Plaster	1.0	0x0	0x2
+40	PSAdapter_plugin_Phtc	Photocopy	1.0	0x0	0x2
+41	PSAdapter_plugin_Ptch	Patchwork	1.0	0x0	0x2
+42	PSAdapter_plugin_PltK	Palette Knife	1.0	0x0	0x2
+43	PSAdapter_plugin_PntD	Paint Daubs	1.0	0x0	0x2
+44	PSAdapter_plugin_OcnR	Ocean Ripple	1.0	0x0	0x2
+45	PSAdapter_plugin_NtPr	Note Paper	1.0	0x0	0x2
+46	PSAdapter_plugin_NGlw	Neon Glow	1.0	0x0	0x2
+47	PSAdapter_plugin_MscT	Mosaic Tiles	1.0	0x0	0x2
+48	PSAdapter_plugin_InkO	Ink Outlines	1.0	0x0	0x2
+49	PSAdapter_plugin_HlfS	Halftone Pattern	1.0	0x0	0x2
+50	PSAdapter_plugin_GraP	Graphic Pen	1.0	0x0	0x2
+51	PSAdapter_plugin_Grn 	Grain	1.0	0x0	0x2
+52	PSAdapter_plugin_GlwE	Glowing Edges	1.0	0x0	0x2
+53	PSAdapter_plugin_Gls 	Glass	1.0	0x0	0x2
+54	PSAdapter_plugin_Frsc	Fresco	1.0	0x0	0x2
+55	PSAdapter_plugin_FlmG	Film Grain	1.0	0x0	0x2
+56	PSAdapter_plugin_DryB	Dry Brush	1.0	0x0	0x2
+57	PSAdapter_plugin_DfsG	Diffuse Glow	1.0	0x0	0x2
+58	PSAdapter_plugin_DrkS	Dark Strokes	1.0	0x0	0x2
+59	PSAdapter_plugin_Ct  	Cutout	1.0	0x0	0x2
+60	PSAdapter_plugin_Crsh	Crosshatch	1.0	0x0	0x2
+61	PSAdapter_plugin_Crql	Craquelure	1.0	0x0	0x2
+62	PSAdapter_plugin_CntC	Contrayon	1.0	0x0	0x2
+63	PSAdapter_plugin_ClrP	Colored Pencil	1.0	0x0	0x2
+64	PSAdapter_plugin_Chrm	Chrome	1.0	0x0	0x2
+65	PSAdapter_plugin_Chrc	Charcoal	1.0	0x0	0x2
+66	PSAdapter_plugin_ChlC	Chalk & Charcoal	1.0	0x0	0x2
+67	PSAdapter_plugin_BsRl	Bas Relief	1.0	0x0	0x2
+68	PSAdapter_plugin_AngS	Angled Strokes	1.0	0x0	0x2
+69	PSAdapter_plugin_AccE	Accented Edges	1.0	0x0	0x2
+70	PSAdapter_plugin_GEfc	Effect Gallery	1.0	0x0	0x2
+71	Adobe Zigzag	Zig Zag	1.0	0x7	0x820001
+72	Adobe Shape Effects	Shape	1.0	0x2ffff	0x30001
+73	Adobe Scribble and Tweak	Tweak	1.0	0x7	0x20001
+74	Adobe Round Corners	Round Corners	1.0	0x87	0x420001
+75	Adobe Roughen	Roughen	1.0	0x7	0x820001
+76	Adobe Punk and Bloat	Pucker & Bloat	1.0	0x7	0x800001
+77	Adobe Drop Shadow	Drop Shadow	1.0	0x2ffff	0x960002
+78	Adobe Outer Glow	Outer Glow	1.0	0x2ffff	0x960002
+79	Adobe Inner Glow	Inner Glow	1.0	0x2ffff	0x960002
+80	Adobe Add Arrowheads	Add Arrowheads	1.0	0x20007	0x2
+81	Adobe Stroke Offset	Stroke Offset Live Effect	1.0	0x20006	0x800003
+82	Adobe Twirl	Twist	1.0	0x7	0x800001
+83	Adobe Scribble Fill	Scribble	1.0	0x7	0x420002
+84	Adobe PSL Gaussian Blur	Gaussian Blur	1.0	0x0	0x820002
+85	PSAdapter_plugin_GblR	Legacy Gaussian Blur	1.0	0x0	0x20002
+86	Adobe Fuzzy Mask	Feather	1.0	0x2ffff	0x60002
+87	Adobe Outline Stroke	Outline Stroke	1.0	0x20007	0x800002
+88	Adobe Offset Path	Offset Path	1.0	0x20007	0x820001
+89	Adobe Transform	Transform	1.0	0x1d47	0x820002
+90	Adobe Rasterize	Rasterize	1.0	0x2ffff	0xc60002
+91	Adobe SVG Filter Effect	SVG Filter	1.0	0x2fdff	0xe0002
+92	Adobe Deform	Warp	1.0	0xffff	0x810001
+93	Adobe Free Distort	Free Distort	1.0	0x87	0x2

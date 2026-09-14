@@ -1,0 +1,5 @@
+probe	group	case	expected	observed	status
+preview	grid	a drag opens with a preview of the art	drag open; preview of 1 path, 30 segments, captured before the drag because a tool mouse-down cannot read the styled result	open, corner 2; preview of 1 paths, 30 segments (captured before the drag)	PASS
+preview	grid	every previewed anchor and handle is where Adobe draws it after release	within 1e-6 pt	90 points previewed, 90 rendered, worst deviation 0 pt	PASS
+preview	point text	the preview of live text matches the glyph outlines Adobe draws after release	within 1e-6 pt	267 points previewed, 267 rendered, worst nearest distance 1E-09 pt	PASS
+preview	point text	the text is still live text afterwards	TextFrame|Distort	TextFrame|Distort	PASS

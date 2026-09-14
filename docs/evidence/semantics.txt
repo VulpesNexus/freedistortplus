@@ -1,0 +1,36 @@
+Enhanced Free Distort -- dictionary semantics, 2026-09-14 14:23
+[MEASURED] a Free Distort added without its dialog holds: # 0 entries
+[PASS] an empty dictionary draws the art unchanged: identical
+[MEASURED] Adobe's commit writes these keys: src2v Real, dst2v Real, src2h Real, src1v Real, dst3h Real, dst3v Real, dst0v Real, src0v Real, src1h Real, dst1v Real, dst2h Real, src3h Real, src3v Real, dst1h Real, dst0h Real, src0h Real, -DefaultApplyEffectsKey Boolean
+[PASS] the source quad is the geometric bounds, corner order TL TR BL BR: entries 17 src (90,330 340,330 90,100 340,100) dst (90,330 340,330 90,100 340,100)
+[MEASURED] src2v (Real) 100 -> 137: drawing changed; restoring the value restores it exactly
+[MEASURED] dst2v (Real) 90 -> 127: drawing changed; restoring the value restores it exactly
+[MEASURED] src2h (Real) 90 -> 127: drawing changed; restoring the value restores it exactly
+[MEASURED] src1v (Real) 330 -> 367: drawing changed; restoring the value restores it exactly
+[MEASURED] dst3h (Real) 360 -> 397: drawing changed; restoring the value restores it exactly
+[MEASURED] dst3v (Real) 120 -> 157: drawing changed; restoring the value restores it exactly
+[MEASURED] dst0v (Real) 350 -> 387: drawing changed; restoring the value restores it exactly
+[MEASURED] src0v (Real) 330 -> 367: drawing changed; restoring the value restores it exactly
+[MEASURED] src1h (Real) 340 -> 377: drawing changed; restoring the value restores it exactly
+[MEASURED] dst1v (Real) 320 -> 357: drawing changed; restoring the value restores it exactly
+[MEASURED] dst2h (Real) 70 -> 107: drawing changed; restoring the value restores it exactly
+[MEASURED] src3h (Real) 340 -> 377: drawing changed; restoring the value restores it exactly
+[MEASURED] src3v (Real) 100 -> 137: drawing changed; restoring the value restores it exactly
+[MEASURED] dst1h (Real) 390 -> 427: drawing changed; restoring the value restores it exactly
+[MEASURED] dst0h (Real) 110 -> 147: drawing changed; restoring the value restores it exactly
+[MEASURED] src0h (Real) 90 -> 127: drawing changed; restoring the value restores it exactly
+[MEASURED] -DefaultApplyEffectsKey (Boolean) false -> true: drawing unchanged; restoring the value restores it exactly
+[PASS] -DefaultApplyEffectsKey can be absent without changing the drawing: unchanged
+[PASS] a key Adobe does not know changes nothing in the drawing: unchanged
+[MEASURED] a key Adobe does not know, after Adobe's own edit path commits: kept
+[PASS] moving the art does not touch the dictionary: entries 16 src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 340,100)
+[PASS] the drawing moves with the art (renormalized onto the moved bounds): 431.739130435
+[PASS] Adobe's edit path then rewrites the source as the moved bounds and renormalizes the destination: entries 17 src (140,350 390,350 140,120 390,120) dst (140,350 450,350 140,120 390,120)
+[PASS] scaling the art (scale strokes and effects on) does not touch the dictionary: entries 16 src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 340,100)
+[PASS] after scaling 150% about the center, the normalized distortion is kept: dst1h = 27.5 + 1.24 x 375: entries 17 src (27.5,387.5 402.5,387.5 27.5,42.5 402.5,42.5) dst (27.5,387.5 492.5,387.5 27.5,42.5 402.5,42.5)
+[MEASURED] after rotating the art 30 degrees, Adobe re-lays the quad onto the new axis-aligned bounds: bounds 94.246825122,316.47114442,336.112159901,57.907077951;94.246825122,316.47114442,362.450636017,57.907077951; entries 17 src (94.2468251221,316.47114442 336.112159901,316.47114442 94.2468251221,57.9070779515 336.112159901,57.9070779515) dst (94.2468251221,316.47114442 394.159840248,316.47114442 94.2468251221,57.9070779515 336.112159901,57.9070779515)
+[PASS] editing an anchor so the bounds grow does not touch the dictionary: entries 16 src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 340,100)
+[PASS] after the reshape, Adobe's edit path renormalizes onto 90..440: entries 17 src (90,330 440,330 90,100 440,100) dst (90,330 524,330 90,100 440,100)
+[PASS] a 20 pt stroke: the input bounds are the geometric bounds, not the visible ones: [90 330 340 100]
+[PASS] under a Transform effect (50%, moved 30 pt), the input bounds are the transformed art: Adobe, [182.5 272.5 307.5 157.5]
+[MEASURED] geometric bounds of the same object, for contrast: [90 330 340 100]

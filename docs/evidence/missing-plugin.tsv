@@ -1,0 +1,11 @@
+probe	group	case	expected	observed	status
+missing-plugin	author	the plugin is loaded	loaded	loaded	PASS
+missing-plugin	author	the saved file names no part of this plugin	no EnhancedFreeDistort or VulpesNexus in the file	none	PASS
+missing-plugin	absent	the plugin is not loaded	absent	absent	PASS
+missing-plugin	absent	opening the document raises no alert at all	no alert	no alert	PASS
+missing-plugin	absent	the drawing is exactly what was saved	g1:540,330,790,100 g2:610,410,860,180 group:550,410,832.903226,100 path:90,330,381.73913,100 text:125.472656,388.62793,357.388896,314.681427	g1:540,330,790,100 g2:610,410,860,180 group:550,410,832.903226,100 path:90,330,381.73913,100 text:125.472656,388.62793,357.388896,314.681427	PASS
+missing-plugin	absent	the appearance, read by another plugin, is Adobe Free Distort	Adobe Free Distort	Adobe Free Distort	PASS
+missing-plugin	absent	Adobe's own dialog edits the effect with the plugin absent	OK commits a moved corner	dialog 556,207,906,556 view 564,238,898,548 class=DroverLord - Window Class | dragged 237,191,265,211 | closed=True via ok	PASS
+missing-plugin	return	the plugin is loaded again	loaded	loaded	PASS
+missing-plugin	return	the plugin reads exactly what Adobe's dialog wrote while it was absent	dst (90,330,400,330,90,100,390,65)	entries 16 src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 390,65); worst difference 0	PASS
+missing-plugin	return	the editor shows that state, with no conversion	(90,330 400,330 90,100 390,65)	(90,330 400,330 90,100 390,65)	PASS

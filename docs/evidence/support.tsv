@@ -1,0 +1,42 @@
+probe	group	case	expected	observed	status
+support	path	the effect can be added	listed as a post-effect	object 0	PASS
+support	path	input bounds	Adobe answers	from Adobe: [90 330 340 100]; geometric bounds [90 330 340 100]	PASS
+support	path	dragging a corner redraws the art and leaves its geometry alone	visible bounds change, geometric bounds do not	visible 90,330,340,100 -> 90,337.2,381.739130435,100; geometric unchanged	PASS
+support	path	the art keeps its type and contents	PathItem|	PathItem|	PASS
+support	path	Adobe's own edit path keeps the editor's corners	(90,330 400,350 90,100 340,100)	(90,330 400,350 90,100 340,100)	PASS
+support	compound path	the effect can be added	listed as a post-effect	object 0	PASS
+support	compound path	input bounds	Adobe answers	from Adobe: [90 320 340 100]; geometric bounds [90 320 340 100]	PASS
+support	compound path	dragging a corner redraws the art and leaves its geometry alone	visible bounds change, geometric bounds do not	visible 90,320,340,100 -> 90,339.2,387.6,100; geometric unchanged	PASS
+support	compound path	the art keeps its type and contents	CompoundPathItem|	CompoundPathItem|	PASS
+support	compound path	Adobe's own edit path keeps the editor's corners	(90,320 400,340 90,100 340,100)	(90,320 400,340 90,100 340,100)	PASS
+support	group	the effect can be added	listed as a post-effect	object 0	PASS
+support	group	input bounds	Adobe answers	from Adobe: [90 390 520 100]; geometric bounds [90 390 520 100]	PASS
+support	group	dragging a corner redraws the art and leaves its geometry alone	visible bounds change, geometric bounds do not	visible 90,390,520,100 -> 90,402.558139535,565.517241379,100; geometric unchanged	PASS
+support	group	the art keeps its type and contents	GroupItem|	GroupItem|	PASS
+support	group	Adobe's own edit path keeps the editor's corners	(90,390 580,410 90,100 520,100)	(90,390 580,410 90,100 520,100)	PASS
+support	clipping group	the effect can be added	listed as a post-effect	object 0	PASS
+support	clipping group	input bounds	Adobe answers	from Adobe: [60 360 390 60]; geometric bounds [60 360 390 60]	PASS
+support	clipping group	dragging a corner redraws the art and leaves its geometry alone	visible bounds change, geometric bounds do not	visible 60,360,390,60 -> 60,380,450,60; geometric unchanged	PASS
+support	clipping group	the art keeps its type and contents	GroupItem|	GroupItem|	PASS
+support	clipping group	Adobe's own edit path keeps the editor's corners	(60,360 450,380 60,60 390,60)	(60,360 450,380 60,60 390,60)	PASS
+support	point text	the effect can be added	listed as a post-effect	object 0	PASS
+support	point text	input bounds	Adobe answers	from Adobe: [125.47265625 388.627929688 323.470214844 338.943359375]; geometric bounds [120 400 325.33984375 321.735351562]	PASS
+support	point text	dragging a corner redraws the art and leaves its geometry alone	visible bounds change, geometric bounds do not	visible 120,400,325.33984375,321.735351563 -> 125.47265625,402.130497718,367.001844717,338.943359375; geometric unchanged	PASS
+support	point text	the art keeps its type and contents	TextFrame|Distort	TextFrame|Distort	PASS
+support	point text	Adobe's own edit path keeps the editor's corners	(125.47265625,388.627929688 383.470214844,408.627929688 125.47265625,338.943359375 323.470214844,338.943359375)	(125.47265625,388.627929688 383.470214844,408.627929688 125.47265625,338.943359375 323.470214844,338.943359375)	PASS
+support	point text	retyping the live text redraws it through the effect	visible bounds change again	125.47265625,402.130497718,367.001844717,338.943359375 -> 125.47265625,393.953435152,566.184471949,338.943359375	PASS
+support	area text	the effect can be added	listed as a post-effect	object 0	PASS
+support	area text	input bounds	Adobe answers	from Adobe: [100.936035156 420.001464844 320.221679688 345.096191406]; geometric bounds [100 420 360 260]	PASS
+support	area text	dragging a corner redraws the art and leaves its geometry alone	visible bounds change, geometric bounds do not	visible 100,423.047851563,360,260 -> 100.936035156,437.087328776,375.876738812,345.096191406; geometric unchanged	PASS
+support	area text	the art keeps its type and contents	TextFrame|Enhanced Free Distort keeps type live across several lines of text	TextFrame|Enhanced Free Distort keeps type live across several lines of text	PASS
+support	area text	Adobe's own edit path keeps the editor's corners	(100.936035156,420.001464844 380.221679688,440.001464844 100.936035156,345.096191406 320.221679688,345.096191406)	(100.936035156,420.001464844 380.221679688,440.001464844 100.936035156,345.096191406 320.221679688,345.096191406)	PASS
+support	area text	retyping the live text redraws it through the effect	visible bounds change again	100.936035156,437.087328776,375.876738812,345.096191406 -> 100.936035156,434.961990741,375.876738812,345.096191406	PASS
+support	symbol instance	the effect can be added	listed as a post-effect	object 0	PASS
+support	symbol instance	input bounds	Adobe answers	from Adobe: [120 380 370 150]; geometric bounds [120 380 370 150]	PASS
+support	symbol instance	dragging a corner redraws the art and leaves its geometry alone	visible bounds change, geometric bounds do not	visible 120,380,370,150 -> 120,387.2,411.739130435,150; geometric unchanged	PASS
+support	symbol instance	the art keeps its type and contents	SymbolItem|	SymbolItem|	PASS
+support	symbol instance	Adobe's own edit path keeps the editor's corners	(120,380 430,400 120,150 370,150)	(120,380 430,400 120,150 370,150)	PASS
+support	embedded raster	the effect can be added	listed as a post-effect	object 0	PASS
+support	embedded raster	input bounds	Adobe answers	from geometric: [90 330 340 100]; geometric bounds [90 330 340 100]	MEASURED
+support	embedded raster	the editor declines art Adobe's effect does not change	no target, reason given	Free Distort does not change raster images	PASS
+support	embedded raster	Adobe's effect draws the image unchanged whatever its corners say	90,330,340,100;90,330,340,100	90,330,340,100;90,330,340,100	PASS

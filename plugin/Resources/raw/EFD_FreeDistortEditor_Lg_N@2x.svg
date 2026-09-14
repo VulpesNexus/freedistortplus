@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="36" viewBox="0 0 44 36" width="44">
+  <defs>
+    <style>
+      .line { fill: none; stroke: #000; stroke-width: 1.5; opacity: 0.65; }
+      .guide { fill: none; stroke: #000; stroke-width: 1; stroke-dasharray: 2 2; opacity: 0.4; }
+      .handle { fill: #000; opacity: 0.65; }
+    </style>
+  </defs>
+  <rect class="guide" x="12.5" y="10.5" width="19" height="15" />
+  <path class="line" d="M9 7 L33 11 L36 29 L12 26 Z" />
+  <rect class="handle" x="7" y="5" width="4" height="4" />
+  <rect class="handle" x="31" y="9" width="4" height="4" />
+  <rect class="handle" x="34" y="27" width="4" height="4" />
+  <rect class="handle" x="10" y="24" width="4" height="4" />
+</svg>

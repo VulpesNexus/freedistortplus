@@ -1,0 +1,36 @@
+# Build output: the plugin binary, its intermediates, and the generated PIPL.
+# tools/build.ps1 and the math test write everything under build/.
+build/
+plugin/plugin.pipl
+*.aip
+*.pdb
+*.ilk
+*.obj
+*.lib
+*.exp
+*.res
+*.tlog
+*.recipe
+
+# Visual Studio user state, including any local AISDKRoot override kept in a
+# .user file rather than in AI_SDK_ROOT.
+*.user
+*.suo
+.vs/
+
+# Python bytecode.
+__pycache__/
+*.pyc
+
+# Crash dumps and logs a probe or a debugger may leave beside the tools.
+*.dmp
+*.log
+
+# Illustrator's temporary and recovery files, should a probe document ever be
+# saved inside the repository instead of the temp folder.
+*.ai.tmp
+~ai-*.tmp
+*.ai.bak
+
+# Assembled release archives; they are built, not kept.
+dist/

@@ -1,0 +1,19 @@
+probe	group	case	expected	observed	status
+churn	tool	cycle 1		survived; active yes	MEASURED
+churn	control	cycle 1		survived; active no	MEASURED
+churn	tool	cycle 2		survived; active yes	MEASURED
+churn	control	cycle 2		survived; active no	MEASURED
+churn	tool	cycle 3		survived; active yes	MEASURED
+churn	control	cycle 3		survived; active no	MEASURED
+churn	tool	cycle 4		survived; active yes	MEASURED
+churn	control	cycle 4		survived; active no	MEASURED
+churn	tool	cycle 5		survived; active yes	MEASURED
+churn	control	cycle 5		survived; active no	MEASURED
+churn	tool	cycle 6		survived; active yes	MEASURED
+churn	control	cycle 6		survived; active no	MEASURED
+churn	tool	cycle 7		survived; active yes	MEASURED
+churn	control	cycle 7		survived; active no	MEASURED
+churn	tool	cycle 8		survived; active yes	MEASURED
+churn	control	cycle 8		survived; active no	MEASURED
+churn	summary	tool		8 cycles survived, 0 crashed	MEASURED
+churn	summary	control		8 cycles survived, 0 crashed	MEASURED

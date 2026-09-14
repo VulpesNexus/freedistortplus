@@ -1,0 +1,22 @@
+probe	group	case	expected	observed	status
+editor	open	the command adds a Free Distort when there is none and selects the editor	active, target valid, bounds from Adobe	yes, valid, Adobe	PASS
+editor	open	an untouched effect shows its handles on the input bounds	(90,330 340,330 90,100 340,100)	(90,330 340,330 90,100 340,100)	PASS
+editor	drag	a free drag leaves the corner where it was released	(90,330 340,330 60,70 340,100)	(90,330 340,330 60,70 340,100)	PASS
+editor	drag	four drag steps make one undo step	past 1	past 1	PASS
+editor	drag	one Undo takes the whole drag back	(90,330 340,330 90,100 340,100) or empty	(absent)	PASS
+editor	drag	Redo puts it back	(90,330 340,330 60,70 340,100)	(90,330 340,330 60,70 340,100)	PASS
+editor	drift	sixty wild steps that end where they began change nothing	(90,330 410,360 90,100 340,100)	(90,330 410,360 90,100 340,100)	PASS
+editor	drift	...and the drawing is the same to the nanopoint	90,330,340,100;90,340.8,388.695652174,100	90,330,340,100;90,340.8,388.695652174,100	PASS
+editor	cancel	Escape part-way through a drag restores the dictionary exactly	(70,350 340,330 90,100 340,100)	(70,350 340,330 90,100 340,100)	PASS
+editor	cancel	a canceled drag leaves no undo step	past 0	past 0	PASS
+editor	modes	perspective: a mostly horizontal drag narrows the top edge about its midpoint	(120,330 310,330 90,100 340,100)	(120,330 310,330 90,100 340,100)	PASS
+editor	modes	perspective: a mostly vertical drag shortens the right edge about its midpoint	(90,330 340,300 90,100 340,130)	(90,330 340,300 90,100 340,130)	PASS
+editor	modes	symmetric: the opposite corner moves the other way	(100,320 340,330 90,100 330,110)	(100,320 340,330 90,100 330,110)	PASS
+editor	modes	affine: the result is a parallelogram with the dragged corner under the pointer	TL+BR = TR+BL, corner 1 at 380,330	(90,330 380,330 90,100 380,100), mismatch 0	PASS
+editor	independence	editing a duplicate leaves the original that shared its style alone	(90,330 400,330 90,100 340,100)	(90,330 400,330 90,100 340,100)	PASS
+editor	moved art	after the art moves, the handles move with it	(190,380 500,380 190,150 440,150)	(190,380 500,380 190,150 440,150)	PASS
+editor	moved art	the estimate made without asking Adobe agrees with asking	(190,380 500,380 190,150 440,150)	(190,380 500,380 190,150 440,150)	PASS
+editor	moved art	a drag after the move writes source = the new input bounds	src (190,380 440,380 190,150 440,150)	entries 16 src (190,380 440,380 190,150 440,150) dst (180,390 500,380 190,150 440,150)	PASS
+editor	instances	two Free Distorts on one object are both found, and the editor says which it took	post-effects 0 and 1; one chosen, reason given	object 0 1; post-effect 0, instances 2, by focus yes	PASS
+editor	instances	a drag edits only the Free Distort the editor chose	entries 0 src (absent) dst (absent)	entries 0 src (absent) dst (absent)	PASS
+editor	refusals	an effect whose source is not a rectangle is not edited, and the status says why	no target, reason given	this Free Distort's source is not a rectangle, which Adobe's own dialog never writes	PASS

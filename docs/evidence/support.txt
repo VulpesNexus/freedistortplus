@@ -1,0 +1,42 @@
+Enhanced Free Distort -- art types, 2026-09-14 14:32
+[PASS] path / the effect can be added: object	0
+[PASS] path / input bounds: from Adobe: [90 330 340 100]; geometric bounds [90 330 340 100]
+[PASS] path / dragging a corner redraws the art and leaves its geometry alone: visible 90,330,340,100 -> 90,337.2,381.739130435,100; geometric unchanged
+[PASS] path / the art keeps its type and contents: PathItem|
+[PASS] path / Adobe's own edit path keeps the editor's corners: (90,330 400,350 90,100 340,100)
+[PASS] compound path / the effect can be added: object	0
+[PASS] compound path / input bounds: from Adobe: [90 320 340 100]; geometric bounds [90 320 340 100]
+[PASS] compound path / dragging a corner redraws the art and leaves its geometry alone: visible 90,320,340,100 -> 90,339.2,387.6,100; geometric unchanged
+[PASS] compound path / the art keeps its type and contents: CompoundPathItem|
+[PASS] compound path / Adobe's own edit path keeps the editor's corners: (90,320 400,340 90,100 340,100)
+[PASS] group / the effect can be added: object	0
+[PASS] group / input bounds: from Adobe: [90 390 520 100]; geometric bounds [90 390 520 100]
+[PASS] group / dragging a corner redraws the art and leaves its geometry alone: visible 90,390,520,100 -> 90,402.558139535,565.517241379,100; geometric unchanged
+[PASS] group / the art keeps its type and contents: GroupItem|
+[PASS] group / Adobe's own edit path keeps the editor's corners: (90,390 580,410 90,100 520,100)
+[PASS] clipping group / the effect can be added: object	0
+[PASS] clipping group / input bounds: from Adobe: [60 360 390 60]; geometric bounds [60 360 390 60]
+[PASS] clipping group / dragging a corner redraws the art and leaves its geometry alone: visible 60,360,390,60 -> 60,380,450,60; geometric unchanged
+[PASS] clipping group / the art keeps its type and contents: GroupItem|
+[PASS] clipping group / Adobe's own edit path keeps the editor's corners: (60,360 450,380 60,60 390,60)
+[PASS] point text / the effect can be added: object	0
+[PASS] point text / input bounds: from Adobe: [125.47265625 388.627929688 323.470214844 338.943359375]; geometric bounds [120 400 325.33984375 321.735351562]
+[PASS] point text / dragging a corner redraws the art and leaves its geometry alone: visible 120,400,325.33984375,321.735351563 -> 125.47265625,402.130497718,367.001844717,338.943359375; geometric unchanged
+[PASS] point text / the art keeps its type and contents: TextFrame|Distort
+[PASS] point text / Adobe's own edit path keeps the editor's corners: (125.47265625,388.627929688 383.470214844,408.627929688 125.47265625,338.943359375 323.470214844,338.943359375)
+[PASS] point text / retyping the live text redraws it through the effect: 125.47265625,402.130497718,367.001844717,338.943359375 -> 125.47265625,393.953435152,566.184471949,338.943359375
+[PASS] area text / the effect can be added: object	0
+[PASS] area text / input bounds: from Adobe: [100.936035156 420.001464844 320.221679688 345.096191406]; geometric bounds [100 420 360 260]
+[PASS] area text / dragging a corner redraws the art and leaves its geometry alone: visible 100,423.047851563,360,260 -> 100.936035156,437.087328776,375.876738812,345.096191406; geometric unchanged
+[PASS] area text / the art keeps its type and contents: TextFrame|Enhanced Free Distort keeps type live across several lines of text
+[PASS] area text / Adobe's own edit path keeps the editor's corners: (100.936035156,420.001464844 380.221679688,440.001464844 100.936035156,345.096191406 320.221679688,345.096191406)
+[PASS] area text / retyping the live text redraws it through the effect: 100.936035156,437.087328776,375.876738812,345.096191406 -> 100.936035156,434.961990741,375.876738812,345.096191406
+[PASS] symbol instance / the effect can be added: object	0
+[PASS] symbol instance / input bounds: from Adobe: [120 380 370 150]; geometric bounds [120 380 370 150]
+[PASS] symbol instance / dragging a corner redraws the art and leaves its geometry alone: visible 120,380,370,150 -> 120,387.2,411.739130435,150; geometric unchanged
+[PASS] symbol instance / the art keeps its type and contents: SymbolItem|
+[PASS] symbol instance / Adobe's own edit path keeps the editor's corners: (120,380 430,400 120,150 370,150)
+[PASS] embedded raster / the effect can be added: object	0
+[MEASURED] embedded raster / input bounds: from geometric: [90 330 340 100]; geometric bounds [90 330 340 100]
+[PASS] embedded raster / the editor declines art Adobe's effect does not change: Free Distort does not change raster images
+[PASS] embedded raster / Adobe's effect draws the image unchanged whatever its corners say: 90,330,340,100;90,330,340,100

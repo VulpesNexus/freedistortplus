@@ -1,0 +1,12 @@
+Enhanced Free Distort -- the live drag preview, 2026-09-14 14:40
+preview of 1 paths, 30 segments (captured before the drag)
+quad (100,300 450,290 60,70 400,100)
+[PASS] a drag opens with a preview of the art: open, corner 2; preview of 1 paths, 30 segments (captured before the drag)
+capture: captured 2102x1291, PrintWindow True
+closed; quad (100,300 450,290 60,70 400,100)
+[PASS] every previewed anchor and handle is where Adobe draws it after release: 90 points previewed, 90 rendered, worst deviation 0 pt
+preview of 10 paths, 89 segments (captured before the drag)
+quad (125.47265625,388.627929688 323.470214844,388.627929688 125.47265625,338.943359375 363.470214844,308.943359375)
+closed; quad (125.47265625,388.627929688 323.470214844,388.627929688 125.47265625,338.943359375 363.470214844,308.943359375)
+[PASS] the preview of live text matches the glyph outlines Adobe draws after release: 267 points previewed, 267 rendered, worst nearest distance 1E-09 pt
+[PASS] the text is still live text afterwards: TextFrame|Distort

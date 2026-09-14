@@ -1,0 +1,30 @@
+Adobe Free Distort, as its own edit path commits it on an untouched pentagon
+with geometric bounds 90..340 by 100..330 (Illustrator artwork coordinates, y up).
+
+Selected objects: 1
+
+[0] Path "pent"
+  pre-effects: 0
+  paint fields: 2
+    [0] stroke, nested effects: 0
+    [1] fill, nested effects: 0
+  post-effects: 1
+    [0] "Adobe Free Distort" v1.0
+      # 17 entries
+      src2v (Real) = 100
+      dst2v (Real) = 100
+      src2h (Real) = 90
+      src1v (Real) = 330
+      dst3h (Real) = 340
+      dst3v (Real) = 100
+      dst0v (Real) = 330
+      src0v (Real) = 330
+      src1h (Real) = 340
+      dst1v (Real) = 330
+      dst2h (Real) = 90
+      src3h (Real) = 340
+      src3v (Real) = 100
+      dst1h (Real) = 340
+      dst0h (Real) = 90
+      src0h (Real) = 90
+      -DefaultApplyEffectsKey (Boolean) = false

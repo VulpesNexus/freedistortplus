@@ -1,0 +1,31 @@
+Enhanced Free Distort -- proof of concept, 2026-09-14 12:54
+Enhanced Free Distort 0.1.0-dev | plugin	EnhancedFreeDistort | decimal point	0.25 | 
+[PASS] the plugin adds an Adobe Free Distort to the selected object: result	0 index	0 
+[PASS] the effect is registered by Adobe, with the title the Appearance panel shows: 93	Adobe Free Distort	Free Distort	1.0	0x87	0x2
+[PASS] the plugin finds it again by name: object	0
+result	0
+input bounds	[90 330 340 100]
+from	Adobe
+geometric bounds	[90 330 340 100]
+report	silent edit returned 0; Adobe chose source [90 330 340 100]; UndoChanges returned 0 and restored the original style;
+[PASS] Adobe's own edit path answers the input bounds: Adobe, [90 330 340 100]
+[PASS] measuring leaves the appearance exactly as it was: identical
+[PASS] measuring leaves no undo step behind: past 3
+silent edit returned 0; Adobe chose source [90 330 340 100]; UndoChanges returned 0 and restored the original style; 
+write post-effect 0: source [90 330 340 100] destination (90,330 400,330 90,100 340,100) (dictionary refs with probe 3, released ours, style replaced, result 0)
+result	0
+read: entries 16 src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 340,100)
+[PASS] the destination corner the plugin wrote is in the dictionary: entries 16 src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 340,100)
+[PASS] the source path is untouched: 90,330,340,100
+[PASS] Adobe's renderer draws the new corner where the bilinear model says: 381.739130435
+[PASS] the appearance holds Adobe Free Distort and nothing of this plugin: Adobe Free Distort
+[PASS] the dictionary holds only the sixteen Adobe keys: 16 entries
+dialog: dialog 556,207,906,556 view 564,238,898,548 class=DroverLord - Window Class | closed=True via cancel / host: EditEffectParameters on post-effect 0 returned 1398034256
+[PASS] Adobe's dialog opens on the plugin's edit, and Cancel leaves it: entries 16 src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 340,100)
+dialog: dialog 556,207,906,556 view 564,238,898,548 class=DroverLord - Window Class | dragged 237,191,265,211 | closed=True via ok / host: EditEffectParameters on post-effect 0 returned 0
+read: entries 17 src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 390,65)
+[PASS] a corner dragged in Adobe's dialog is what the plugin reads: entries 17 src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 390,65)
+[PASS] the editor's quad is Adobe's new state, read fresh: (90,330 400,330 90,100 390,65)
+[PASS] save, close, and reopen keep all sixteen numbers to the digit: src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 390,65)
+[MEASURED] entries before saving entries 17, after reopening entries 16
+[PASS] the reopened appearance is still only Adobe Free Distort: Adobe Free Distort

@@ -1,0 +1,29 @@
+case	points	model	worst deviation (pt)	fits
+grid-source-is-bounds	90	bilinear on input bounds, destination renormalized from source	4.71e-10	yes
+grid-source-is-bounds	90	bilinear on the stored source rectangle, no renormalization	4.71e-10	yes
+grid-source-is-bounds	90	best-fitting affine map	30.7	no
+grid-source-is-bounds	90	homography from source corners to destination corners	45.5	no
+grid-parallelogram	90	bilinear on input bounds, destination renormalized from source	2.84e-14	yes
+grid-parallelogram	90	bilinear on the stored source rectangle, no renormalization	2.84e-14	yes
+grid-parallelogram	90	best-fitting affine map	1.14e-13	yes
+grid-parallelogram	90	homography from source corners to destination corners	1.42e-14	yes
+grid-trapezoid	90	bilinear on input bounds, destination renormalized from source	2.84e-14	yes
+grid-trapezoid	90	bilinear on the stored source rectangle, no renormalization	2.84e-14	yes
+grid-trapezoid	90	best-fitting affine map	32.9	no
+grid-trapezoid	90	homography from source corners to destination corners	26.5	no
+grid-bow-tie	90	bilinear on input bounds, destination renormalized from source	5.68e-14	yes
+grid-bow-tie	90	bilinear on the stored source rectangle, no renormalization	5.68e-14	yes
+grid-bow-tie	90	best-fitting affine map	165	no
+grid-bow-tie	90	homography from source corners to destination corners	1.78e+03	no
+curves-source-is-bounds	15	bilinear on input bounds, destination renormalized from source	6.2e-10	yes
+curves-source-is-bounds	15	bilinear on the stored source rectangle, no renormalization	5.67e-10	yes
+curves-source-is-bounds	15	best-fitting affine map	22.3	no
+curves-source-is-bounds	15	homography from source corners to destination corners	46.1	no
+curves-source-not-bounds	15	bilinear on input bounds, destination renormalized from source	6.46e-10	yes
+curves-source-not-bounds	15	bilinear on the stored source rectangle, no renormalization	9.79	no
+curves-source-not-bounds	15	best-fitting affine map	27	no
+curves-source-not-bounds	15	homography from source corners to destination corners	50	no
+curves-source-far-away	15	bilinear on input bounds, destination renormalized from source	6.46e-10	yes
+curves-source-far-away	15	bilinear on the stored source rectangle, no renormalization	1.86e+03	no
+curves-source-far-away	15	best-fitting affine map	27	no
+curves-source-far-away	15	homography from source corners to destination corners	2.2e+05	no
