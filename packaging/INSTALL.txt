@@ -1,0 +1,92 @@
+FreeDistort+ {VERSION} — Adobe Illustrator plugin
+Windows x64. Built against the Illustrator 2026 SDK, tested on 30.7.0.
+
+
+DO NOT DOUBLE-CLICK FreeDistortPlus.aip
+
+  It is a plugin, not a document. Double-clicking it, or dragging it onto
+  Illustrator, makes Illustrator try to OPEN it as artwork, and it answers
+  that the file format is unknown. Nothing is wrong with the file when that
+  happens. A plugin is installed by putting it in a folder Illustrator reads
+  at startup, which is the three steps below.
+
+
+INSTALL
+
+  1. Quit Illustrator.
+
+  2. Put FreeDistortPlus.aip in
+       %LOCALAPPDATA%\Adobe Illustrator Plug-ins\30
+     Create that folder if it is not there. Paste the path into the address
+     bar of a File Explorer window to reach it.
+
+     The 30 is Illustrator 2026's version number. A plugin built against one
+     year's SDK is not guaranteed to load in another year's Illustrator.
+
+  3. Start Illustrator, open
+       Edit > Preferences > Plug-ins & Scratch Disks
+     tick "Additional Plug-ins Folder", choose the folder from step 2, and
+     restart Illustrator. If the preference already points there, skip this.
+
+  No administrator rights are needed at any point.
+
+  SHARE THAT FOLDER with your other Illustrator plugins. Illustrator has one
+  Additional Plug-ins Folder, not a list, so giving each plugin a folder of
+  its own means pointing the preference at the newest one silently stops the
+  rest from loading. Everything in the one folder loads.
+
+  Install only one copy. The same file in both Illustrator's own Plug-ins
+  folder and the additional folder makes Illustrator ignore the additional
+  folder entirely.
+
+
+DID IT WORK
+
+  Effect > Distort & Transform > FreeDistort+...
+  Help > About VulpesNexus Plug-ins > FreeDistort+...
+
+  If those entries are not there, the plugin did not load. Check that
+  Illustrator was fully restarted after step 3, and that the preference
+  points at the folder holding the .aip rather than at its parent.
+
+
+USING IT
+
+  Select one object and choose Effect > Distort & Transform > FreeDistort+...
+  The object gets Adobe's Free Distort effect if it has none, and the
+  FreeDistort+ tool is selected. Drag a corner handle; a magenta outline
+  shows where Illustrator will draw the result, and the artwork updates when
+  you release.
+
+  Shift         keeps the corner on one axis
+  Alt           moves the opposite corner the other way
+  Shift+Alt     moves the other corner of the edge the other way
+  Esc           cancels a drag
+  Arrow keys    move a clicked corner by the Keyboard Increment (Shift: x10)
+  Double-click the tool icon, or Alt-click a handle, to type exact corners.
+
+  Each drag, dialog, and arrow key press is one step in Edit > Undo.
+
+
+YOUR DOCUMENTS DO NOT NEED THE PLUGIN
+
+  FreeDistort+ edits Adobe's own Free Distort effect and stores nothing of
+  its own. A document edited with it opens and draws the same on a machine
+  without it, and can still be edited there with Adobe's Free Distort dialog.
+
+
+UNINSTALL
+
+  Quit Illustrator and delete FreeDistortPlus.aip. Nothing else is
+  installed: no services, no registry entries, no startup items. The
+  corners dialog remembers two of its settings in Illustrator's own
+  preferences file, where nothing reads them once the plugin is gone.
+
+
+LICENSE
+
+  GPL-3.0-or-later, with an Adobe Illustrator SDK linking exception.
+  See LICENSE and LICENSE-EXCEPTION. It comes with ABSOLUTELY NO WARRANTY.
+
+  Copyright (C) 2026 Vixen420.
+  https://github.com/VulpesNexus/freedistortplus

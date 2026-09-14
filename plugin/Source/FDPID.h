@@ -32,7 +32,7 @@
 #define kFDPVersionMajor            0
 #define kFDPVersionMinor            1
 #define kFDPVersionPatch            0
-#define kFDPVersionString           "0.1.0-dev"
+#define kFDPVersionString           "0.1.0"
 
 /** The About window's title: the name and the release, linking to the
     repository (.workspace/ADOBE_PLUGIN_ABOUT.md). The build suffix stays on the

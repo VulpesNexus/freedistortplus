@@ -129,7 +129,7 @@ $pdfBytes = [Text.Encoding]::ASCII.GetString([IO.File]::ReadAllBytes($pdf))
 Check 'export' 'the PDF names no part of this plugin' 'none' $(if ($pdfBytes -match 'FreeDistortPlus|VulpesNexus') { 'found' } else { 'none' }) (-not ($pdfBytes -match 'FreeDistortPlus|VulpesNexus'))
 # Last, and nothing after it but closing the PDF: Illustrator 30.7.0 can crash
 # creating a document after documents were closed under scripting, with or
-# without this plugin (docs/evidence/crash-sequence.txt).
+# without this plugin (docs/evidence/history/crash-sequence-2026-09-14.txt).
 Invoke-AiScript "(function(){ for (var i = app.documents.length - 1; i >= 0; i--) { if (app.documents[i].name === 'fdp-persistence.pdf') { app.documents[i].close(SaveOptions.DONOTSAVECHANGES); } } return 'closed'; })();" | Out-Null
 
 Save-ProbeResults -Path (Join-Path $evidence 'persistence.tsv')
