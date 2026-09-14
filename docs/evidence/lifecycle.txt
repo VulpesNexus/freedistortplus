@@ -1,4 +1,4 @@
-FreeDistort+ -- lifecycle and repeated use, 2026-09-14 17:35
+FreeDistort+ -- lifecycle and repeated use, 2026-09-14 21:21
 [PASS] after its object is deleted the editor holds no target and a drag writes nothing: target none; could not begin: nothing is selected
 [PASS] after its Free Distort is removed from the appearance a drag writes nothing and says why: could not begin: the selected object has no Free Distort; why the selected object has no Free Distort
 [PASS] with another effect moved ahead of it, a drag edits the Free Distort at its new index and leaves the other effect alone: post-effect 1; effect 0 Adobe Transform; (90,330 400,340 90,100 360,80)
@@ -6,10 +6,10 @@ FreeDistort+ -- lifecycle and repeated use, 2026-09-14 17:35
 [PASS] ...and after Undo, Undo, Redo: (80,340 400,340 90,100 340,100)
 [PASS] closing the editor's document leaves it with no target, and Illustrator running: target none
 [PASS] ...and in the document opened next, the editor edits normally: (90,330 410,350 90,100 340,100)
-before 60 cycles: handles 2909, GDI 584, USER 1477, private 2975 MB
-after 20: handles 2909, GDI 582, USER 1476, private 2850 MB
-after 40: handles 2905, GDI 582, USER 1476, private 2858 MB
-after 60: handles 2903, GDI 582, USER 1476, private 2854 MB
+before 60 cycles: handles 2831, GDI 574, USER 1463, private 2725 MB
+after 20: handles 2830, GDI 574, USER 1461, private 2728 MB
+after 40: handles 2832, GDI 574, USER 1461, private 2726 MB
+after 60: handles 2837, GDI 574, USER 1461, private 2728 MB
 [PASS] 60 cycles of open, canceled drag, committed drag, preview, undo and redo, select, measure, and tool switch complete with Illustrator alive: alive
-[PASS] ...without GDI or USER objects growing: GDI 582, USER 1476
-[MEASURED] handles and private memory before and after: handles 2909 -> 2903; private 2975 MB -> 2854 MB
+[PASS] ...without GDI or USER objects growing: GDI 574, USER 1461
+[MEASURED] handles and private memory before and after: handles 2831 -> 2839; private 2725 MB -> 2728 MB

@@ -1,4 +1,4 @@
-FreeDistort+ -- snapping, 2026-09-14 17:35
+FreeDistort+ -- snapping, 2026-09-14 21:21
 [MEASURED] Smart Guides before the run: on
 [PASS] Illustrator's engine snaps the corner onto the art's own bounding-box guide, as for its own tools: (90,330 340,250.3 90,100 340,100); snapped 341.2,250.3 by Illustrator to 340,250.3
 [MEASURED] another path's anchor 1.6 pt away, with no pointer having passed over that path: the engine's answer: (90,330 521.5,215 90,100 340,100); snapped 521.5,211.5 by Illustrator to 521.5,215

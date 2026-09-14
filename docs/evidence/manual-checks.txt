@@ -1,9 +1,9 @@
-FreeDistort+ -- checks made by hand at Illustrator, read over COM, 2026-09-14 16:53
+FreeDistort+ -- checks made by hand at Illustrator, read over COM, 2026-09-15 00:14
 [PASS] the tool icon matches the other tools on the dark interface: reported yes
 [PASS] a double-click on the tool icon opens the corners dialog: reported yes
 [PASS] Help > About VulpesNexus Plug-ins > FreeDistort+ opens the templated About window: reported yes
 [PASS] the plugin's keyboard increment is the one Illustrator's preferences show: plugin reads 0.0028 pt
-[PASS] a real click on a handle selects that corner without moving it: down 1 drag 1 up 1 last hit 1 at 402,363; active corner 1
+[PASS] a real click on a handle selects that corner without moving it: down 1 drag 2 up 1 last hit 1 at 399.5,360; active corner 1
 [PASS] Right three times and Shift+Right once move the selected corner by 3 + 10 increments: (90,330 400.0364,360 90,100 340,100)
 [PASS] ...one undo step per key press: past 4
 [PASS] ...and Illustrator does not also nudge the art: 90,330,340,100

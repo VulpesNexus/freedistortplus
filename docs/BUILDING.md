@@ -60,13 +60,14 @@ python .\tools\solve-source-quads.py    # which reading of a source fits
 python .\tools\make-support-matrix.py   # regenerates docs/FREE_DISTORT_SUPPORT_MATRIX.md from the results
 ```
 
-A drag with the real mouse cannot be scripted (section F of the investigation), so a person makes it and *tools/record-manual-drag.ps1* reads everything back over COM; its own help lists the steps before and after the drag. The same holds for *tools/record-free-transform.ps1* (one drag with Illustrator's *Free Transform* tool at a time, classified by *python .\tools\solve-free-transform.py*) and *tools/record-manual-checks.ps1* (the icon, the dialog, the About window, a real click and real arrow keys).
+A drag with the real mouse cannot be scripted (section F of the investigation), so a person makes it and *tools/record-manual-drag.ps1* reads everything back over COM; its own help lists the steps before and after the drag. The same holds for *tools/record-free-transform.ps1* (one drag with Illustrator's *Free Transform* tool at a time, classified by *python .\tools\solve-free-transform.py*), *tools/record-manual-checks.ps1* (the icon, the dialog, the About window, a real click and real arrow keys), and *tools/record-manual-snap.ps1* (a snap onto another path's anchor, which Smart Guides offer only once the pointer has passed over it; `-Phase setup`, the drag, then `-Phase read`).
 
 Two windows can be looked at without Illustrator. Each harness builds the plugin's own source file unmodified:
 
 ```powershell
 .\tools\CornerHarness\build.ps1 -Test        # the corners dialog, with its scripted checks
 .\tools\AboutHarness\build.cmd               # the About window; from a Visual Studio x64 prompt
+.\tools\capture-harness.ps1                  # both, captured in Illustrator's darkest colors
 ```
 
 Each writes its raw output under *docs/evidence/*, through `Hide-Personal` in *tools/ai.ps1*, so paths that name the machine are redacted as they are written.
@@ -75,12 +76,15 @@ Each writes its raw output under *docs/evidence/*, through `Hide-Personal` in *t
 
 All of them, in order, with the solvers and the matrix at the end and a count of results per probe: `.\tools\run-detached.ps1 -Probe run-suite.ps1` (an hour or more).
 
-Two probes restart Illustrator, and are run as detached processes so that nothing killing the calling shell can leave Illustrator without its plugins:
+Three probes restart Illustrator, and are run as detached processes so that nothing killing the calling shell can leave Illustrator without its plugins:
 
 ```powershell
 .\tools\run-detached.ps1 -Probe probe-missing-plugin.ps1 -Arguments '-Phase all'   # the document without the plugin, and back
 .\tools\run-detached.ps1 -Probe probe-churn.ps1                                    # document churn with and without the editor active
+.\tools\run-detached.ps1 -Probe probe-crash-host.ps1 -Arguments '-Rounds 2 -Arms installed,removed,bare'   # the crashing document work, no plugin call
 ```
+
+*probe-crash-host.ps1* takes plugins out of the Additional Plug-ins Folder for its *removed* and *bare* arms, every *.aip* for *bare*, and puts them all back when it ends, however it ends. Nobody else should be using Illustrator while it runs: Illustrator 30.7.0 crashes in about half its trials whatever is installed (section M of the investigation).
 
 *probe-missing-plugin.ps1* takes *FreeDistortPlus.aip*, and only that file, out of the Additional Plug-ins Folder and puts it back. While it opens the document without the plugin, *tools/watch-alerts.ps1* watches from a second process for any alert Illustrator raises, captures it, and dismisses it; the expected number is zero. Opening Adobe's dialog with this plugin absent needs another plugin's bridge, and uses LiveShear's when it is installed.
 
@@ -124,6 +128,18 @@ The plugin answers `app.sendScriptMessage("FreeDistortPlus", selector, arguments
 **Status: a test interface, not an API.** It is unsupported and may change or disappear between any two versions. It ships in the binary so the binary that passes the tests is the binary that ships. Everything it reaches is reachable through Illustrator's own scripting, and it opens no files, sockets, or processes.
 
 **Numbers cross the bridge with a decimal point**, whatever the machine's locale; `Format-AiNumber` in *tools/ai.ps1* formats them that way, and `version` reports how the plugin itself prints 0.25.
+
+## Making a release
+
+The binary that ships is the binary that was tested, so nothing is rebuilt after the tests. MSVC stamps a link time, and the same source built twice gives two different files.
+
+1. Set the version in *plugin/Source/FDPID.h* and commit, so the working tree is clean.
+2. `.\tools\probe-build.ps1` rebuilds both configurations and records the Release binary in *docs/evidence/build.txt*: warnings, identity, runtime, dependencies, embedded paths, and its SHA-256.
+3. `.\tools\install.ps1`, restart Illustrator, and `.\tools\run-detached.ps1 -Probe run-suite.ps1`. The suite checks before every probe that Illustrator renders a Free Distort, and stops if it does not. Keep Illustrator's window restored rather than minimized: `Start-Ai` in *tools/ai.ps1* starts it minimized so it does not take the foreground, and a capture of the document view behind the corners dialog came out blank that way.
+4. The checks made by hand: *record-manual-drag.ps1*, *record-manual-checks.ps1*, and *record-manual-snap.ps1*. Then `.\tools\capture-harness.ps1`, *tools/capture-view.ps1* for *editor-handles-on-canvas.png*, and `python .\tools\make-support-matrix.py`.
+5. `.\tools\make-release.ps1` refuses to pack unless the binary is the one *build.txt* records and the one installed, every evidence file postdates the build, and no check failed. It writes *dist\FreeDistortPlus-\<version>.zip*, and the symbol file beside it rather than inside it.
+
+Files in *docs/evidence/history/* are older runs kept for the record, dated in their names, and are not claimed to describe the current binary.
 
 ## Before committing
 

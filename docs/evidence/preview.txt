@@ -1,8 +1,8 @@
-FreeDistort+ -- the live drag preview, 2026-09-14 17:30
+FreeDistort+ -- the live drag preview, 2026-09-14 21:38
 preview of 1 paths, 30 segments (captured before the drag)
 quad (100,300 450,290 60,70 400,100)
 [PASS] a drag opens with a preview of the art: open, corner 2; preview of 1 paths, 30 segments (captured before the drag)
-capture: captured 367x190, PrintWindow True
+capture: captured 399x190, PrintWindow True
 closed; quad (100,300 450,290 60,70 400,100)
 [PASS] every previewed anchor and handle is where Adobe draws it after release: 90 points previewed, 90 rendered, worst deviation 0 pt
 active	yes

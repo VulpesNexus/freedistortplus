@@ -45,6 +45,20 @@ $probes = @(
     @{ Name = 'probe-missing-plugin.ps1'; Args = @{ Phase = 'all' } }
 )
 
+# Whether the host renders a live effect at all. One Illustrator session in a
+# release run answered every scripting call but never rendered Free Distort:
+# Adobe's edit path reported the unrendered box [0 100 100 0] from the first
+# measurement on, the probes after it measured stale drawings and threw, and
+# the session crashed. Its probes still wrote PASS rows. So no probe runs
+# against a host that fails this, and one that fails it is restarted once.
+function Test-AiRenders {
+    Initialize-AiSession | Out-Null
+    Invoke-Fdp 'FDP.clear(); FDP.pentagon("render-check"); FDP.selectOnly("render-check");' | Out-Null
+    Send-AiMessage 'fd append' | Out-Null
+    $answer = Send-AiMessage 'fd bounds' '0'
+    return [bool] ($answer -match "(?m)^from`tAdobe")
+}
+
 $started = Get-Date
 foreach ($p in $probes) {
     if ($Skip -contains $p.Name) { Write-Output ("skip {0}" -f $p.Name); continue }
@@ -55,6 +69,11 @@ foreach ($p in $probes) {
         $deadline = (Get-Date).AddMinutes(3)
         while ((Get-Process Illustrator -ErrorAction SilentlyContinue) -and -not (Wait-AiReady -TimeoutSeconds 20) -and (Get-Date) -lt $deadline) { Start-Sleep -Seconds 5 }
         if (-not (Get-Process Illustrator -ErrorAction SilentlyContinue)) { Start-Ai | Out-Null }
+        if (-not (Test-AiRenders)) {
+            Write-Output ("host did not render Free Distort before {0}; restarting Illustrator" -f $p.Name)
+            Restart-Ai | Out-Null
+            if (-not (Test-AiRenders)) { Write-Output 'STOPPED: Illustrator does not render Free Distort after a restart, so nothing it measures would be evidence.'; break }
+        }
         $named = $p.Args
         & (Join-Path $PSScriptRoot $p.Name) @named *> $null
         Write-Output ("done {0} in {1:n0} s" -f $p.Name, ((Get-Date) - $t0).TotalSeconds)

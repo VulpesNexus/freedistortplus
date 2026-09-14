@@ -1,0 +1,7 @@
+FreeDistort+ -- a snap onto another path's anchor, made with the real mouse, read over COM, 2026-09-15 00:16
+By hand: the pentagon's top-right handle dragged onto the triangle's leftmost corner at (520.375, 210.625), released when Smart Guides labeled it.
+smart guides: on; last snap: snapped 519.611111111,209.888888889 by Illustrator to 520.375,210.625
+[PASS] the drag was one real drag through Illustrator's own tool dispatch: down 1 drag 127 up 1 last hit 1 at 519.611111111,209.888888889
+[PASS] a real drag onto another path's anchor, which the pointer passed over, lands on the anchor exactly: (90,330 520.375,210.625 90,100 340,100)
+[PASS] ...as one undo step: past 1
+[PASS] Smart Guides labeled the anchor during the drag: reported yes

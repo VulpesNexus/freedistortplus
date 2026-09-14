@@ -1,5 +1,5 @@
-FreeDistort+ -- proof of concept, 2026-09-14 17:29
-FreeDistort+ 0.1.0-dev | plugin	FreeDistortPlus | decimal point	0.25 | 
+FreeDistort+ -- proof of concept, 2026-09-14 21:42
+FreeDistort+ 0.1.0 | plugin	FreeDistortPlus | decimal point	0.25 | 
 [PASS] the plugin adds an Adobe Free Distort to the selected object: result	0 index	0 
 [PASS] the effect is registered by Adobe, with the title the Appearance panel shows: 80	Adobe Free Distort	Free Distort	1.0	0x87	0x2
 [PASS] the plugin finds it again by name: object	0

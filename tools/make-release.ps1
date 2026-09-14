@@ -89,6 +89,28 @@ if ($stale.Count -gt 0) {
     $stale | ForEach-Object { Write-Output ("  stale: {0}  written {1}" -f $_.Name, $_.LastWriteTime.ToString('yyyy-MM-dd HH:mm')) }
     throw ("{0} evidence file(s) predate the build record, so they describe a binary this archive does not contain. Run those probes again." -f $stale.Count)
 }
+# A capture of a window that did not paint is one flat color, and it is still
+# a fresh file. PrintWindow gave exactly that for the document view while the
+# corners dialog was open, in a run with Illustrator minimized.
+Add-Type -AssemblyName System.Drawing
+$blank = @(foreach ($png in Get-ChildItem (Join-Path $evidence '*.png')) {
+    $bmp = New-Object Drawing.Bitmap $png.FullName
+    try {
+        $first = $bmp.GetPixel(0, 0).ToArgb()
+        $flat = $true
+        for ($y = 0; $y -lt $bmp.Height -and $flat; $y += [math]::Max(1, [int] ($bmp.Height / 40))) {
+            for ($x = 0; $x -lt $bmp.Width; $x += [math]::Max(1, [int] ($bmp.Width / 40))) {
+                if ($bmp.GetPixel($x, $y).ToArgb() -ne $first) { $flat = $false; break }
+            }
+        }
+        if ($flat) { $png.Name }
+    }
+    finally { $bmp.Dispose() }
+})
+if ($blank.Count -gt 0) {
+    $blank | ForEach-Object { Write-Output ("  blank: " + $_) }
+    throw ("{0} capture(s) are a single flat color: the window did not paint. Capture again with Illustrator's window not minimized." -f $blank.Count)
+}
 $failed = @()
 foreach ($file in Get-ChildItem (Join-Path $evidence '*.tsv')) {
     $rows = @(Import-Csv -Path $file.FullName -Delimiter "`t")

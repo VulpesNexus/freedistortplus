@@ -7,5 +7,5 @@ lifecycle	undo	...and after Undo, Undo, Redo	(80,340 400,340 90,100 340,100)	(80
 lifecycle	close	closing the editor's document leaves it with no target, and Illustrator running	target none	target none	PASS
 lifecycle	close	...and in the document opened next, the editor edits normally	(90,330 410,350 90,100 340,100)	(90,330 410,350 90,100 340,100)	PASS
 lifecycle	stress	60 cycles of open, canceled drag, committed drag, preview, undo and redo, select, measure, and tool switch complete with Illustrator alive	alive	alive	PASS
-lifecycle	stress	...without GDI or USER objects growing	GDI 584, USER 1477, within 20	GDI 582, USER 1476	PASS
-lifecycle	stress	handles and private memory before and after		handles 2909 -> 2903; private 2975 MB -> 2854 MB	MEASURED
+lifecycle	stress	...without GDI or USER objects growing	GDI 574, USER 1463 at the start and 574, 1461 after 20 cycles; at most 20 more at the end	GDI 574, USER 1461	PASS
+lifecycle	stress	handles and private memory before and after		handles 2831 -> 2839; private 2725 MB -> 2728 MB	MEASURED

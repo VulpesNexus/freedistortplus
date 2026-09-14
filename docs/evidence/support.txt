@@ -1,4 +1,4 @@
-FreeDistort+ -- art types, 2026-09-14 17:37
+FreeDistort+ -- art types, 2026-09-14 21:45
 [PASS] path / the effect can be added: object	0
 [PASS] path / input bounds: from Adobe: [90 330 340 100]; geometric bounds [90 330 340 100]
 [PASS] path / dragging a corner redraws the art and leaves its geometry alone: visible 90,330,340,100 -> 90,337.2,381.739130435,100; geometric unchanged

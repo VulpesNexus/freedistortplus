@@ -1,0 +1,22 @@
+FreeDistort+ -- the built artifact, 2026-09-14 20:50
+Toolchain: MSVC 14.44.35207; Adobe Illustrator 2026 SDK
+Commit:    2c032d8223c456cc0c1e852eb0a44ff0bdde92e6
+[PASS] Debug builds with no warnings and no errors: 0 warnings, 0 errors
+[PASS] Release builds with no warnings and no errors: 0 warnings, 0 errors
+[PASS] the Release build produced a plugin: build\Release\FreeDistortPlus.aip
+File version: 0.1.0; product FreeDistort+; company VulpesNexus
+Size:         338944 bytes
+SHA-256:      D379278F154BE570A038DDE8F3084665443E361A943AD58BD1C417595E6E53A7
+[PASS] the binary does not claim Adobe as its publisher: CompanyName is VulpesNexus
+[PASS] the binary names its own product: ProductName is FreeDistort+
+[PASS] the binary carries a release version, with no development suffix: FileVersion is 0.1.0
+[PASS] Release links the retail C runtime, not the debug one: links MSVCP140.DLL, VCRUNTIME140.DLL
+[PASS] no path from the build machine is embedded: none found
+[PASS] the symbol reference is a bare file name: symbol references: FreeDistortPlus.pdb
+[PASS] the entry point Illustrator looks for is present: PluginMain
+[PASS] the effect it edits is named as Illustrator registers it: Adobe Free Distort
+[PASS] the tool carries the publisher prefix: VulpesNexus FreeDistort+ Tool
+Depends on: COMCTL32.dll, USER32.dll, GDI32.dll, KERNEL32.dll, SHELL32.dll, MSVCP140.dll, VCRUNTIME140.dll, VCRUNTIME140_1.dll, api-ms-win-crt-runtime-l1-1-0.dll, api-ms-win-crt-stdio-l1-1-0.dll, api-ms-win-crt-string-l1-1-0.dll, api-ms-win-crt-convert-l1-1-0.dll, api-ms-win-crt-heap-l1-1-0.dll, api-ms-win-crt-math-l1-1-0.dll, api-ms-win-crt-time-l1-1-0.dll
+[PASS] nothing is linked but Windows and the C runtime: no SDK, developer, or test-harness DLL is named
+[PASS] the C runtime it needs is one Illustrator already needs: Illustrator.exe names the same MSVCP140.dll, VCRUNTIME140.dll, VCRUNTIME140_1.dll
+[PASS] the working tree was clean when it was built: 0 uncommitted change(s)

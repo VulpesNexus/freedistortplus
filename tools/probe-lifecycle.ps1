@@ -134,10 +134,16 @@ for ($i = 1; $i -le $Cycles; $i++) {
     Send-AiMessage 'tool select' 'Adobe Select Tool' | Out-Null
     if (-not (Get-Process Illustrator -ErrorAction SilentlyContinue)) { $failures++; break }
     if ($i % 20 -eq 0) { $c = Counters; Say ("after {0}: handles {1}, GDI {2}, USER {3}, private {4} MB" -f $i, $c.Handles, $c.Gdi, $c.User, $c.PrivateMB) }
+    if ($i -eq 20) { $settled = $c }
 }
 $done = Counters
 Check 'stress' ("{0} cycles of open, canceled drag, committed drag, preview, undo and redo, select, measure, and tool switch complete with Illustrator alive" -f $Cycles) 'alive' $(if ($failures -eq 0) { 'alive' } else { 'Illustrator exited' }) ($failures -eq 0)
-Check 'stress' '...without GDI or USER objects growing' ("GDI {0}, USER {1}, within 20" -f $warm.Gdi, $warm.User) ("GDI {0}, USER {1}" -f $done.Gdi, $done.User) ([math]::Abs([int] $done.Gdi - [int] $warm.Gdi) -le 20 -and [math]::Abs([int] $done.User - [int] $warm.User) -le 20)
+# A leak grows. Illustrator can release objects of its own during the run --
+# one run lost 149 USER objects in the first 20 cycles -- and that is not a
+# fault, so only growth counts: from the start, and from cycle 20 to the end.
+if (-not $settled) { $settled = $warm }
+$grew = [math]::Max([math]::Max([int] $done.Gdi - [int] $warm.Gdi, [int] $done.User - [int] $warm.User), [math]::Max([int] $done.Gdi - [int] $settled.Gdi, [int] $done.User - [int] $settled.User))
+Check 'stress' '...without GDI or USER objects growing' ("GDI {0}, USER {1} at the start and {2}, {3} after 20 cycles; at most 20 more at the end" -f $warm.Gdi, $warm.User, $settled.Gdi, $settled.User) ("GDI {0}, USER {1}" -f $done.Gdi, $done.User) ($grew -le 20)
 Record 'stress' 'handles and private memory before and after' ("handles {0} -> {1}; private {2} MB -> {3} MB" -f $warm.Handles, $done.Handles, $warm.PrivateMB, $done.PrivateMB)
 
 Save-ProbeResults -Path (Join-Path $evidence 'lifecycle.tsv')

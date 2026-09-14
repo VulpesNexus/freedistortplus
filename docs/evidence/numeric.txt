@@ -1,4 +1,4 @@
-FreeDistort+ -- numeric entry and arrow keys, 2026-09-14 17:34
+FreeDistort+ -- numeric entry and arrow keys, 2026-09-15 00:12
 [PASS] a field typed '12.5' is taken as 12,5 pt: accepted yes, 12.5 pt, shown as 12,5 pt
 [PASS] a field typed '12,5' is taken as 12,5 pt: accepted yes, 12.5 pt, shown as 12,5 pt
 [PASS] a field typed '1 in' is taken as 72 pt: accepted yes, 72 pt, shown as 72 pt
@@ -17,7 +17,7 @@ FreeDistort+ -- numeric entry and arrow keys, 2026-09-14 17:34
 [PASS] an offset of 25 pt on the bottom-right X moves that corner 25 pt right of the undistorted corner: (90,330 400.123456789,330 90,100 365,100); committed (90,330 400.123456789,330 90,100 365,100)
 [PASS] ...as exactly one undo step: past 1
 [PASS] ...which one Undo takes back: (90,330 400.123456789,330 90,100 340,100)
-preview capture while open: captured 367x190, PrintWindow True
+preview capture while open: captured 2365x1291, PrintWindow True
 [PASS] a position of 200 pt on the top-left Y puts that corner 200 pt below the artboard top, as the ruler measures: (90,400 400.123456789,330 90,100 340,100); committed (90,400 400.123456789,330 90,100 340,100)
 [PASS] Cancel after typing and previewing puts the dictionary back exactly: (90,330 400.123456789,330 90,100 340,100); canceled
 [PASS] ...and leaves no undo step: past 0

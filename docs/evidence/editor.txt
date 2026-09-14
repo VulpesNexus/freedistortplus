@@ -1,4 +1,4 @@
-FreeDistort+ -- editing loop, 2026-09-14 17:29
+FreeDistort+ -- editing loop, 2026-09-14 21:38
 Added Free Distort as post-effect 0.
 Editor selected.
 active	yes

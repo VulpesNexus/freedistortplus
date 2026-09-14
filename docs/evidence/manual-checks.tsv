@@ -3,7 +3,7 @@ manual	by hand	the tool icon matches the other tools on the dark interface	yes, 
 manual	by hand	a double-click on the tool icon opens the corners dialog	yes, as reported by the person	reported: yes	PASS
 manual	by hand	Help > About VulpesNexus Plug-ins > FreeDistort+ opens the templated About window	yes, as reported by the person	reported: yes	PASS
 manual	by hand	the plugin's keyboard increment is the one Illustrator's preferences show	0,0028 pt	plugin reads 0.0028 pt	PASS
-manual	by hand	a real click on a handle selects that corner without moving it	one press and release on corner 1; active corner 1	down 1 drag 1 up 1 last hit 1 at 402,363; active corner 1	PASS
+manual	by hand	a real click on a handle selects that corner without moving it	one press and release on corner 1; active corner 1	down 1 drag 2 up 1 last hit 1 at 399.5,360; active corner 1	PASS
 manual	by hand	Right three times and Shift+Right once move the selected corner by 3 + 10 increments	(90,330 400.0364,360 90,100 340,100)	(90,330 400.0364,360 90,100 340,100)	PASS
 manual	by hand	...one undo step per key press	past 4	past 4	PASS
 manual	by hand	...and Illustrator does not also nudge the art	90,330,340,100	90,330,340,100	PASS

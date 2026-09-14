@@ -1,0 +1,11 @@
+FreeDistort+ -- the crashing probes' document work, with no call to this plugin, 2026-09-15 00:17
+Arms: installed = every plugin in the folder; removed = FreeDistortPlus.aip taken out; bare = no third-party plugin at all.
+round 1, installed [FreeDistortPlus, LiveShear, Subgroup]: survived
+round 1, removed [LiveShear, Subgroup]: survived
+round 1, bare []: crashed at 0xcec256; last call: (function(){ for (var i = app.documents.length - 1; i >= 0; i--) { if (app.documents[i].na...
+round 2, installed [FreeDistortPlus, LiveShear, Subgroup]: crashed at 0xcec256; last call: (function(){ for (var i = app.documents.length - 1; i >= 0; i--) { if (app.documents[i].na...
+round 2, removed [LiveShear, Subgroup]: crashed at 0x18162a7; last call: (function(){ var d = FDP.doc(); var f = d.fullName; d.save(); d.close(SaveOptions.DONOTSAV...
+round 2, bare []: survived
+installed: 1 crashed of 2
+removed: 1 crashed of 2
+bare: 1 crashed of 2

@@ -1,0 +1,5 @@
+probe	group	case	expected	observed	status
+manual-snap	real mouse	the drag was one real drag through Illustrator's own tool dispatch	one press, one release, many drag events	down 1 drag 127 up 1 last hit 1 at 519.611111111,209.888888889	PASS
+manual-snap	real mouse	a real drag onto another path's anchor, which the pointer passed over, lands on the anchor exactly	(90,330 520.375,210.625 90,100 340,100)	(90,330 520.375,210.625 90,100 340,100)	PASS
+manual-snap	real mouse	...as one undo step	past 1	past 1	PASS
+manual-snap	real mouse	Smart Guides labeled the anchor during the drag, as for Illustrator's own tools	yes, as reported by the person	reported: yes	PASS

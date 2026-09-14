@@ -1,6 +1,6 @@
 # FreeDistort+: a better editor over Adobe's own effect
 
-An investigation into whether Adobe Illustrator's built-in *Effect > Distort & Transform > Free Distort* can keep its renderer and its document format while its editor is replaced by something usable, and the proof-of-concept plugin built from the answer.
+An investigation into whether Adobe Illustrator's built-in *Effect > Distort & Transform > Free Distort* can keep its renderer and its document format while its editor is replaced by something usable, and the plugin built from the answer.
 
 Everything below was measured against **Adobe Illustrator 2026, version 30.7.0, 64-bit, on Windows 11**, with the **Adobe Illustrator 2026 SDK, build 114**. Each host claim names the evidence file that produced it; raw output lives in [evidence/](evidence/). Where a claim rests on reading a header rather than on a host measurement, it says so.
 
@@ -176,7 +176,7 @@ The preview needs Free Distort to be the last effect in the appearance, so that 
 
 The first session had them drag one corner and release, drag another and press *Esc* before releasing, then press *Ctrl+Z* once. The editor received 2 mouse-downs, 264 drag events, and 2 mouse-ups through Illustrator's own dispatch, and its hit test took the corner under the pointer. The history then held nothing to undo and one step to redo, so the released drag was exactly one undo step and the canceled one was none. The dictionary was back to its starting state exactly. Redoing the step showed one corner committed at (415.111, 372.556): the pointer's own artwork coordinates, where Adobe's dialog would have stored whole points. That session also reported the artwork changing only on release, which led to the preview below. Its evidence file was overwritten by later sessions.
 
-The recorded session ([evidence/mouse.txt](evidence/mouse.txt)) was made after the preview was in place. One drag of 1 mouse-down, 345 drag events, and 1 mouse-up began with a preview captured before the mouse-down. It committed one corner at the pointer's unrounded coordinates as exactly one undo step, and *Ctrl+Z* restored the dictionary exactly. The person dragging reported the magenta outline following the drag and Adobe's fill updating on release.
+The recorded session ([evidence/mouse.txt](evidence/mouse.txt)) was made with the 0.1.0 binary. One drag of 1 mouse-down, 84 drag events, and 1 mouse-up began with a preview captured before the mouse-down. It committed one corner at the pointer's unrounded coordinates as exactly one undo step, and *Ctrl+Z* restored the dictionary exactly. The person dragging reported the magenta outline following the drag and Adobe's fill updating on release.
 
 **No drift, by construction.** Every step is computed from the quad at mouse-down plus the pointer now, never from the previous step. Measured: sixty wild steps ending at the start point leave the dictionary and the drawing identical ([evidence/editor.txt](evidence/editor.txt)).
 
@@ -195,7 +195,7 @@ Snapping was built after dragging, numeric entry, and the keys were measured exa
 **Illustrator's own engine first.** Every drag event's pointer goes through `AICursorSnapSuite::Track`, the engine Illustrator's tools use, with the control string `ATFPLMG v i o`. The engine applies *View > Smart Guides*, *Snap to Point*, and *Snap to Grid* itself, uses Illustrator's snapping tolerance, and draws its own Smart Guide labels. In the probe it put a corner released at x 341.2 onto the art's bounding-box guide at x 340. Two things were learned by measuring:
 
 - **It needs a real view.** Given a null view, `UseSmartGuides` reports *off* whatever the *View* menu says, so the editor passes the document's view.
-- **Anchors of other art come from hovering.** Smart Guides pick up the anchors the pointer has passed over; a scripted drag that never hovered anywhere is offered the nearest guide line instead. With the real mouse, the engine does what it does for Illustrator's own tools, and that is not re-implemented here.
+- **Anchors of other art come from hovering.** Smart Guides pick up the anchors the pointer has passed over; a scripted drag that never hovered anywhere is offered the nearest guide line instead. With the real mouse, the engine does what it does for Illustrator's own tools, and that is not re-implemented here. Measured by hand with *tools/record-manual-snap.ps1*: a corner dragged onto another path's corner at (520.375, 210.625) showed Smart Guides' *anchor* label, was released at (519.611, 209.889), and landed on the anchor exactly, in one undo step ([evidence/manual-snap.txt](evidence/manual-snap.txt)).
 
 **The drag's own targets second.** Where each corner is with no distortion, the undistorted center, and where the other corners were when the drag began. These need no search of the document. They snap within 6 screen pixels, so the reach is the same at every zoom, and they take precedence over the engine's answer when within reach. A small magenta ring marks the target while it holds. Measured: a corner released 1.6 pt from its undistorted place snapped back exactly at 100%; at 600%, 2 pt is out of reach and half a point is within it; with Smart Guides off, they do not snap. Custom constraints handed to the engine with `SetCustom` had no measurable effect in a scripted drag, so these targets are computed rather than delegated.
 
@@ -273,13 +273,13 @@ A drag step costs the plugin one style parse, one copy of a dictionary of at mos
 
 | Artwork | Per step, the plugin's write | Illustrator redrawing the result |
 | --- | --- | --- |
-| five-point path | 0.42 ms | 47 ms |
-| 30-anchor path | 0.98 ms | 66 ms |
-| three lines of area text | 0.34 ms | 248 ms |
+| five-point path | 0.44 ms | 68 ms |
+| 30-anchor path | 1.19 ms | 90 ms |
+| three lines of area text | 1.85 ms | 103 ms |
 
-The write figures include the round trip through scripting, so they are upper bounds. Whatever lag a drag has is Illustrator re-running its own effect, not the editor. Text is the slow case: Illustrator converts it to outlines for the effect on every render.
+The figures move by a factor of two or more between runs; an earlier run had area text at 0.34 ms and 248 ms. The write figures include the round trip through scripting, so they are upper bounds. Whatever lag a drag has is Illustrator re-running its own effect, not the editor. Text is the slow case: Illustrator converts it to outlines for the effect on every render.
 
-**Stability.** Illustrator crashed three times in the course of this work, each time in a probe that saves a Free Distort document as PDF, closes it, and reopens it. The first was an access violation inside *Illustrator.exe* at offset `0x849e1c`, with an early build; the second, at `0xdfdd45`, in the full probe run; the third, at `0x18162a7`, was reproduced on purpose. *tools/probe-crash-sequence.ps1* replays the sequence: copy and paste, *Save As* PDF with editing capabilities, close, reopen, close, then a new document. Each run is in a fresh Illustrator, and every scripting call is logged before it runs. The runs were made with builds before 0.1.0, so the record is kept under *history* ([evidence/history/crash-sequence-2026-09-14.txt](evidence/history/crash-sequence-2026-09-14.txt)):
+**Stability.** Before the release run, Illustrator crashed three times, each time in a probe that saves a Free Distort document as PDF, closes it, and reopens it. The first was an access violation inside *Illustrator.exe* at offset `0x849e1c`, with an early build; the second, at `0xdfdd45`, in the full probe run; the third, at `0x18162a7`, was reproduced on purpose. *tools/probe-crash-sequence.ps1* replays the sequence: copy and paste, *Save As* PDF with editing capabilities, close, reopen, close, then a new document. Each run is in a fresh Illustrator, and every scripting call is logged before it runs. The runs were made with builds before 0.1.0, so the record is kept under *history* ([evidence/history/crash-sequence-2026-09-14.txt](evidence/history/crash-sequence-2026-09-14.txt)):
 
 | Variant | Runs | Died |
 | --- | --- | --- |
@@ -291,14 +291,34 @@ The first row's runs used a build that never released the parameter dictionary h
 
 **The crash reproduces with FreeDistort+ removed, in the same step and at the same offset, and that offset is not specific to Free Distort or to PDF.** `0x18162a7` is where Illustrator 30.7.0 dies under repeated scripted document create and close cycles, with no third-party plugin loaded, no Free Distort, and no PDF (LiveShear's crash-control evidence). The trigger is creating a document after documents were closed under scripting; the Free Distort and the PDF round trip are passengers. Six more runs of the sequence with the plugin uninstalled and no Free Distort in the art all survived; they were scripted outside the probe and are not in the evidence file. The runs without a Free Distort closed and created exactly as many documents as the runs with one, but 4 deaths in 16 runs, counting the run not kept, against none in 9 is too few to say a Free Distort makes the crash more likely (one-sided Fisher's exact test, p = 0.14, or 0.08 counting the run with no fault recorded). It does not depend on which tool is active. The probes reuse one document and keep the PDF sequence last, so it cannot take the next probe down with it.
 
-The editor's own lifecycle was measured separately by *tools/probe-lifecycle.ps1* ([evidence/lifecycle.txt](evidence/lifecycle.txt)). After its object is deleted, its effect removed, another effect moved ahead of it, *Undo* and *Redo* between drags, and its document closed, the editor never wrote into anything it was no longer editing, and it worked normally in the next document. Sixty cycles of opening the editor, a canceled drag, a committed drag, a preview, undo and redo, selecting a corner, measuring, and switching tools left Illustrator running. Its GDI and USER object counts did not grow, 584 to 582 and 1477 to 1476, and handles went from 2909 to 2903. A code review of every acquired suite object, parser, dictionary, window, brush, font, and the arrow-key hook found one leak: the test bridge's single-key edit never released its dictionary. It was fixed.
+**In the 0.1.0 release run the crashes came back at other offsets, and they reproduce with no third-party plugin loaded.** A fresh Illustrator that ran the first seven probes died in *probe-persistence.ps1* 2 times of 2, at `0x117175`, while the plugin measured freshly added area text. After the support probe alone, it died at `0x849dee`, reading the effect just after the PDF reopened. The minidumps Windows kept hold only Adobe's crash-reporter thread, not the thread that faulted, so they cannot say whether the plugin was on the stack. Measuring and dragging in a loop, 70 measurements and 45 heavy drags, never crashed.
+
+Two code paths were the obvious suspects: measuring through Adobe's edit path, which commits silently and undoes, and releasing the parameter dictionary handed to `SetLiveEffectParams`. Each was taken out of a diagnostic build, and the seven-probe sequence ran again with the release build, interleaved, each trial in a fresh Illustrator:
+
+| Build | Trials | Crashed or hung |
+| --- | --- | --- |
+| 0.1.0 | 3 | 2: one hang closing the PDF, ended after an hour; `0x849e1c` reading the effect after the reopen |
+| no measuring through Adobe's edit path | 3 | 3: `0xdfdd45` twice, `0x849e1c`, each reading the effect after the reopen |
+| never releasing the dictionary | 3 | 1: `0xcec256`, reading the effect after the reopen |
+
+Neither change stopped it. So the same document work was written as plain ExtendScript that never calls this plugin: Adobe's own *Free Distort* menu item in place of the editor, a script's read of the art in place of the plugin's. It ran with the plugin installed, with it removed, and with no third-party plugin at all ([evidence/history/crash-ab-2026-09-14.txt](evidence/history/crash-ab-2026-09-14.txt)):
+
+| Plugin folder | Trials | Crashed |
+| --- | --- | --- |
+| FreeDistort+, LiveShear, Subgroup | 4 | 2, `0x849dee` both times |
+| LiveShear and Subgroup, FreeDistort+ removed | 4 | 3: `0xdfdd45`, `0xcee689`, `0xcec256` |
+| empty | 3 | 2: `0xdfdd45` after closing the PDF, `0x849e1c` reading the art after the reopen |
+
+With nothing but Adobe's own plugins loaded, Illustrator died at `0xdfdd45` and `0x849e1c`, the offsets of the first two crashes of this work, at the same two moments the probes died. These crashes are Illustrator's, under documents closed and reopened by a script. *tools/probe-crash-host.ps1* is those arms as a committed tool. Run again, two trials an arm, it lost 1 of 2 in each: `0xcec256` after closing the PDF both with every plugin installed and with none, and `0x18162a7`, the known churn offset, at the first save and reopen with FreeDistort+ removed ([evidence/crash-host.txt](evidence/crash-host.txt)). Two offsets, `0x117175` and `0x1048bb5`, were seen only in sessions that called the plugin, and neither is shown to be the host's. `0x1048bb5` came in *probe-numeric.ps1*, in a session that never rendered anything. There, Adobe's edit path answered the unrendered box `[0 100 100 0]` from the first measurement, and *probe-source-quads.ps1* finished in 47 s rather than 270 s. It did not recur in four more runs of that probe. *tools/run-suite.ps1* now checks that Illustrator renders a Free Distort before every probe, restarts it once if it does not, and stops rather than record evidence from a host that still does not.
+
+The editor's own lifecycle was measured separately by *tools/probe-lifecycle.ps1* ([evidence/lifecycle.txt](evidence/lifecycle.txt)). After its object is deleted, its effect removed, another effect moved ahead of it, *Undo* and *Redo* between drags, and its document closed, the editor never wrote into anything it was no longer editing, and it worked normally in the next document. Sixty cycles of opening the editor, a canceled drag, a committed drag, a preview, undo and redo, selecting a corner, measuring, and switching tools left Illustrator running. Its GDI and USER object counts did not grow, 574 to 574 and 1463 to 1461, and handles went from 2831 to 2839. A code review of every acquired suite object, parser, dictionary, window, brush, font, and the arrow-key hook found one leak: the test bridge's single-key edit never released its dictionary. It was fixed.
 
 ## N. Remaining unknowns
 
 Worst first.
 
 1. **Adobe's own rendering cannot update during a drag** (section G). The editor's exact outline stands in for it, verified against Adobe's render point by point and seen following a real drag. It needs Free Distort to be the last effect; with another effect after it, a drag shows only the handles.
-2. **Illustrator 30.7.0 can crash creating a document after documents were closed under scripting** (section M). It reproduces with this plugin removed, at the offset of a known Illustrator crash under document churn. Whether a Free Distort in the document makes it more likely is not settled.
+2. **Illustrator 30.7.0 crashes, and once hung, after a script closes and reopens documents** (section M). It reproduces with no third-party plugin loaded, at the offsets the probes died at, and creating a document afterward dies at the offset of a known Illustrator crash under document churn. Two offsets, `0x117175` and `0x1048bb5`, were seen only in sessions that called the plugin, and are not shown to be the host's.
 3. A source frame with no width or height (section D). The editor declines it before asking Adobe anything; what Adobe's renderer does with one has not been measured, because it divides by zero.
 4. Ruler origins, several artboards, rotated views, and art inside rotated groups (section C).
 5. Free Distort inside a fill or stroke rather than on the whole object; the editor edits post-effects only.

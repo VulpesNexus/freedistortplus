@@ -1,0 +1,45 @@
+FreeDistort+ 0.1.0 -- which code the crashes after scripted document close and reopen depend on, 2026-09-14
+
+Part 1. Build comparison. Each trial: a fresh Illustrator, then probe-poc, probe-mapping, probe-semantics, probe-editor,
+probe-preview, probe-support, probe-persistence, the sequence that had crashed 2 of 2 times. Arms, interleaved:
+  release    = the 0.1.0 binary (SHA-256 D379278F...)
+  no-measure = 0.1.0 with Adobe's edit path never asked for input bounds (no silent EditEffectParameters, no UndoChanges)
+  no-release = 0.1.0 with the parameter dictionaries handed to SetLiveEffectParams never released
+"survived" was judged 10 s after the last call; no fault was logged later for any trial so marked.
+Round 1 of the release arm hung in the call that closes the PDF and was ended after an hour.
+
+  23:12:17 round 1 release    [D379278F] died in probe-persistence; faults during run: none; last call: (function(){ for (var i = app.documents.length - 1; i >= 0; i--) { if (app.documents[i].name === 'fdp-pers
+  23:14:58 round 1 no-measure [D0D076D1] died in probe-persistence; faults during run: 23:14:25 0x0000000000dfdd45; last call: app.sendScriptMessage("FreeDistortPlus", "fd read", "0");
+  23:16:16 round 1 no-release [A95948F8] survived; faults during run: none
+  23:19:01 round 2 release    [D379278F] died in probe-persistence; faults during run: 23:18:28 0x0000000000849e1c; last call: app.sendScriptMessage("FreeDistortPlus", "fd read", "0");
+  23:21:48 round 2 no-measure [D0D076D1] died in probe-persistence; faults during run: 23:21:13 0x0000000000dfdd45; last call: app.sendScriptMessage("FreeDistortPlus", "fd read", "0");
+  23:24:32 round 2 no-release [A95948F8] died in probe-persistence; faults during run: 23:23:58 0x0000000000cec256; last call: app.sendScriptMessage("FreeDistortPlus", "fd read", "0");
+  23:25:49 round 3 release    [D379278F] survived; faults during run: none
+  23:29:27 round 3 no-measure [D0D076D1] died in probe-persistence; faults during run: 23:28:51 0x0000000000849e1c; last call: app.sendScriptMessage("FreeDistortPlus", "fd read", "0");
+  23:30:44 round 3 no-release [A95948F8] survived; faults during run: none
+
+Part 2. The same document work in plain ExtendScript, with no call to this plugin: an effect applied through
+Adobe's own Free Distort menu item, the document saved, closed and reopened, every art type with the effect, text
+retyped, copy and paste, SVG, Apply Last Effect, then Save As PDF, close, reopen, a read of the art, close. Arms:
+  installed = FreeDistortPlus.aip, LiveShear.aip, Subgroup.aip in the plugin folder
+  removed   = FreeDistortPlus.aip taken out
+  bare      = no third-party plugin at all
+A crashing Illustrator stays alive for about half a minute while its dump is written, so a trial can read
+"survived" 10 s after its last call and still carry a fault; the fault column is the outcome.
+
+  23:33:08 round 1 removed   survived; faults: none
+  23:34:13 round 1 installed survived; faults: none
+  23:35:15 round 2 removed   survived; faults: 23:35:06 0x0000000000dfdd45
+  23:39:31 round 2 installed survived; faults: none
+  23:40:56 round 3 removed   died (threw: The RPC server is unavailable. (Exception from HRESULT: 0x800706BA)); faults: 23:40:23 0x0000000000cee689; last call: (function(){ for (var i = app.documents.length - 1; i >= 0; i--) { if (app.documents[i].name ===
+  23:42:20 round 3 installed died (threw: The RPC server is unavailable. (Exception from HRESULT: 0x800706BA)); faults: 23:41:47 0x0000000000849dee; last call: (function(){ var d = app.activeDocument; var p = d.selection[0]; app.redraw(); return p ? p.type
+  23:43:26 round 4 removed   survived; faults: 23:43:17 0x0000000000cec256
+  23:47:47 round 4 installed survived; faults: 23:47:38 0x0000000000849dee
+  23:52:54 round 1 bare      survived; faults: none
+  23:54:20 round 2 bare      died (threw: The RPC server is unavailable. (Exception from HRESULT: 0x800706BA)); faults: 23:53:48 0x0000000000dfdd45; last call: (function(){ for (var i = app.documents.length - 1; i >= 0; i--) { if (app.documents[i].name ===
+  23:55:44 round 3 bare      died (threw: The RPC server is unavailable. (Exception from HRESULT: 0x800706BA)); faults: 23:55:13 0x0000000000849e1c; last call: (function(){ var d = app.activeDocument; var p = d.selection[0]; app.redraw(); return p ? p.type
+
+Tally, trials with a fault or a hang:
+  probes, release 2 of 3; no-measure 3 of 3; no-release 1 of 3
+  plain script, installed 2 of 4; removed 3 of 4; bare 2 of 3
+Offsets seen with no third-party plugin loaded: 0xdfdd45, 0x849e1c.

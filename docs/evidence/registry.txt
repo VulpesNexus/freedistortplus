@@ -83,15 +83,15 @@ idx	name	title	version	inputPrefs	styleFlags
 79	Adobe Inner Glow	Inner Glow	1.0	0x2ffff	0x960002
 80	Adobe Free Distort	Free Distort	1.0	0x87	0x2
 81	Adobe Add Arrowheads	Add Arrowheads	1.0	0x20007	0x2
-82	Adobe Twirl	Twist	1.0	0x7	0x800001
-83	Adobe Scribble Fill	Scribble	1.0	0x7	0x420002
-84	Adobe PSL Gaussian Blur	Gaussian Blur	1.0	0x0	0x820002
-85	PSAdapter_plugin_GblR	Legacy Gaussian Blur	1.0	0x0	0x20002
-86	Adobe Fuzzy Mask	Feather	1.0	0x2ffff	0x60002
-87	Adobe Rasterize	Rasterize	1.0	0x2ffff	0xc60002
-88	Adobe SVG Filter Effect	SVG Filter	1.0	0x2fdff	0xe0002
-89	Adobe Outline Stroke	Outline Stroke	1.0	0x20007	0x800002
-90	Adobe Offset Path	Offset Path	1.0	0x20007	0x820001
-91	Adobe Stroke Offset	Stroke Offset Live Effect	1.0	0x20006	0x800003
+82	Adobe Stroke Offset	Stroke Offset Live Effect	1.0	0x20006	0x800003
+83	Adobe Twirl	Twist	1.0	0x7	0x800001
+84	Adobe Scribble Fill	Scribble	1.0	0x7	0x420002
+85	Adobe PSL Gaussian Blur	Gaussian Blur	1.0	0x0	0x820002
+86	PSAdapter_plugin_GblR	Legacy Gaussian Blur	1.0	0x0	0x20002
+87	Adobe Fuzzy Mask	Feather	1.0	0x2ffff	0x60002
+88	Adobe Outline Stroke	Outline Stroke	1.0	0x20007	0x800002
+89	Adobe Offset Path	Offset Path	1.0	0x20007	0x820001
+90	Adobe Rasterize	Rasterize	1.0	0x2ffff	0xc60002
+91	Adobe SVG Filter Effect	SVG Filter	1.0	0x2fdff	0xe0002
 92	Adobe Deform	Warp	1.0	0xffff	0x810001
 93	Adobe Transform	Transform	1.0	0x1d47	0x820002

@@ -1,0 +1,16 @@
+probe	group	case	expected	observed	status
+build	release build	Debug builds with no warnings and no errors	the artifact is fit to ship	0 warnings, 0 errors	PASS
+build	release build	Release builds with no warnings and no errors	the artifact is fit to ship	0 warnings, 0 errors	PASS
+build	release build	the Release build produced a plugin	the artifact is fit to ship	build\Release\FreeDistortPlus.aip	PASS
+build	release build	the binary does not claim Adobe as its publisher	the artifact is fit to ship	CompanyName is VulpesNexus	PASS
+build	release build	the binary names its own product	the artifact is fit to ship	ProductName is FreeDistort+	PASS
+build	release build	the binary carries a release version, with no development suffix	the artifact is fit to ship	FileVersion is 0.1.0	PASS
+build	release build	Release links the retail C runtime, not the debug one	the artifact is fit to ship	links MSVCP140.DLL, VCRUNTIME140.DLL	PASS
+build	release build	no path from the build machine is embedded	the artifact is fit to ship	none found	PASS
+build	release build	the symbol reference is a bare file name	the artifact is fit to ship	symbol references: FreeDistortPlus.pdb	PASS
+build	release build	the entry point Illustrator looks for is present	the artifact is fit to ship	PluginMain	PASS
+build	release build	the effect it edits is named as Illustrator registers it	the artifact is fit to ship	Adobe Free Distort	PASS
+build	release build	the tool carries the publisher prefix	the artifact is fit to ship	VulpesNexus FreeDistort+ Tool	PASS
+build	release build	nothing is linked but Windows and the C runtime	the artifact is fit to ship	no SDK, developer, or test-harness DLL is named	PASS
+build	release build	the C runtime it needs is one Illustrator already needs	the artifact is fit to ship	Illustrator.exe names the same MSVCP140.dll, VCRUNTIME140.dll, VCRUNTIME140_1.dll	PASS
+build	release build	the working tree was clean when it was built	the artifact is fit to ship	0 uncommitted change(s)	PASS
