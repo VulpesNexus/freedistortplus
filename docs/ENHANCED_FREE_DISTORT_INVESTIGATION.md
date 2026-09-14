@@ -92,7 +92,31 @@ So the effect has no brittle absolute-geometry assumption of its own. Two dictio
 
 The text rows are why the plugin asks Adobe rather than computing bounds: handles laid on the text frame would sit up to 85 pt from where Adobe draws.
 
-**Unknown: a source quad that is not an axis-aligned rectangle.** Adobe's dialog never writes one. Every one of the eight source reals changes the drawing on its own, including `src0h`, which a reading through the source's bounding box would ignore when `src2h` is further left. So the renderer uses the individual corners, in a way none of eight composite readings fitted: inverse bilinear in the source quad, the source's bounding box, each renormalized and not. The editor never writes such a source, and refuses to edit an effect that has one: it cannot show where that effect's corners are drawn, and a drag would make the artwork jump. Its status says so.
+### Sources that are not rectangles
+
+**Illustrator never makes one.** Adobe's dialog writes the input bounds. *tools/probe-source-follow.ps1* distorts a pentagon and then applies Illustrator's own operations to it: move, uniform and non-uniform scale with and without *Scale Strokes & Effects*, rotation by 30° and 90°, reflection, shear, moving an anchor out and in, adding and removing an anchor, pulling a handle, and a blend between two distorted objects, expanded ([evidence/source-follow.txt](evidence/source-follow.txt)). None touches the dictionary, every blend step carries a rectangular source, and after each one Adobe's edit path commits a rectangle again without changing the drawing. "The source follows the art" is therefore not an update to the source: the stored rectangle stays put, and the renderer re-lays it onto whatever the input bounds have become. After all thirteen operations, the drawing is the bilinear map onto the renormalized quad at every anchor and handle ([evidence/source-follow-verdicts.tsv](evidence/source-follow-verdicts.tsv)).
+
+A source of any other shape can only come from another writer: a script, a plugin, or an edited action file. That still has to be handled, and the renderer does have a precise reading of one.
+
+**The measurement.** *tools/probe-source-quads.ps1* writes non-rectangular sources into the dictionary key by key: each of the eight source keys alone in both directions, every pair of keys, each destination key alone against a convex and a trapezoidal source, parallelogram, trapezoid, convex, concave, bow-tie, 1000 pt away, 20 seeded random cases including wild ones, the same questions over different input bounds, and curves with independent handles. That makes 121 cases. For each it records the drawing, lets Adobe's own edit path commit, and records the dictionary Adobe wrote and the drawing again ([evidence/source-quads-cases.tsv](evidence/source-quads-cases.tsv)).
+
+Two findings came first, and they carry the rest:
+
+- **The drawing is still bilinear over the input bounds**, into some quad E, to 10⁻⁹ pt in every case.
+- **Adobe's own edit path converts such a source losslessly.** It writes the source as the input bounds and the destination as that E, and the drawing does not change in any of the 121 cases. So Adobe's commit is an oracle for E, for any dictionary.
+
+**The reading.** The obvious ones fail: the source's bounding box misses 119 of 121 cases, inverse bilinear in the source quad misses 99, and a homography misses 98 ([evidence/source-quads-verdicts.tsv](evidence/source-quads-verdicts.tsv)). Designed variations showed E's structure. Each Eᵢ depends only on dᵢ, and one bilinear function carries all four corners, with an xy term. Its values at the corners of one particular rectangle are round numbers. That gives this reading, which fits all 121 cases at the committed quad and at every drawn anchor and handle, to 10⁻⁹ pt:
+
+```
+R  = the rectangle left src0h, top src0v, right src1h, bottom src2v     (the source's frame)
+Qᵢ = Bᵢ − (srcᵢ − Rᵢ)                                                   (per corner, unscaled points)
+Eᵢ = bilinear(Q, (dstᵢ − R.origin) / R.size)
+p′ = bilinear(E, (p − B.origin) / B.size)
+```
+
+Here `B` is the input bounds and `Bᵢ`, `Rᵢ` are corners in Adobe's order. The frame uses only three corners' worth of numbers. The other source numbers act as offsets, in points, not scaled by any size, so moving `src3h` 37 pt right moves the drawn bottom-right corner 37 pt left however large the art is. With a rectangular source, every offset is zero and this is the renormalization above. A bow-tie source gives the frame a negative width, and the reading follows it. A source whose frame has no width or no height leaves the renderer dividing by zero.
+
+**What the editor does with it.** It reads any source through this formula (*QuadMath.h*, `EffectiveQuad` for a quad source, pinned to six host commits in *tools/mathtest*). It does not rely on the formula alone. Each time it measures the input bounds through Adobe's edit path, that commit's destination is where Adobe draws. The editor puts the handles there, and refuses the effect if its formula disagrees by more than 0.001 pt. The first drag writes the source as the input bounds, exactly as Adobe's OK converts it, and the artwork does not move. A frame with no width or height is refused before Adobe is asked anything. The status line reports the source's shape, where the quad came from, and the formula's distance from Adobe's answer.
 
 ## E. Compatibility with the vanilla editor
 
@@ -228,7 +252,7 @@ Worst first.
 1. **Adobe's own rendering cannot update during a drag** (section G). The editor's exact outline stands in for it, verified against Adobe's render point by point and seen following a real drag. It needs Free Distort to be the last effect; with another effect after it, a drag shows only the handles.
 2. **The Free Transform parity study** (section I), which decides the final modifier mapping. It needs real input for the same reason.
 3. The first crash (section M): fixed on suspicion, not proven either way.
-4. How the renderer reads a non-rectangular source quad (section D). The editor declines such effects.
+4. A source frame with no width or height (section D). The editor declines it before asking Adobe anything; what Adobe's renderer does with one has not been measured, because it divides by zero.
 5. Ruler origins, several artboards, rotated views, and art inside rotated groups (section C).
 6. Free Distort inside a fill or stroke rather than on the whole object; the editor edits post-effects only.
 7. Arrow-key nudging: no tool message carries arrow keys, and Illustrator's own keyboard increment preference is not named in the SDK or in any obvious key of the preferences file.

@@ -1,4 +1,4 @@
-Enhanced Free Distort -- editing loop, 2026-09-14 14:40
+Enhanced Free Distort -- editing loop, 2026-09-14 15:45
 Added Free Distort as post-effect 0.
 Editor selected.
 active	yes
@@ -12,8 +12,9 @@ input bounds	[90 330 340 100]
 bounds from	Adobe
 measure report	silent edit returned 0; Adobe chose source [90 330 340 100]; UndoChanges returned 0 and did not restore it, so the style was set back directly (result 0); 
 quad	(90,330 340,330 90,100 340,100)
+source	rectangle
+quad from	the formula
 drag	none
-last preview	preview of 10 paths, 89 segments (captured before the drag)
 preview source	preview of 1 paths, 5 segments
 [PASS] the command adds a Free Distort when there is none and selects the editor: yes, valid, Adobe
 [PASS] an untouched effect shows its handles on the input bounds: (90,330 340,330 90,100 340,100)
@@ -42,4 +43,6 @@ end quad (70,350 340,330 90,100 340,100)
 [PASS] a drag after the move writes source = the new input bounds: entries 16 src (190,380 440,380 190,150 440,150) dst (180,390 500,380 190,150 440,150)
 [PASS] two Free Distorts on one object are both found, and the editor says which it took: object 0 1; post-effect 0, instances 2, by focus yes
 [PASS] a drag edits only the Free Distort the editor chose: entries 0 src (absent) dst (absent)
-[PASS] an effect whose source is not a rectangle is not edited, and the status says why: this Free Distort's source is not a rectangle, which Adobe's own dialog never writes
+[PASS] an effect whose source is not a rectangle is edited, from where Adobe's commit says it draws: valid, not a rectangle, Adobe's commit, formula against Adobe 0
+[PASS] its first drag writes the source as the input bounds, as Adobe's own OK does: entries 16 src (90,330 340,330 90,100 340,100) dst (70,350 400,330 70,100 340,100)
+[PASS] an effect whose source frame has no width is not edited, and the status says why: this Free Distort's source has no width or no height, so where Adobe draws it is not defined

@@ -76,9 +76,14 @@ namespace fd
         whose source rectangle is the input bounds by construction -- whatever
         sits ahead of the effect, whatever kind of art it is. That commit is
         render-invariant, and it is undone again here before returning, so the
-        document is left as it was found. `report` says what happened. */
+        document is left as it was found. `report` says what happened.
+
+        The same commit's destination is the quad Adobe draws into, whatever
+        shape the stored source had. When Adobe answered and wrote one, it is
+        left in `drawnQuad` and `haveDrawnQuad` is set. */
     ASErr MeasureInputBounds(AIArtHandle art, ai::int32 postIndex, fdmath::Rect* bounds,
-                             BoundsSource* how, std::string* report = nullptr);
+                             BoundsSource* how, std::string* report = nullptr,
+                             fdmath::Quad* drawnQuad = nullptr, bool* haveDrawnQuad = nullptr);
 
     /** Appends an identity Free Distort (destination equal to source) to the
         art's appearance, the same entry Effect > Distort & Transform > Free

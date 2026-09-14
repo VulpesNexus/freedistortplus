@@ -1,10 +1,33 @@
-Enhanced Free Distort -- the live drag preview, 2026-09-14 14:40
+Enhanced Free Distort -- the live drag preview, 2026-09-14 15:46
 preview of 1 paths, 30 segments (captured before the drag)
 quad (100,300 450,290 60,70 400,100)
 [PASS] a drag opens with a preview of the art: open, corner 2; preview of 1 paths, 30 segments (captured before the drag)
-capture: captured 2102x1291, PrintWindow True
+capture: captured 82x190, PrintWindow True
 closed; quad (100,300 450,290 60,70 400,100)
 [PASS] every previewed anchor and handle is where Adobe draws it after release: 90 points previewed, 90 rendered, worst deviation 0 pt
+active	yes
+tool messages	down 0 drag 0 up 0 last hit -2 at 0,0
+target	valid
+post-effect	0
+instances	1
+chosen by focus	yes
+stored	entries 16 src (90,320 420,280 130,90 380,120) dst (130,350 450,290 70,80 370,130)
+input bounds	[100 300 400 100]
+bounds from	Adobe
+measure report	silent edit returned 0; Adobe chose source [100 300 400 100]; UndoChanges returned 0 and restored the original style; 
+quad	(140.316205534,332.042160738 433.438735178,307.588932806 35.0197628458,93.3069828722 377.575757576,119.657444005)
+source	not a rectangle
+quad from	Adobe's commit
+formula against Adobe	1.13686837722e-13
+drag	none
+last preview	preview of 1 paths, 30 segments (captured before the drag)
+preview source	preview of 1 paths, 30 segments
+[PASS] the editor takes a non-rectangular source, with its handles where Adobe's own commit says it draws: target valid; source not a rectangle; quad from Adobe's commit; formula against Adobe 1.13686837722e-13
+[PASS] before the pointer moves, the preview is exactly what Adobe draws for the non-rectangular source: 90 points, worst deviation 1E-09 pt
+closed; quad (140.316205534,332.042160738 433.438735178,307.588932806 35.0197628458,93.3069828722 377.575757576,119.657444005)
+[PASS] releasing writes the source as the input bounds, as Adobe's OK does, and the artwork does not move: entries 16 src (100,300 400,300 100,100 400,100) dst (140.316205534,332.042160738 433.438735178,307.588932806 35.0197628458,93.3069828722 377.575757576,119.657444005); worst deviation 1E-09 pt
+closed; quad (140.316205534,332.042160738 468.438735178,282.588932806 35.0197628458,93.3069828722 377.575757576,119.657444005)
+[PASS] a drag from a converted source previews exactly what Adobe draws after release: 90 points, worst deviation 1E-09 pt
 preview of 10 paths, 89 segments (captured before the drag)
 quad (125.47265625,388.627929688 323.470214844,388.627929688 125.47265625,338.943359375 363.470214844,308.943359375)
 closed; quad (125.47265625,388.627929688 323.470214844,388.627929688 125.47265625,338.943359375 363.470214844,308.943359375)

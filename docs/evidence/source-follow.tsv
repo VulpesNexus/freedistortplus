@@ -1,0 +1,43 @@
+probe	group	case	expected	observed	status
+source-follow	move	move: the operation leaves the dictionary as it was	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	PASS
+source-follow	move	move: Adobe's edit path afterwards writes a rectangular source	an axis-aligned rectangle	src (140,350,390,350,140,120,390,120) dst (160,370,440,340,120,110,410,140)	PASS
+source-follow	move	move: and that commit does not change the drawing	unchanged	unchanged	PASS
+source-follow	scale-uniform-effects-scaled	scale-uniform-effects-scaled: the operation leaves the dictionary as it was	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	PASS
+source-follow	scale-uniform-effects-scaled	scale-uniform-effects-scaled: Adobe's edit path afterwards writes a rectangular source	an axis-aligned rectangle	src (27.5,387.5,402.5,387.5,27.5,42.5,402.5,42.5) dst (57.5,417.5,477.5,372.5,-2.5,27.5,432.5,72.5)	PASS
+source-follow	scale-uniform-effects-scaled	scale-uniform-effects-scaled: and that commit does not change the drawing	unchanged	unchanged	PASS
+source-follow	scale-non-uniform	scale-non-uniform: the operation leaves the dictionary as it was	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	PASS
+source-follow	scale-non-uniform	scale-non-uniform: Adobe's edit path afterwards writes a rectangular source	an axis-aligned rectangle	src (27.5,284,402.5,284,27.5,146,402.5,146) dst (57.5,296,477.5,278,-2.5,140,432.5,158)	PASS
+source-follow	scale-non-uniform	scale-non-uniform: and that commit does not change the drawing	unchanged	unchanged	PASS
+source-follow	scale-non-uniform-effects-scaled	scale-non-uniform-effects-scaled: the operation leaves the dictionary as it was	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	PASS
+source-follow	scale-non-uniform-effects-scaled	scale-non-uniform-effects-scaled: Adobe's edit path afterwards writes a rectangular source	an axis-aligned rectangle	src (27.5,284,402.5,284,27.5,146,402.5,146) dst (57.5,296,477.5,278,-2.5,140,432.5,158)	PASS
+source-follow	scale-non-uniform-effects-scaled	scale-non-uniform-effects-scaled: and that commit does not change the drawing	unchanged	unchanged	PASS
+source-follow	rotate-30	rotate-30: the operation leaves the dictionary as it was	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	PASS
+source-follow	rotate-30	rotate-30: Adobe's edit path afterwards writes a rectangular source	an axis-aligned rectangle	src (94.2468251221,316.47114442,336.112159901,316.47114442,94.2468251221,57.9070779515,336.112159901,57.9070779515) dst (113.596051904,338.954976287,384.485226857,305.229228486,74.8975983398,46.6651620181,355.461386684,80.3909098183)	PASS
+source-follow	rotate-30	rotate-30: and that commit does not change the drawing	unchanged	unchanged	PASS
+source-follow	rotate-90	rotate-90: the operation leaves the dictionary as it was	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	PASS
+source-follow	rotate-90	rotate-90: Adobe's edit path afterwards writes a rectangular source	an axis-aligned rectangle	src (100.00000153,339.999998033,330.000005027,339.999998033,100.00000153,89.9999989072,330.000005027,89.9999989072) dst (118.40000181,361.739128392,376.000005726,329.130432854,81.6000012501,79.1304337278,348.400005307,111.739129266)	PASS
+source-follow	rotate-90	rotate-90: and that commit does not change the drawing	unchanged	unchanged	PASS
+source-follow	reflect	reflect: the operation leaves the dictionary as it was	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	PASS
+source-follow	reflect	reflect: Adobe's edit path afterwards writes a rectangular source	an axis-aligned rectangle	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	PASS
+source-follow	reflect	reflect: and that commit does not change the drawing	unchanged	unchanged	PASS
+source-follow	shear-20	shear-20: the operation leaves the dictionary as it was	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	PASS
+source-follow	shear-20	shear-20: Adobe's edit path afterwards writes a rectangular source	an axis-aligned rectangle	src (58.1434230594,330,356.378660542,330,58.1434230594,100,356.378660542,100) dst (82.002242058,350,416.025708038,320,34.2846040608,90,380.237479541,120)	PASS
+source-follow	shear-20	shear-20: and that commit does not change the drawing	unchanged	unchanged	PASS
+source-follow	reshape-anchor-out	reshape-anchor-out: the operation leaves the dictionary as it was	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	PASS
+source-follow	reshape-anchor-out	reshape-anchor-out: Adobe's edit path afterwards writes a rectangular source	an axis-aligned rectangle	src (90,330,440,330,90,100,440,100) dst (118,350,510,320,62,90,468,120)	PASS
+source-follow	reshape-anchor-out	reshape-anchor-out: and that commit does not change the drawing	unchanged	unchanged	PASS
+source-follow	reshape-anchor-in	reshape-anchor-in: the operation leaves the dictionary as it was	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	PASS
+source-follow	reshape-anchor-in	reshape-anchor-in: Adobe's edit path afterwards writes a rectangular source	an axis-aligned rectangle	src (90,330,300,330,90,100,300,100) dst (106.8,350,342,320,73.2,90,316.8,120)	PASS
+source-follow	reshape-anchor-in	reshape-anchor-in: and that commit does not change the drawing	unchanged	unchanged	PASS
+source-follow	add-anchor	add-anchor: the operation leaves the dictionary as it was	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	PASS
+source-follow	add-anchor	add-anchor: Adobe's edit path afterwards writes a rectangular source	an axis-aligned rectangle	src (60,330,340,330,60,60,340,60) dst (82.4,353.47826087,396,318.260869565,37.6,48.2608695652,362.4,83.4782608696)	PASS
+source-follow	add-anchor	add-anchor: and that commit does not change the drawing	unchanged	unchanged	PASS
+source-follow	remove-anchor	remove-anchor: the operation leaves the dictionary as it was	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	PASS
+source-follow	remove-anchor	remove-anchor: Adobe's edit path afterwards writes a rectangular source	an axis-aligned rectangle	src (90,260,340,260,90,100,340,100) dst (110,273.913043478,390,253.043478261,70,93.0434782609,360,113.913043478)	PASS
+source-follow	remove-anchor	remove-anchor: and that commit does not change the drawing	unchanged	unchanged	PASS
+source-follow	curve-handle	curve-handle: the operation leaves the dictionary as it was	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)	PASS
+source-follow	curve-handle	curve-handle: Adobe's edit path afterwards writes a rectangular source	an axis-aligned rectangle	src (90,330,366.12244898,330,90,100,366.12244898,100) dst (112.089795918,350,421.346938776,320,67.9102040816,90,388.212244898,120)	PASS
+source-follow	curve-handle	curve-handle: and that commit does not change the drawing	unchanged	unchanged	PASS
+source-follow	blend	Object > Blend > Make, then Expand		1 selected after expanding	MEASURED
+source-follow	blend	expanded blend steps carrying a Free Distort, and distinct dictionaries among them		2 of 3 objects; 2 distinct	MEASURED
+source-follow	blend	every blend step carries a rectangular source	2 of 2	2 of 2	PASS

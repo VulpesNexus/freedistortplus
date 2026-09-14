@@ -19,4 +19,6 @@ editor	moved art	the estimate made without asking Adobe agrees with asking	(190,
 editor	moved art	a drag after the move writes source = the new input bounds	src (190,380 440,380 190,150 440,150)	entries 16 src (190,380 440,380 190,150 440,150) dst (180,390 500,380 190,150 440,150)	PASS
 editor	instances	two Free Distorts on one object are both found, and the editor says which it took	post-effects 0 and 1; one chosen, reason given	object 0 1; post-effect 0, instances 2, by focus yes	PASS
 editor	instances	a drag edits only the Free Distort the editor chose	entries 0 src (absent) dst (absent)	entries 0 src (absent) dst (absent)	PASS
-editor	refusals	an effect whose source is not a rectangle is not edited, and the status says why	no target, reason given	this Free Distort's source is not a rectangle, which Adobe's own dialog never writes	PASS
+editor	sources	an effect whose source is not a rectangle is edited, from where Adobe's commit says it draws	target valid, not a rectangle, quad from Adobe	valid, not a rectangle, Adobe's commit, formula against Adobe 0	PASS
+editor	sources	its first drag writes the source as the input bounds, as Adobe's own OK does	src (90,330 340,330 90,100 340,100)	entries 16 src (90,330 340,330 90,100 340,100) dst (70,350 400,330 70,100 340,100)	PASS
+editor	refusals	an effect whose source frame has no width is not edited, and the status says why	no target, reason given	this Free Distort's source has no width or no height, so where Adobe draws it is not defined	PASS

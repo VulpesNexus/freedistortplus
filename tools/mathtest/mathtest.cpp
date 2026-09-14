@@ -165,6 +165,72 @@ int main()
         Check(worst > 1.0, "control: ignoring the input bounds does not fit the host");
     }
 
+    // ---- sources that are not rectangles -----------------------------------
+    //
+    // Destinations Adobe's own edit path committed from a non-rectangular
+    // source, verbatim from docs/evidence/source-quads.tsv. Adobe writes the
+    // source as the input bounds and the destination as the quad it draws
+    // into, without changing the drawing.
+
+    {
+        struct HostCommit
+        {
+            const char* name;
+            Quad source, destination;
+            Rect bounds;
+            Quad committed;
+        };
+        const Rect grid = MakeRect(100, 300, 400, 100);
+        const Quad general = Q(130, 350, 450, 290, 70, 80, 370, 130);
+        const Quad identity = RectQuad(grid);
+        const HostCommit commits[] = {
+            { "convex source", Q(90, 320, 420, 280, 130, 90, 380, 120), identity, grid,
+              Q(105.82345191, 283.636363636, 384.87483531, 314.466403162, 73.1488801054, 107.878787879, 415.441370224, 83.372859025) },
+            { "trapezoid source, distorted destination", Q(160, 300, 340, 300, 100, 100, 400, 100), general, grid,
+              Q(30, 350, 576.666666667, 290, 82, 80, 382, 130) },
+            { "concave source", Q(100, 300, 400, 300, 100, 100, 250, 220), identity, grid,
+              Q(100, 300, 400, 300, 100, 100, 550, -20) },
+            { "bow-tie source", Q(400, 300, 100, 300, 100, 100, 400, 100), identity, grid,
+              Q(400, 300, 100, 300, 100, 100, 400, 100) },
+            { "convex source 1000 pt away", Q(1090, 1320, 1420, 1280, 1130, 1090, 1380, 1120), general, grid,
+              Q(-1922.92490119, 198.972332016, -1355.75757576, -65.2700922266, -2376.04743083, 264.584980237, -1664.58498024, -31.8577075099) },
+            { "convex offsets over other input bounds", Q(240, 290, 720, 250, 280, 140, 680, 170), Q(280, 320, 750, 260, 220, 130, 670, 180),
+              MakeRect(250, 270, 700, 150),
+              Q(294.166666667, 298.5, 737.125, 273.625, 185.027777778, 143.444444444, 676.347222222, 171.847222222) },
+        };
+        for (const HostCommit& c : commits)
+        {
+            const Quad got = EffectiveQuad(c.source, c.destination, c.bounds);
+            double worst = 0.0;
+            for (int i = 0; i < 4; ++i) worst = std::fmax(worst, Distance(got.c[i], c.committed.c[i]));
+            char detail[120];
+            std::snprintf(detail, sizeof(detail), "worst deviation %.3g pt", worst);
+            Check(worst < 1e-7, std::string("a non-rectangular source is read as the host commits it: ") + c.name, detail);
+            std::printf("      %s: %s\n", c.name, detail);
+        }
+
+        // Control: the source's bounding box, the obvious reading, misses.
+        const Rect box = BoundingRect(commits[0].source);
+        const Quad byBox = EffectiveQuad(box, commits[0].destination, commits[0].bounds);
+        Check(!Near(byBox, commits[0].committed, 1.0), "control: the source's bounding box does not fit the host");
+
+        // For a rectangular source, both readings are the same function.
+        std::mt19937 rng(11);
+        std::uniform_real_distribution<double> d(-150.0, 150.0);
+        bool same = true;
+        for (int i = 0; i < 500; ++i)
+        {
+            const Rect s = MakeRect(d(rng), 200 + d(rng), 400 + d(rng), d(rng) - 200);
+            const Rect b = MakeRect(d(rng), 200 + d(rng), 400 + d(rng), d(rng) - 200);
+            const Quad dst = RandomQuad(rng, 150.0);
+            same = same && Near(EffectiveQuad(RectQuad(s), dst, b), EffectiveQuad(s, dst, b), 1e-9);
+        }
+        Check(same, "for a rectangular source the general reading is the renormalization");
+        Check(HasUsableFrame(Q(0, 10, 20, 30, 40, 0, 50, 60), 1e-9) && !HasUsableFrame(Q(5, 10, 5, 30, 40, 0, 50, 60), 1e-9) &&
+              !HasUsableFrame(Q(0, 10, 20, 30, 40, 10, 50, 60), 1e-9),
+              "a frame with no width or no height is not usable");
+    }
+
     // ---- renormalization ---------------------------------------------------
 
     {

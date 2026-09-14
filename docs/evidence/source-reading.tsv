@@ -1,0 +1,5 @@
+probe	group	case	expected	observed	status
+source-reading	reading	Adobe's reading of a non-rectangular source fits every case, at the committed quad and at every drawn anchor and handle	121 of 121	121 of 121	PASS
+source-reading	reading	Adobe's own edit path converts a non-rectangular source to a rectangle without changing the drawing	0 of 121 drawings changed	0 of 121 drawings changed	PASS
+source-reading	reading	control: the obvious readings do not fit	the bounding box and inverse bilinear each miss cases	bounding box misses 119, inverse bilinear misses 99	PASS
+source-reading	follow	after each of Illustrator's own operations on distorted art, the drawing is the bilinear map onto the renormalized quad	13 of 13	13 of 13	PASS

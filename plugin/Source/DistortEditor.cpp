@@ -242,6 +242,15 @@ bool DistortEditor::Retarget(bool measure)
         return false;
     }
 
+    // A source frame with no width or height leaves the renderer dividing by
+    // zero. Checked before Adobe's edit path is asked anything about it.
+    if (t.stored.hasSource && t.stored.hasDestination && !fdmath::HasUsableFrame(t.stored.source, 1e-6))
+    {
+        t.why = "this Free Distort's source has no width or no height, so where Adobe draws it is not defined";
+        fTarget = t;
+        return false;
+    }
+
     fdmath::Rect geometry;
     fd::GeometricBounds(t.art, &geometry);
     AIArtStyleHandle style = nullptr;
@@ -253,6 +262,8 @@ bool DistortEditor::Retarget(bool measure)
         geometry.left == previous.geometryAtMeasure.left && geometry.top == previous.geometryAtMeasure.top &&
         geometry.right == previous.geometryAtMeasure.right && geometry.bottom == previous.geometryAtMeasure.bottom;
 
+    fdmath::Quad drawnByAdobe;
+    bool haveDrawnByAdobe = false;
     if (!measure && previous.boundsMeasured && sameGeometry && previous.styleAtMeasure == style)
     {
         // Nothing the input bounds depend on has changed since Adobe was
@@ -262,11 +273,17 @@ bool DistortEditor::Retarget(bool measure)
         t.boundsSource = previous.boundsSource;
         t.geometryAtMeasure = previous.geometryAtMeasure;
         t.measureReport = previous.measureReport;
+        if (previous.quadFromAdobe)
+        {
+            drawnByAdobe = previous.quad;
+            haveDrawnByAdobe = true;
+        }
     }
     else if (measure)
     {
         std::string report;
-        if (fd::MeasureInputBounds(t.art, t.postIndex, &t.inputBounds, &t.boundsSource, &report))
+        if (fd::MeasureInputBounds(t.art, t.postIndex, &t.inputBounds, &t.boundsSource, &report,
+                                   &drawnByAdobe, &haveDrawnByAdobe))
         {
             t.why = "the input bounds could not be measured";
             fTarget = t;
@@ -304,18 +321,31 @@ bool DistortEditor::Retarget(bool measure)
 
     if (t.stored.hasSource && t.stored.hasDestination)
     {
-        // Adobe's dialog only ever stores a rectangle here, and the renderer
-        // reads each corner of anything else in a way that has not been
-        // worked out (docs/ENHANCED_FREE_DISTORT_INVESTIGATION.md, section D).
-        // Handles for such an effect would not be where it draws, and the
-        // first drag would make the artwork jump, so it is not edited.
-        if (!fdmath::IsAxisAlignedRect(t.stored.source, 1e-6))
+        // Adobe's dialog only ever stores a rectangle here. Anything else
+        // came from another writer, and the renderer reads it through a frame
+        // and per-corner offsets (section D of the investigation), which the
+        // formula follows. The first drag writes the source as the input
+        // bounds, exactly as Adobe's own OK converts it, without a jump.
+        t.sourceIsRectangle = fdmath::IsAxisAlignedRect(t.stored.source, 1e-6);
+        t.quad =fdmath::EffectiveQuad(t.stored.source, t.stored.destination, t.inputBounds);
+        if (haveDrawnByAdobe)
         {
-            t.why = "this Free Distort's source is not a rectangle, which Adobe's own dialog never writes";
-            fTarget = t;
-            return false;
+            // Adobe's own answer is where the handles go. The formula has to
+            // agree with it, or the formula is not describing this host, and
+            // nothing the editor would draw during a drag could be trusted.
+            double worst = 0.0;
+            for (int i = 0; i < 4; ++i) worst = (std::max)(worst, fdmath::Distance(t.quad.c[i], drawnByAdobe.c[i]));
+            t.formulaDeviation = worst;
+            if (worst > 1e-3)
+            {
+                t.why = "Adobe draws this Free Distort at " + fd::Describe(drawnByAdobe) +
+                        ", not where the editor's reading of its source puts it, " + fd::Describe(t.quad);
+                fTarget = t;
+                return false;
+            }
+            t.quad = drawnByAdobe;
+            t.quadFromAdobe = true;
         }
-        t.quad = fdmath::EffectiveQuad(fdmath::BoundingRect(t.stored.source), t.stored.destination, t.inputBounds);
     }
     else
     {
@@ -796,6 +826,9 @@ std::string DistortEditor::Status() const
     o << "measure report\t" << fTarget.measureReport;
     if (fTarget.measureReport.empty() || fTarget.measureReport.back() != '\n') o << "\n";
     o << "quad\t" << fd::Describe(fTarget.quad) << "\n";
+    o << "source\t" << (fTarget.sourceIsRectangle ? "rectangle" : "not a rectangle") << "\n";
+    o << "quad from\t" << (fTarget.quadFromAdobe ? "Adobe's commit" : "the formula") << "\n";
+    if (fTarget.formulaDeviation >= 0.0) o << "formula against Adobe\t" << Num(fTarget.formulaDeviation) << "\n";
     o << "drag\t" << (fDragCorner >= 0 ? "open, corner " + std::to_string(fDragCorner) : std::string("none")) << "\n";
     if (!fPreviewNote.empty()) o << "last preview\t" << fPreviewNote << "\n";
     o << "preview source\t" << (fPreviewSourceArt == fTarget.art && !fPreviewSource.empty()

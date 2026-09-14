@@ -33,6 +33,12 @@
 //      or scales the distortion with it, and two dictionaries that differ only
 //      by that renormalization render identically.
 //
+//    * A source quad that is not a rectangle, which only a writer other than
+//      Adobe's dialog produces, is read through a frame and per-corner
+//      offsets (EffectiveQuad for a Quad source, section D). Adobe's own edit
+//      path converts such a dictionary to a rectangular source without
+//      changing the drawing, and the effective quad here is what it writes.
+//
 //  Corner numbering is Adobe's key numbering (src0h, dst3v, ...), in
 //  Illustrator's y-up artwork coordinates:
 //
@@ -130,8 +136,8 @@ namespace fdmath
 
     /** True when the quad is the rectangle it claims to be, in Adobe's corner
         order. Adobe's own dialog only ever writes a source quad of this shape;
-        a source quad of any other shape can only come from another writer,
-        and how the renderer reads one is not known (section B). */
+        a source quad of any other shape can only come from another writer
+        (section D). */
     inline bool IsAxisAlignedRect(const Quad& q, double tolerance)
     {
         return std::fabs(q.c[kTopLeft].v - q.c[kTopRight].v) <= tolerance &&
@@ -178,6 +184,48 @@ namespace fdmath
     inline Quad EffectiveQuad(const Rect& source, const Quad& destination, const Rect& inputBounds)
     {
         return Renormalize(destination, source, inputBounds);
+    }
+
+    /** The rectangle the renderer takes as a source quad's frame of
+        reference: through the top-left corner, the top-right corner's h, and
+        the bottom-left corner's v. The other three numbers do not shape it.
+        For a rectangular source it is that rectangle. Its width or height is
+        negative when the source is mirrored, which the renderer follows. */
+    inline Rect SourceFrame(const Quad& source)
+    {
+        return MakeRect(source.c[kTopLeft].h, source.c[kTopLeft].v, source.c[kTopRight].h, source.c[kBottomLeft].v);
+    }
+
+    /** False when the frame has no width or no height, which leaves the
+        renderer dividing by zero. */
+    inline bool HasUsableFrame(const Quad& source, double tolerance)
+    {
+        const Rect frame = SourceFrame(source);
+        return std::fabs(Width(frame)) > tolerance && std::fabs(Height(frame)) > tolerance;
+    }
+
+    /** The quad the renderer draws into for a source of any shape, as
+        measured (section D): each source corner's offset from its frame's
+        corner is subtracted, unscaled, from the input bounds' corner, and
+        each destination corner is carried by the bilinear map from the frame
+        onto that quad. With a rectangular source every offset is zero and
+        this is the renormalization above. */
+    inline Quad EffectiveQuad(const Quad& source, const Quad& destination, const Rect& inputBounds)
+    {
+        const Rect frame = SourceFrame(source);
+        const Quad frameCorners = RectQuad(frame);
+        const Quad boundsCorners = RectQuad(inputBounds);
+        Quad target;
+        for (int i = 0; i < 4; ++i)
+            target.c[i] = Sub(boundsCorners.c[i], Sub(source.c[i], frameCorners.c[i]));
+        Quad out;
+        for (int i = 0; i < 4; ++i)
+        {
+            const double u = (destination.c[i].h - frame.left) / Width(frame);
+            const double t = (destination.c[i].v - frame.bottom) / Height(frame);
+            out.c[i] = Bilinear(target, u, t);
+        }
+        return out;
     }
 
     /** Where Free Distort puts one point of the input art -- an anchor or a

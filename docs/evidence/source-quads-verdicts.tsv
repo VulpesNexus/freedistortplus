@@ -1,0 +1,485 @@
+case	reading	points	E vs Adobe's commit (pt)	drawing vs bilinear onto E (pt)	fits
+rect-bounds-general	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	4.71e-10	yes
+rect-bounds-general	the source's bounding box, renormalized onto the bounds	90	0	4.71e-10	yes
+rect-bounds-general	inverse bilinear in the source quad	90	0	4.71e-10	yes
+rect-bounds-general	homography from the source quad onto the bounds	90	0	4.71e-10	yes
+rect-inset-general	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	6.59e-10	6.59e-10	yes
+rect-inset-general	the source's bounding box, renormalized onto the bounds	90	6.59e-10	6.59e-10	yes
+rect-inset-general	inverse bilinear in the source quad	90	6.59e-10	6.59e-10	yes
+rect-inset-general	homography from the source quad onto the bounds	90	6.59e-10	6.59e-10	yes
+src-key0+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.63e-11	4.94e-10	yes
+src-key0+37	the source's bounding box, renormalized onto the bounds	90	42.2	42.2	no
+src-key0+37	inverse bilinear in the source quad	90	1.64e-11	4.94e-10	yes
+src-key0+37	homography from the source quad onto the bounds	90	1.63e-11	4.94e-10	yes
+src-key0-37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	5.93e-11	4.9e-10	yes
+src-key0-37	the source's bounding box, renormalized onto the bounds	90	32.9	32.9	no
+src-key0-37	inverse bilinear in the source quad	90	5.93e-11	4.9e-10	yes
+src-key0-37	homography from the source quad onto the bounds	90	5.94e-11	4.9e-10	yes
+src-key1+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.69e-11	4.94e-10	yes
+src-key1+37	the source's bounding box, renormalized onto the bounds	90	31.2	31.2	no
+src-key1+37	inverse bilinear in the source quad	90	1.69e-11	4.94e-10	yes
+src-key1+37	homography from the source quad onto the bounds	90	1.69e-11	4.94e-10	yes
+src-key1-37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.35e-10	4.7e-10	yes
+src-key1-37	the source's bounding box, renormalized onto the bounds	90	45.4	45.4	no
+src-key1-37	inverse bilinear in the source quad	90	1.35e-10	4.7e-10	yes
+src-key1-37	homography from the source quad onto the bounds	90	1.35e-10	4.7e-10	yes
+src-key2+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	5.93e-11	4.96e-10	yes
+src-key2+37	the source's bounding box, renormalized onto the bounds	90	32.9	32.9	no
+src-key2+37	inverse bilinear in the source quad	90	5.94e-11	4.96e-10	yes
+src-key2+37	homography from the source quad onto the bounds	90	5.93e-11	4.96e-10	yes
+src-key2-37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	8.37e-11	4.98e-10	yes
+src-key2-37	the source's bounding box, renormalized onto the bounds	90	42.2	42.2	no
+src-key2-37	inverse bilinear in the source quad	90	8.37e-11	4.98e-10	yes
+src-key2-37	homography from the source quad onto the bounds	90	8.36e-11	4.98e-10	yes
+src-key3+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	3.33e-10	yes
+src-key3+37	the source's bounding box, renormalized onto the bounds	90	31.2	31.2	no
+src-key3+37	inverse bilinear in the source quad	90	5.78	5.78	no
+src-key3+37	homography from the source quad onto the bounds	90	5.78	5.78	no
+src-key3-37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	3.33e-10	yes
+src-key3-37	the source's bounding box, renormalized onto the bounds	90	37	37	no
+src-key3-37	inverse bilinear in the source quad	90	8.4	8.4	no
+src-key3-37	homography from the source quad onto the bounds	90	8.4	8.4	no
+src-key4+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	3.33e-10	yes
+src-key4+37	the source's bounding box, renormalized onto the bounds	90	37	37	no
+src-key4+37	inverse bilinear in the source quad	90	5.21	5.21	no
+src-key4+37	homography from the source quad onto the bounds	90	5.21	5.21	no
+src-key4-37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	3.33e-10	yes
+src-key4-37	the source's bounding box, renormalized onto the bounds	90	32.9	32.9	no
+src-key4-37	inverse bilinear in the source quad	90	4.06	4.06	no
+src-key4-37	homography from the source quad onto the bounds	90	4.06	4.06	no
+src-key5+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.5e-11	4.7e-10	yes
+src-key5+37	the source's bounding box, renormalized onto the bounds	90	45.4	45.4	no
+src-key5+37	inverse bilinear in the source quad	90	3.5e-11	4.7e-10	yes
+src-key5+37	homography from the source quad onto the bounds	90	3.49e-11	4.7e-10	yes
+src-key5-37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.69e-11	4.63e-10	yes
+src-key5-37	the source's bounding box, renormalized onto the bounds	90	31.2	31.2	no
+src-key5-37	inverse bilinear in the source quad	90	1.69e-11	4.63e-10	yes
+src-key5-37	homography from the source quad onto the bounds	90	1.69e-11	4.63e-10	yes
+src-key6+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	3.33e-10	yes
+src-key6+37	the source's bounding box, renormalized onto the bounds	90	32.9	32.9	no
+src-key6+37	inverse bilinear in the source quad	90	4.06	4.06	no
+src-key6+37	homography from the source quad onto the bounds	90	4.06	4.06	no
+src-key6-37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	3.33e-10	yes
+src-key6-37	the source's bounding box, renormalized onto the bounds	90	37	37	no
+src-key6-37	inverse bilinear in the source quad	90	5.21	5.21	no
+src-key6-37	homography from the source quad onto the bounds	90	5.21	5.21	no
+src-key7+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	3.33e-10	yes
+src-key7+37	the source's bounding box, renormalized onto the bounds	90	37	37	no
+src-key7+37	inverse bilinear in the source quad	90	8.4	8.4	no
+src-key7+37	homography from the source quad onto the bounds	90	8.4	8.4	no
+src-key7-37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	3.33e-10	yes
+src-key7-37	the source's bounding box, renormalized onto the bounds	90	31.2	31.2	no
+src-key7-37	inverse bilinear in the source quad	90	5.78	5.78	no
+src-key7-37	homography from the source quad onto the bounds	90	5.78	5.78	no
+src-keys01	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	5.09e-11	6.34e-10	yes
+src-keys01	the source's bounding box, renormalized onto the bounds	90	38	38	no
+src-keys01	inverse bilinear in the source quad	90	1.25	1.25	no
+src-keys01	homography from the source quad onto the bounds	90	5.76	5.76	no
+src-keys02	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.26e-10	4.89e-10	yes
+src-keys02	the source's bounding box, renormalized onto the bounds	90	38.8	38.8	no
+src-keys02	inverse bilinear in the source quad	90	1.26e-10	4.89e-10	yes
+src-keys02	homography from the source quad onto the bounds	90	1.26e-10	4.89e-10	yes
+src-keys03	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.34e-10	6.33e-10	yes
+src-keys03	the source's bounding box, renormalized onto the bounds	90	48.5	48.5	no
+src-keys03	inverse bilinear in the source quad	90	2.37	2.37	no
+src-keys03	homography from the source quad onto the bounds	90	6.57	6.57	no
+src-keys04	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.31e-11	4.94e-10	yes
+src-keys04	the source's bounding box, renormalized onto the bounds	90	17.3	17.3	no
+src-keys04	inverse bilinear in the source quad	90	1.33	1.33	no
+src-keys04	homography from the source quad onto the bounds	90	1.33	1.33	no
+src-keys05	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.28e-10	6.23e-10	yes
+src-keys05	the source's bounding box, renormalized onto the bounds	90	42.2	42.2	no
+src-keys05	inverse bilinear in the source quad	90	4.19	4.19	no
+src-keys05	homography from the source quad onto the bounds	90	7.62	7.62	no
+src-keys06	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.33e-10	4.94e-10	yes
+src-keys06	the source's bounding box, renormalized onto the bounds	90	42.2	42.2	no
+src-keys06	inverse bilinear in the source quad	90	3.24	3.24	no
+src-keys06	homography from the source quad onto the bounds	90	3.24	3.24	no
+src-keys07	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.33e-10	5.92e-10	yes
+src-keys07	the source's bounding box, renormalized onto the bounds	90	42.2	42.2	no
+src-keys07	inverse bilinear in the source quad	90	3.24	3.24	no
+src-keys07	homography from the source quad onto the bounds	90	4.85	4.85	no
+src-keys12	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	4.33e-10	6.81e-10	yes
+src-keys12	the source's bounding box, renormalized onto the bounds	90	29.2	29.2	no
+src-keys12	inverse bilinear in the source quad	90	3.1	3.1	no
+src-keys12	homography from the source quad onto the bounds	90	6.66	6.66	no
+src-keys13	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	4.22e-10	4.22e-10	yes
+src-keys13	the source's bounding box, renormalized onto the bounds	90	11.8	11.8	no
+src-keys13	inverse bilinear in the source quad	90	1.22	1.22	no
+src-keys13	homography from the source quad onto the bounds	90	1.22	1.22	no
+src-keys14	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	2.77e-11	6.33e-10	yes
+src-keys14	the source's bounding box, renormalized onto the bounds	90	31.2	31.2	no
+src-keys14	inverse bilinear in the source quad	90	1.91	1.91	no
+src-keys14	homography from the source quad onto the bounds	90	1.98	1.98	no
+src-keys15	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.36e-10	4.8e-10	yes
+src-keys15	the source's bounding box, renormalized onto the bounds	90	31.2	31.2	no
+src-keys15	inverse bilinear in the source quad	90	3.36e-10	4.8e-10	yes
+src-keys15	homography from the source quad onto the bounds	90	3.36e-10	4.8e-10	yes
+src-keys16	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	4.22e-10	5.61e-10	yes
+src-keys16	the source's bounding box, renormalized onto the bounds	90	35.9	35.9	no
+src-keys16	inverse bilinear in the source quad	90	3.59	3.59	no
+src-keys16	homography from the source quad onto the bounds	90	3.59	3.59	no
+src-keys17	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	4.22e-10	4.73e-10	yes
+src-keys17	the source's bounding box, renormalized onto the bounds	90	27.6	27.6	no
+src-keys17	inverse bilinear in the source quad	90	3.59	3.59	no
+src-keys17	homography from the source quad onto the bounds	90	3.59	3.59	no
+src-keys23	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	9.27e-11	6.34e-10	yes
+src-keys23	the source's bounding box, renormalized onto the bounds	90	32.9	32.9	no
+src-keys23	inverse bilinear in the source quad	90	3.27	3.27	no
+src-keys23	homography from the source quad onto the bounds	90	6.64	6.64	no
+src-keys24	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	7.12e-11	4.9e-10	yes
+src-keys24	the source's bounding box, renormalized onto the bounds	90	30.4	30.4	no
+src-keys24	inverse bilinear in the source quad	90	2.53	2.53	no
+src-keys24	homography from the source quad onto the bounds	90	2.53	2.53	no
+src-keys25	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.94e-10	6.08e-10	yes
+src-keys25	the source's bounding box, renormalized onto the bounds	90	37.3	37.3	no
+src-keys25	inverse bilinear in the source quad	90	5.14	5.14	no
+src-keys25	homography from the source quad onto the bounds	90	5.14	5.14	no
+src-keys26	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	7.12e-11	4.96e-10	yes
+src-keys26	the source's bounding box, renormalized onto the bounds	90	12.5	12.5	no
+src-keys26	inverse bilinear in the source quad	90	0.887	0.887	no
+src-keys26	homography from the source quad onto the bounds	90	0.887	0.887	no
+src-keys27	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	5.93e-11	6.41e-10	yes
+src-keys27	the source's bounding box, renormalized onto the bounds	90	38.8	38.8	no
+src-keys27	inverse bilinear in the source quad	90	7.8	7.8	no
+src-keys27	homography from the source quad onto the bounds	90	11.3	11.3	no
+src-keys34	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	4.71e-10	yes
+src-keys34	the source's bounding box, renormalized onto the bounds	90	31.2	31.2	no
+src-keys34	inverse bilinear in the source quad	90	5.78	5.78	no
+src-keys34	homography from the source quad onto the bounds	90	8.17	8.17	no
+src-keys35	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	4.8e-10	4.92e-10	yes
+src-keys35	the source's bounding box, renormalized onto the bounds	90	31.2	31.2	no
+src-keys35	inverse bilinear in the source quad	90	5.78	5.78	no
+src-keys35	homography from the source quad onto the bounds	90	5.78	5.78	no
+src-keys36	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	4.71e-10	yes
+src-keys36	the source's bounding box, renormalized onto the bounds	90	31.2	31.2	no
+src-keys36	inverse bilinear in the source quad	90	7.03	7.03	no
+src-keys36	homography from the source quad onto the bounds	90	5.07	5.07	no
+src-keys37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	3.33e-10	yes
+src-keys37	the source's bounding box, renormalized onto the bounds	90	31.2	31.2	no
+src-keys37	inverse bilinear in the source quad	90	2.42	2.42	no
+src-keys37	homography from the source quad onto the bounds	90	2.42	2.42	no
+src-keys45	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.45e-11	5.93e-10	yes
+src-keys45	the source's bounding box, renormalized onto the bounds	90	49.2	49.2	no
+src-keys45	inverse bilinear in the source quad	90	9.44	9.44	no
+src-keys45	homography from the source quad onto the bounds	90	18.4	18.4	no
+src-keys46	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	3.33e-10	yes
+src-keys46	the source's bounding box, renormalized onto the bounds	90	37	37	no
+src-keys46	inverse bilinear in the source quad	90	1.81	1.81	no
+src-keys46	homography from the source quad onto the bounds	90	1.81	1.81	no
+src-keys47	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	4.71e-10	yes
+src-keys47	the source's bounding box, renormalized onto the bounds	90	37	37	no
+src-keys47	inverse bilinear in the source quad	90	5.44	5.44	no
+src-keys47	homography from the source quad onto the bounds	90	6.64	6.64	no
+src-keys56	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	2.94e-10	6.25e-10	yes
+src-keys56	the source's bounding box, renormalized onto the bounds	90	45.4	45.4	no
+src-keys56	inverse bilinear in the source quad	90	7.12	7.12	no
+src-keys56	homography from the source quad onto the bounds	90	10.7	10.7	no
+src-keys57	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.5e-11	4.76e-10	yes
+src-keys57	the source's bounding box, renormalized onto the bounds	90	19.4	19.4	no
+src-keys57	inverse bilinear in the source quad	90	2.23	2.23	no
+src-keys57	homography from the source quad onto the bounds	90	2.23	2.23	no
+src-keys67	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	4.71e-10	yes
+src-keys67	the source's bounding box, renormalized onto the bounds	90	32.9	32.9	no
+src-keys67	inverse bilinear in the source quad	90	0.947	0.947	no
+src-keys67	homography from the source quad onto the bounds	90	4.65	4.65	no
+convex-identity	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	5.47e-10	5.73e-10	yes
+convex-identity	the source's bounding box, renormalized onto the bounds	90	42.1	42.1	no
+convex-identity	inverse bilinear in the source quad	90	22.4	22.4	no
+convex-identity	homography from the source quad onto the bounds	90	38	38	no
+convex-general	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	4.44e-10	6.08e-10	yes
+convex-general	the source's bounding box, renormalized onto the bounds	90	46.8	46.8	no
+convex-general	inverse bilinear in the source quad	90	13.6	13.6	no
+convex-general	homography from the source quad onto the bounds	90	15.9	15.9	no
+convex-dst-key0+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.86e-10	6.23e-10	yes
+convex-dst-key0+37	the source's bounding box, renormalized onto the bounds	90	42.1	42.1	no
+convex-dst-key0+37	inverse bilinear in the source quad	90	22.4	22.4	no
+convex-dst-key0+37	homography from the source quad onto the bounds	90	38	38	no
+convex-dst-key1+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	5.89e-10	6.43e-10	yes
+convex-dst-key1+37	the source's bounding box, renormalized onto the bounds	90	42.1	42.1	no
+convex-dst-key1+37	inverse bilinear in the source quad	90	22.4	22.4	no
+convex-dst-key1+37	homography from the source quad onto the bounds	90	38	38	no
+convex-dst-key2+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	6.53e-10	6.53e-10	yes
+convex-dst-key2+37	the source's bounding box, renormalized onto the bounds	90	42.1	42.1	no
+convex-dst-key2+37	inverse bilinear in the source quad	90	22.4	22.4	no
+convex-dst-key2+37	homography from the source quad onto the bounds	90	38	38	no
+convex-dst-key3+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	6.13e-10	6.68e-10	yes
+convex-dst-key3+37	the source's bounding box, renormalized onto the bounds	90	42.5	42.5	no
+convex-dst-key3+37	inverse bilinear in the source quad	90	22.4	22.4	no
+convex-dst-key3+37	homography from the source quad onto the bounds	90	38	38	no
+convex-dst-key4+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	5.47e-10	5.73e-10	yes
+convex-dst-key4+37	the source's bounding box, renormalized onto the bounds	90	42.1	42.1	no
+convex-dst-key4+37	inverse bilinear in the source quad	90	22.4	22.4	no
+convex-dst-key4+37	homography from the source quad onto the bounds	90	38	38	no
+convex-dst-key5+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	5.47e-10	6.74e-10	yes
+convex-dst-key5+37	the source's bounding box, renormalized onto the bounds	90	42.1	42.1	no
+convex-dst-key5+37	inverse bilinear in the source quad	90	22.4	22.4	no
+convex-dst-key5+37	homography from the source quad onto the bounds	90	38	38	no
+convex-dst-key6+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	5.47e-10	6.22e-10	yes
+convex-dst-key6+37	the source's bounding box, renormalized onto the bounds	90	50.8	50.8	no
+convex-dst-key6+37	inverse bilinear in the source quad	90	33.1	33.1	no
+convex-dst-key6+37	homography from the source quad onto the bounds	90	71.3	71.3	no
+convex-dst-key7+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	5.47e-10	5.47e-10	yes
+convex-dst-key7+37	the source's bounding box, renormalized onto the bounds	90	36	36	no
+convex-dst-key7+37	inverse bilinear in the source quad	90	11.2	11.2	no
+convex-dst-key7+37	homography from the source quad onto the bounds	90	17	17	no
+convex-dst-corner0-diagonal	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	4.6e-10	5.96e-10	yes
+convex-dst-corner0-diagonal	the source's bounding box, renormalized onto the bounds	90	42.1	42.1	no
+convex-dst-corner0-diagonal	inverse bilinear in the source quad	90	22.4	22.4	no
+convex-dst-corner0-diagonal	homography from the source quad onto the bounds	90	38	38	no
+convex-dst-corner0-at-corner3	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.86e-10	6.26e-10	yes
+convex-dst-corner0-at-corner3	the source's bounding box, renormalized onto the bounds	90	42.1	42.1	no
+convex-dst-corner0-at-corner3	inverse bilinear in the source quad	90	22.4	22.4	no
+convex-dst-corner0-at-corner3	homography from the source quad onto the bounds	90	38	38	no
+convex-dst-corner1-diagonal	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	5.47e-10	5.67e-10	yes
+convex-dst-corner1-diagonal	the source's bounding box, renormalized onto the bounds	90	47.6	47.6	no
+convex-dst-corner1-diagonal	inverse bilinear in the source quad	90	22.4	22.4	no
+convex-dst-corner1-diagonal	homography from the source quad onto the bounds	90	38	38	no
+convex-dst-corner1-at-corner2	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	5.47e-10	5.81e-10	yes
+convex-dst-corner1-at-corner2	the source's bounding box, renormalized onto the bounds	90	42.1	42.1	no
+convex-dst-corner1-at-corner2	inverse bilinear in the source quad	90	22.4	22.4	no
+convex-dst-corner1-at-corner2	homography from the source quad onto the bounds	90	38	38	no
+convex-dst-corner2-diagonal	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	5.47e-10	6.73e-10	yes
+convex-dst-corner2-diagonal	the source's bounding box, renormalized onto the bounds	90	42.1	42.1	no
+convex-dst-corner2-diagonal	inverse bilinear in the source quad	90	22.4	22.4	no
+convex-dst-corner2-diagonal	homography from the source quad onto the bounds	90	38	38	no
+convex-dst-corner2-at-corner1	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	5.47e-10	6.62e-10	yes
+convex-dst-corner2-at-corner1	the source's bounding box, renormalized onto the bounds	90	42.1	42.1	no
+convex-dst-corner2-at-corner1	inverse bilinear in the source quad	90	22.4	22.4	no
+convex-dst-corner2-at-corner1	homography from the source quad onto the bounds	90	38	38	no
+convex-dst-corner3-diagonal	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	6.08e-10	6.91e-10	yes
+convex-dst-corner3-diagonal	the source's bounding box, renormalized onto the bounds	90	38.8	38.8	no
+convex-dst-corner3-diagonal	inverse bilinear in the source quad	90	16.1	16.1	no
+convex-dst-corner3-diagonal	homography from the source quad onto the bounds	90	45	45	no
+convex-dst-corner3-at-corner0	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	5.47e-10	5.57e-10	yes
+convex-dst-corner3-at-corner0	the source's bounding box, renormalized onto the bounds	90	36	36	no
+convex-dst-corner3-at-corner0	inverse bilinear in the source quad	90	8.92	8.92	no
+convex-dst-corner3-at-corner0	homography from the source quad onto the bounds	90	16.4	16.4	no
+trapezoid-identity	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	3.33e-10	yes
+trapezoid-identity	the source's bounding box, renormalized onto the bounds	90	100	100	no
+trapezoid-identity	inverse bilinear in the source quad	90	1.42e-14	3.33e-10	yes
+trapezoid-identity	homography from the source quad onto the bounds	90	1.27e-13	3.33e-10	yes
+trapezoid-general	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.33e-10	4.71e-10	yes
+trapezoid-general	the source's bounding box, renormalized onto the bounds	90	127	127	no
+trapezoid-general	inverse bilinear in the source quad	90	20	20	no
+trapezoid-general	homography from the source quad onto the bounds	90	53.9	53.9	no
+trapezoid-dst-key0+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.33e-11	4.44e-10	yes
+trapezoid-dst-key0+37	the source's bounding box, renormalized onto the bounds	90	100	100	no
+trapezoid-dst-key0+37	inverse bilinear in the source quad	90	3.33e-11	4.44e-10	yes
+trapezoid-dst-key0+37	homography from the source quad onto the bounds	90	3.34e-11	4.45e-10	yes
+trapezoid-dst-key1+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	4.71e-10	yes
+trapezoid-dst-key1+37	the source's bounding box, renormalized onto the bounds	90	118	118	no
+trapezoid-dst-key1+37	inverse bilinear in the source quad	90	16.7	16.7	no
+trapezoid-dst-key1+37	homography from the source quad onto the bounds	90	37.3	37.3	no
+trapezoid-dst-key2+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.33e-10	4.44e-10	yes
+trapezoid-dst-key2+37	the source's bounding box, renormalized onto the bounds	90	125	125	no
+trapezoid-dst-key2+37	inverse bilinear in the source quad	90	3.33e-10	4.44e-10	yes
+trapezoid-dst-key2+37	homography from the source quad onto the bounds	90	3.33e-10	4.44e-10	yes
+trapezoid-dst-key3+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	4.71e-10	yes
+trapezoid-dst-key3+37	the source's bounding box, renormalized onto the bounds	90	118	118	no
+trapezoid-dst-key3+37	inverse bilinear in the source quad	90	16.7	16.7	no
+trapezoid-dst-key3+37	homography from the source quad onto the bounds	90	37.3	37.3	no
+trapezoid-dst-key4+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	3.33e-10	yes
+trapezoid-dst-key4+37	the source's bounding box, renormalized onto the bounds	90	100	100	no
+trapezoid-dst-key4+37	inverse bilinear in the source quad	90	1.42e-14	3.33e-10	yes
+trapezoid-dst-key4+37	homography from the source quad onto the bounds	90	1.27e-13	3.33e-10	yes
+trapezoid-dst-key5+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	4.71e-10	yes
+trapezoid-dst-key5+37	the source's bounding box, renormalized onto the bounds	90	100	100	no
+trapezoid-dst-key5+37	inverse bilinear in the source quad	90	6.51	6.51	no
+trapezoid-dst-key5+37	homography from the source quad onto the bounds	90	14.6	14.6	no
+trapezoid-dst-key6+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	3.33e-10	yes
+trapezoid-dst-key6+37	the source's bounding box, renormalized onto the bounds	90	100	100	no
+trapezoid-dst-key6+37	inverse bilinear in the source quad	90	1.42e-14	3.33e-10	yes
+trapezoid-dst-key6+37	homography from the source quad onto the bounds	90	1.27e-13	3.33e-10	yes
+trapezoid-dst-key7+37	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	4.71e-10	yes
+trapezoid-dst-key7+37	the source's bounding box, renormalized onto the bounds	90	100	100	no
+trapezoid-dst-key7+37	inverse bilinear in the source quad	90	6.51	6.51	no
+trapezoid-dst-key7+37	homography from the source quad onto the bounds	90	14.6	14.6	no
+trapezoid-dst-corner0-diagonal	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	7.11e-15	4.71e-10	yes
+trapezoid-dst-corner0-diagonal	the source's bounding box, renormalized onto the bounds	90	100	100	no
+trapezoid-dst-corner0-diagonal	inverse bilinear in the source quad	90	12.6	12.6	no
+trapezoid-dst-corner0-diagonal	homography from the source quad onto the bounds	90	35.6	35.6	no
+trapezoid-dst-corner0-at-corner3	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	4.71e-10	yes
+trapezoid-dst-corner0-at-corner3	the source's bounding box, renormalized onto the bounds	90	100	100	no
+trapezoid-dst-corner0-at-corner3	inverse bilinear in the source quad	90	0	4.71e-10	yes
+trapezoid-dst-corner0-at-corner3	homography from the source quad onto the bounds	90	1.27e-13	4.71e-10	yes
+trapezoid-dst-corner1-diagonal	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.14e-13	3.33e-10	yes
+trapezoid-dst-corner1-diagonal	the source's bounding box, renormalized onto the bounds	90	148	148	no
+trapezoid-dst-corner1-diagonal	inverse bilinear in the source quad	90	20.8	20.8	no
+trapezoid-dst-corner1-diagonal	homography from the source quad onto the bounds	90	39.3	39.3	no
+trapezoid-dst-corner1-at-corner2	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	4.71e-10	yes
+trapezoid-dst-corner1-at-corner2	the source's bounding box, renormalized onto the bounds	90	100	100	no
+trapezoid-dst-corner1-at-corner2	inverse bilinear in the source quad	90	1.42e-14	4.71e-10	yes
+trapezoid-dst-corner1-at-corner2	homography from the source quad onto the bounds	90	7.11e-14	4.71e-10	yes
+trapezoid-dst-corner2-diagonal	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.33e-10	5.56e-10	yes
+trapezoid-dst-corner2-diagonal	the source's bounding box, renormalized onto the bounds	90	100	100	no
+trapezoid-dst-corner2-diagonal	inverse bilinear in the source quad	90	4.91	4.91	no
+trapezoid-dst-corner2-diagonal	homography from the source quad onto the bounds	90	13.9	13.9	no
+trapezoid-dst-corner2-at-corner1	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	4.71e-10	yes
+trapezoid-dst-corner2-at-corner1	the source's bounding box, renormalized onto the bounds	90	100	100	no
+trapezoid-dst-corner2-at-corner1	inverse bilinear in the source quad	90	1.42e-14	4.71e-10	yes
+trapezoid-dst-corner2-at-corner1	homography from the source quad onto the bounds	90	1.27e-13	4.72e-10	yes
+trapezoid-dst-corner3-diagonal	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.33e-10	5.56e-10	yes
+trapezoid-dst-corner3-diagonal	the source's bounding box, renormalized onto the bounds	90	100	100	no
+trapezoid-dst-corner3-diagonal	inverse bilinear in the source quad	90	8.12	8.12	no
+trapezoid-dst-corner3-diagonal	homography from the source quad onto the bounds	90	15.3	15.3	no
+trapezoid-dst-corner3-at-corner0	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	4.71e-10	yes
+trapezoid-dst-corner3-at-corner0	the source's bounding box, renormalized onto the bounds	90	100	100	no
+trapezoid-dst-corner3-at-corner0	inverse bilinear in the source quad	90	1.42e-14	4.71e-10	yes
+trapezoid-dst-corner3-at-corner0	homography from the source quad onto the bounds	90	1.27e-13	4.71e-10	yes
+parallelogram-general	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	5.68e-14	4.71e-10	yes
+parallelogram-general	the source's bounding box, renormalized onto the bounds	90	46.5	46.5	no
+parallelogram-general	inverse bilinear in the source quad	90	0	4.71e-10	yes
+parallelogram-general	homography from the source quad onto the bounds	90	1.27e-13	4.72e-10	yes
+concave-identity	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	1.42e-14	yes
+concave-identity	the source's bounding box, renormalized onto the bounds	90	192	192	no
+concave-identity	inverse bilinear in the source quad	90	992	992	no
+concave-identity	homography from the source quad onto the bounds	90	498	498	no
+concave-general	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	7.11e-15	4.71e-10	yes
+concave-general	the source's bounding box, renormalized onto the bounds	90	147	147	no
+concave-general	inverse bilinear in the source quad	90	469	469	no
+concave-general	homography from the source quad onto the bounds	90	405	405	no
+bow-tie-identity	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	0	2.84e-14	yes
+bow-tie-identity	the source's bounding box, renormalized onto the bounds	90	300	300	no
+bow-tie-identity	inverse bilinear in the source quad	90	inf	inf	no
+bow-tie-identity	homography from the source quad onto the bounds	90	1.27e-13	1.27e-13	yes
+far-convex-general	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	4.23e-09	6.53e-10	yes
+far-convex-general	the source's bounding box, renormalized onto the bounds	90	1.87e+03	1.87e+03	no
+far-convex-general	inverse bilinear in the source quad	90	561	561	no
+far-convex-general	homography from the source quad onto the bounds	90	2.01e+03	2.01e+03	no
+random-00	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	2.84e-09	2.84e-09	yes
+random-00	the source's bounding box, renormalized onto the bounds	90	179	179	no
+random-00	inverse bilinear in the source quad	90	992	992	no
+random-00	homography from the source quad onto the bounds	90	1.81e+03	1.81e+03	no
+random-01	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.9e-09	1.9e-09	yes
+random-01	the source's bounding box, renormalized onto the bounds	90	151	151	no
+random-01	inverse bilinear in the source quad	90	47	47	no
+random-01	homography from the source quad onto the bounds	90	45.3	45.3	no
+random-02	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	7.89e-10	8.58e-10	yes
+random-02	the source's bounding box, renormalized onto the bounds	90	42.5	42.5	no
+random-02	inverse bilinear in the source quad	90	5.81	5.81	no
+random-02	homography from the source quad onto the bounds	90	10.5	10.5	no
+random-03	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.1e-09	1.1e-09	yes
+random-03	the source's bounding box, renormalized onto the bounds	90	157	157	no
+random-03	inverse bilinear in the source quad	90	354	354	no
+random-03	homography from the source quad onto the bounds	90	933	933	no
+random-04	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	6.59e-10	7.93e-10	yes
+random-04	the source's bounding box, renormalized onto the bounds	90	93.1	93.1	no
+random-04	inverse bilinear in the source quad	90	19	19	no
+random-04	homography from the source quad onto the bounds	90	30.5	30.5	no
+random-05	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	9.62e-10	1.03e-09	yes
+random-05	the source's bounding box, renormalized onto the bounds	90	119	119	no
+random-05	inverse bilinear in the source quad	90	79.6	79.6	no
+random-05	homography from the source quad onto the bounds	90	104	104	no
+random-06	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.02e-09	1.02e-09	yes
+random-06	the source's bounding box, renormalized onto the bounds	90	98.3	98.3	no
+random-06	inverse bilinear in the source quad	90	50.7	50.7	no
+random-06	homography from the source quad onto the bounds	90	379	379	no
+random-07	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	2.56e-09	2.56e-09	yes
+random-07	the source's bounding box, renormalized onto the bounds	90	315	315	no
+random-07	inverse bilinear in the source quad	90	222	222	no
+random-07	homography from the source quad onto the bounds	90	219	219	no
+random-08	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	4.56e-10	6.98e-10	yes
+random-08	the source's bounding box, renormalized onto the bounds	90	105	105	no
+random-08	inverse bilinear in the source quad	90	174	174	no
+random-08	homography from the source quad onto the bounds	90	172	172	no
+random-09	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	6.07e-10	7.45e-10	yes
+random-09	the source's bounding box, renormalized onto the bounds	90	40.7	40.7	no
+random-09	inverse bilinear in the source quad	90	21	21	no
+random-09	homography from the source quad onto the bounds	90	29.1	29.1	no
+random-10	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.59e-09	1.8e-09	yes
+random-10	the source's bounding box, renormalized onto the bounds	90	205	205	no
+random-10	inverse bilinear in the source quad	90	72.5	72.5	no
+random-10	homography from the source quad onto the bounds	90	118	118	no
+random-11	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.01e-09	1.06e-09	yes
+random-11	the source's bounding box, renormalized onto the bounds	90	152	152	no
+random-11	inverse bilinear in the source quad	90	65.3	65.3	no
+random-11	homography from the source quad onto the bounds	90	90.4	90.4	no
+random-12	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.94e-10	9.97e-10	yes
+random-12	the source's bounding box, renormalized onto the bounds	90	107	107	no
+random-12	inverse bilinear in the source quad	90	92.4	92.4	no
+random-12	homography from the source quad onto the bounds	90	89.1	89.1	no
+random-13	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.74e-09	1.85e-09	yes
+random-13	the source's bounding box, renormalized onto the bounds	90	163	163	no
+random-13	inverse bilinear in the source quad	90	71.5	71.5	no
+random-13	homography from the source quad onto the bounds	90	90.5	90.5	no
+random-14	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.67e-09	1.67e-09	yes
+random-14	the source's bounding box, renormalized onto the bounds	90	280	280	no
+random-14	inverse bilinear in the source quad	90	119	119	no
+random-14	homography from the source quad onto the bounds	90	541	541	no
+random-15	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	8.2e-10	1.17e-09	yes
+random-15	the source's bounding box, renormalized onto the bounds	90	50.9	50.9	no
+random-15	inverse bilinear in the source quad	90	8.64	8.64	no
+random-15	homography from the source quad onto the bounds	90	16.3	16.3	no
+random-wild-00	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	2.62e-08	2.33e-08	yes
+random-wild-00	the source's bounding box, renormalized onto the bounds	90	2.02e+03	2.02e+03	no
+random-wild-00	inverse bilinear in the source quad	90	2.76e+03	2.76e+03	no
+random-wild-00	homography from the source quad onto the bounds	90	4.95e+03	4.95e+03	no
+random-wild-01	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.87e-09	1.87e-09	yes
+random-wild-01	the source's bounding box, renormalized onto the bounds	90	300	300	no
+random-wild-01	inverse bilinear in the source quad	90	211	211	no
+random-wild-01	homography from the source quad onto the bounds	90	1.46e+03	1.46e+03	no
+random-wild-02	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.42e-09	3.42e-09	yes
+random-wild-02	the source's bounding box, renormalized onto the bounds	90	358	358	no
+random-wild-02	inverse bilinear in the source quad	90	273	273	no
+random-wild-02	homography from the source quad onto the bounds	90	2.23e+03	2.23e+03	no
+random-wild-03	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.03e-07	3.01e-07	yes
+random-wild-03	the source's bounding box, renormalized onto the bounds	90	1.19e+04	1.19e+04	no
+random-wild-03	inverse bilinear in the source quad	90	1.24e+04	1.24e+04	no
+random-wild-03	homography from the source quad onto the bounds	90	1.22e+04	1.22e+04	no
+wide-convex-identity	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	3.14e-10	6.29e-10	yes
+wide-convex-identity	the source's bounding box, renormalized onto the bounds	90	42	42	no
+wide-convex-identity	inverse bilinear in the source quad	90	30.8	30.8	no
+wide-convex-identity	homography from the source quad onto the bounds	90	59.5	59.5	no
+wide-convex-general	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	4.97e-10	6.31e-10	yes
+wide-convex-general	the source's bounding box, renormalized onto the bounds	90	46.2	46.2	no
+wide-convex-general	inverse bilinear in the source quad	90	21.5	21.5	no
+wide-convex-general	homography from the source quad onto the bounds	90	27.8	27.8	no
+wide-grid-source-convex	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	4.85e-10	6.07e-10	yes
+wide-grid-source-convex	the source's bounding box, renormalized onto the bounds	90	46.8	46.8	no
+wide-grid-source-convex	inverse bilinear in the source quad	90	35.2	35.2	no
+wide-grid-source-convex	homography from the source quad onto the bounds	90	18.7	18.7	no
+wide-random-00	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.69e-09	1.69e-09	yes
+wide-random-00	the source's bounding box, renormalized onto the bounds	90	189	189	no
+wide-random-00	inverse bilinear in the source quad	90	1.66e+04	1.66e+04	no
+wide-random-00	homography from the source quad onto the bounds	90	522	522	no
+wide-random-01	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	1.39e-09	1.39e-09	yes
+wide-random-01	the source's bounding box, renormalized onto the bounds	90	134	134	no
+wide-random-01	inverse bilinear in the source quad	90	73.3	73.3	no
+wide-random-01	homography from the source quad onto the bounds	90	842	842	no
+wide-random-02	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	6.81e-10	9.05e-10	yes
+wide-random-02	the source's bounding box, renormalized onto the bounds	90	181	181	no
+wide-random-02	inverse bilinear in the source quad	90	60.3	60.3	no
+wide-random-02	homography from the source quad onto the bounds	90	437	437	no
+wide-random-03	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	4.01e-09	4.01e-09	yes
+wide-random-03	the source's bounding box, renormalized onto the bounds	90	179	179	no
+wide-random-03	inverse bilinear in the source quad	90	114	114	no
+wide-random-03	homography from the source quad onto the bounds	90	480	480	no
+wide-random-04	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	8.5e-10	8.5e-10	yes
+wide-random-04	the source's bounding box, renormalized onto the bounds	90	36.4	36.4	no
+wide-random-04	inverse bilinear in the source quad	90	32.3	32.3	no
+wide-random-04	homography from the source quad onto the bounds	90	69.3	69.3	no
+wide-random-05	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	90	6.32e-10	1.03e-09	yes
+wide-random-05	the source's bounding box, renormalized onto the bounds	90	83.7	83.7	no
+wide-random-05	inverse bilinear in the source quad	90	78.8	78.8	no
+wide-random-05	homography from the source quad onto the bounds	90	142	142	no
+curves-convex-general	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	15	8.18e-10	6.3e-10	yes
+curves-convex-general	the source's bounding box, renormalized onto the bounds	15	46.8	34.5	no
+curves-convex-general	inverse bilinear in the source quad	15	14.6	13.3	no
+curves-convex-general	homography from the source quad onto the bounds	15	16.2	12.1	no
+curves-random-00	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	15	1.12e-09	1.3e-09	yes
+curves-random-00	the source's bounding box, renormalized onto the bounds	15	53.5	39.3	no
+curves-random-00	inverse bilinear in the source quad	15	11	10.5	no
+curves-random-00	homography from the source quad onto the bounds	15	21.9	21.4	no
+curves-random-01	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	15	1.07e-09	1.02e-09	yes
+curves-random-01	the source's bounding box, renormalized onto the bounds	15	90.3	71.2	no
+curves-random-01	inverse bilinear in the source quad	15	15.4	14.2	no
+curves-random-01	homography from the source quad onto the bounds	15	21	15.7	no
+curves-random-02	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	15	1.28e-09	9.76e-10	yes
+curves-random-02	the source's bounding box, renormalized onto the bounds	15	59.7	49.5	no
+curves-random-02	inverse bilinear in the source quad	15	7.96	6.91	no
+curves-random-02	homography from the source quad onto the bounds	15	33.9	33.1	no
+curves-random-03	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	15	9.81e-10	1.08e-09	yes
+curves-random-03	the source's bounding box, renormalized onto the bounds	15	136	106	no
+curves-random-03	inverse bilinear in the source quad	15	40	31.3	no
+curves-random-03	homography from the source quad onto the bounds	15	47.1	34.9	no

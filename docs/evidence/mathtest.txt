@@ -5,5 +5,11 @@ Enhanced Free Distort -- quad arithmetic
 
       grid, source = bounds: 30 points, worst deviation 4.71e-10 pt
       curves and handles, source != bounds: 15 points, worst deviation 6.51e-10 pt
+      convex source: worst deviation 5.47e-10 pt
+      trapezoid source, distorted destination: worst deviation 3.33e-10 pt
+      concave source: worst deviation 0 pt
+      bow-tie source: worst deviation 0 pt
+      convex source 1000 pt away: worst deviation 4.23e-09 pt
+      convex offsets over other input bounds: worst deviation 4.97e-10 pt
 
-21 checks, 0 failed
+30 checks, 0 failed

@@ -13,15 +13,17 @@
 
 //  DistortEditor.h -- the on-canvas editor: a tool whose handles are the four
 //  corners of the selected object's Free Distort, drawn by an annotator over
-//  the real artwork, which Adobe's effect re-renders as they move.
+//  the real artwork.
 //
-//  The document is the preview. A drag rewrites Adobe's dictionary on every
-//  mouse event and Illustrator draws the result in place, at whatever zoom the
-//  user is working at. Each drag is one undo step, the way every Illustrator
-//  tool's drag is: Illustrator bundles a tool's mouse-down, drags, and
-//  mouse-up into one undo context, and each drag event first discards the
-//  previous event's write with UndoChanges, so the history holds only where
-//  the corner was released. Escape during a drag discards it.
+//  A drag rewrites Adobe's dictionary on every mouse event. Illustrator does
+//  not repaint the document until the mouse comes up, so while the drag lasts
+//  the annotator draws an outline of exactly where Adobe will put the art (see
+//  PreviewContour), and on release Adobe's own effect draws it in place, at
+//  whatever zoom the user is working at. Each drag is one undo step, the way
+//  every Illustrator tool's drag is: Illustrator bundles a tool's mouse-down,
+//  drags, and mouse-up into one undo context, and each drag event first
+//  discards the previous event's write with UndoChanges, so the history holds
+//  only where the corner was released. Escape during a drag discards it.
 
 #ifndef __DISTORTEDITOR_H__
 #define __DISTORTEDITOR_H__
@@ -115,6 +117,12 @@ private:
         AIArtStyleHandle styleAtMeasure = nullptr;  // and its style, less this editor's own writes
         fdmath::Quad quad;                  // effective destination quad, artwork coordinates
         std::string measureReport;
+        bool sourceIsRectangle = true;      // the stored source, as Adobe's dialog writes it
+        // When the input bounds were asked of Adobe, its commit also said
+        // where it draws; the quad is then Adobe's own answer, and the
+        // editor's formula is checked against it.
+        bool quadFromAdobe = false;
+        double formulaDeviation = -1.0;     // formula against Adobe, in points; -1 when not compared
     };
 
     bool Retarget(bool measure);

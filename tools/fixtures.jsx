@@ -131,6 +131,20 @@ var EFD = (function () {
         return name;
     };
 
+    /** The grid above, scaled by sx and sy and moved so its bottom-left
+        corner is at (x0, y0): the same anchors over a different input bounds. */
+    api.gridAt = function (name, x0, y0, sx, sy) {
+        api.grid(name);
+        var p = api.named(name);
+        var pts = [];
+        for (var i = 0; i < p.pathPoints.length; i++) {
+            var a = p.pathPoints[i].anchor;
+            pts.push([x0 + (a[0] - 100) * sx, y0 + (a[1] - 100) * sy]);
+        }
+        p.setEntirePath(pts);
+        return name;
+    };
+
     /** Five corner points with independent handles, so handles are mapped
         where anchors are not. Its geometric bounds are not its control
         polygon's bounds. */

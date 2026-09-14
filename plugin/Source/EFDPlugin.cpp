@@ -374,7 +374,7 @@ ASErr EFDPlugin::HandleScriptMessage(const char* selector, AIScriptMessage* mess
             if (!err)
             {
                 fdmath::Quad quad = (state.hasSource && state.hasDestination)
-                    ? fdmath::EffectiveQuad(fdmath::BoundingRect(state.source), state.destination, bounds)
+                    ? fdmath::EffectiveQuad(state.source, state.destination, bounds)
                     : fdmath::RectQuad(bounds);
                 quad.c[corner] = fdmath::Make(p[0], p[1]);
                 err = fd::Write(art, index, bounds, quad, &report);

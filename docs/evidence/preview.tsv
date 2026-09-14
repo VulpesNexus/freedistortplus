@@ -1,5 +1,9 @@
 probe	group	case	expected	observed	status
 preview	grid	a drag opens with a preview of the art	drag open; preview of 1 path, 30 segments, captured before the drag because a tool mouse-down cannot read the styled result	open, corner 2; preview of 1 paths, 30 segments (captured before the drag)	PASS
 preview	grid	every previewed anchor and handle is where Adobe draws it after release	within 1e-6 pt	90 points previewed, 90 rendered, worst deviation 0 pt	PASS
+preview	non-rectangular source	the editor takes a non-rectangular source, with its handles where Adobe's own commit says it draws	target valid; source not a rectangle; quad from Adobe; formula within 1e-6 pt of Adobe	target valid; source not a rectangle; quad from Adobe's commit; formula against Adobe 1.13686837722e-13	PASS
+preview	non-rectangular source	before the pointer moves, the preview is exactly what Adobe draws for the non-rectangular source	within 1e-6 pt	90 points, worst deviation 1E-09 pt	PASS
+preview	non-rectangular source	releasing writes the source as the input bounds, as Adobe's OK does, and the artwork does not move	source 100..400 x 100..300; drawing within 1e-6 pt of before	entries 16 src (100,300 400,300 100,100 400,100) dst (140.316205534,332.042160738 433.438735178,307.588932806 35.0197628458,93.3069828722 377.575757576,119.657444005); worst deviation 1E-09 pt	PASS
+preview	non-rectangular source	a drag from a converted source previews exactly what Adobe draws after release	within 1e-6 pt	90 points, worst deviation 1E-09 pt	PASS
 preview	point text	the preview of live text matches the glyph outlines Adobe draws after release	within 1e-6 pt	267 points previewed, 267 rendered, worst nearest distance 1E-09 pt	PASS
 preview	point text	the text is still live text afterwards	TextFrame|Distort	TextFrame|Distort	PASS

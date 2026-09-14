@@ -51,6 +51,9 @@ python .\tools\solve-mapping.py  # which model fits
 .\tools\probe-support.ps1        # every kind of artwork
 .\tools\probe-persistence.ps1    # copy and paste, PDF, SVG, the menu command, cost per drag step
 .\tools\probe-preview.ps1        # the drag outline against what Adobe draws on release
+.\tools\probe-source-quads.ps1   # non-rectangular sources: the drawing, and Adobe's own commit, over 121 cases
+.\tools\probe-source-follow.ps1  # Illustrator's own operations on distorted art
+python .\tools\solve-source-quads.py    # which reading of a source fits
 python .\tools\make-support-matrix.py   # regenerates docs/FREE_DISTORT_SUPPORT_MATRIX.md from the results
 ```
 

@@ -1,0 +1,53 @@
+case	reading	points	E vs Adobe's commit (pt)	drawing vs bilinear onto E (pt)	fits
+move	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	15	0	5.53e-10	yes
+move	the source's bounding box, renormalized onto the bounds	15	0	5.53e-10	yes
+move	inverse bilinear in the source quad	15	0	5.53e-10	yes
+move	homography from the source quad onto the bounds	15	8.04e-14	5.53e-10	yes
+scale-uniform-effects-scaled	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	15	0	4.86e-10	yes
+scale-uniform-effects-scaled	the source's bounding box, renormalized onto the bounds	15	0	4.86e-10	yes
+scale-uniform-effects-scaled	inverse bilinear in the source quad	15	1.28e-14	4.86e-10	yes
+scale-uniform-effects-scaled	homography from the source quad onto the bounds	15	1.21e-13	4.86e-10	yes
+scale-non-uniform	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	15	0	4.54e-10	yes
+scale-non-uniform	the source's bounding box, renormalized onto the bounds	15	0	4.54e-10	yes
+scale-non-uniform	inverse bilinear in the source quad	15	7.11e-15	4.54e-10	yes
+scale-non-uniform	homography from the source quad onto the bounds	15	1.27e-13	4.54e-10	yes
+scale-non-uniform-effects-scaled	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	15	0	4.54e-10	yes
+scale-non-uniform-effects-scaled	the source's bounding box, renormalized onto the bounds	15	0	4.54e-10	yes
+scale-non-uniform-effects-scaled	inverse bilinear in the source quad	15	7.11e-15	4.54e-10	yes
+scale-non-uniform-effects-scaled	homography from the source quad onto the bounds	15	1.27e-13	4.54e-10	yes
+rotate-30	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	15	6.88e-10	8.49e-10	yes
+rotate-30	the source's bounding box, renormalized onto the bounds	15	6.88e-10	8.49e-10	yes
+rotate-30	inverse bilinear in the source quad	15	6.88e-10	8.49e-10	yes
+rotate-30	homography from the source quad onto the bounds	15	6.88e-10	8.49e-10	yes
+rotate-90	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	15	5.53e-10	9.36e-10	yes
+rotate-90	the source's bounding box, renormalized onto the bounds	15	5.53e-10	9.36e-10	yes
+rotate-90	inverse bilinear in the source quad	15	5.53e-10	9.36e-10	yes
+rotate-90	homography from the source quad onto the bounds	15	5.54e-10	9.36e-10	yes
+reflect	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	15	0	6.18e-10	yes
+reflect	the source's bounding box, renormalized onto the bounds	15	0	6.18e-10	yes
+reflect	inverse bilinear in the source quad	15	0	6.18e-10	yes
+reflect	homography from the source quad onto the bounds	15	0	6.18e-10	yes
+shear-20	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	15	5.2e-10	7.22e-10	yes
+shear-20	the source's bounding box, renormalized onto the bounds	15	5.2e-10	7.22e-10	yes
+shear-20	inverse bilinear in the source quad	15	5.2e-10	7.22e-10	yes
+shear-20	homography from the source quad onto the bounds	15	5.2e-10	7.22e-10	yes
+reshape-anchor-out	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	15	0	5.24e-10	yes
+reshape-anchor-out	the source's bounding box, renormalized onto the bounds	15	0	5.24e-10	yes
+reshape-anchor-out	inverse bilinear in the source quad	15	7.11e-15	5.24e-10	yes
+reshape-anchor-out	homography from the source quad onto the bounds	15	5.68e-14	5.24e-10	yes
+reshape-anchor-in	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	15	0	4.29e-10	yes
+reshape-anchor-in	the source's bounding box, renormalized onto the bounds	15	0	4.29e-10	yes
+reshape-anchor-in	inverse bilinear in the source quad	15	1.42e-14	4.29e-10	yes
+reshape-anchor-in	homography from the source quad onto the bounds	15	5.68e-14	4.29e-10	yes
+add-anchor	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	18	4.35e-10	5e-10	yes
+add-anchor	the source's bounding box, renormalized onto the bounds	18	4.35e-10	5e-10	yes
+add-anchor	inverse bilinear in the source quad	18	4.35e-10	5e-10	yes
+add-anchor	homography from the source quad onto the bounds	18	4.35e-10	5e-10	yes
+remove-anchor	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	12	2.61e-10	4.35e-10	yes
+remove-anchor	the source's bounding box, renormalized onto the bounds	12	2.61e-10	4.35e-10	yes
+remove-anchor	inverse bilinear in the source quad	12	2.61e-10	4.35e-10	yes
+remove-anchor	homography from the source quad onto the bounds	12	2.61e-10	4.35e-10	yes
+curve-handle	Adobe: frame from top-left, top-right h, bottom-left v; corner offsets subtracted from the bounds	15	4e-10	5.32e-10	yes
+curve-handle	the source's bounding box, renormalized onto the bounds	15	4e-10	5.32e-10	yes
+curve-handle	inverse bilinear in the source quad	15	4e-10	5.32e-10	yes
+curve-handle	homography from the source quad onto the bounds	15	4e-10	5.32e-10	yes

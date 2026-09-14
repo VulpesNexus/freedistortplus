@@ -234,9 +234,12 @@ namespace
 {
     /** One question to Adobe's edit path; see MeasureInputBounds. Returns
         true when it answered with a rectangle, which is left in `bounds`,
-        and always leaves the art's style as it found it. */
-    bool AskAdobe(AIArtHandle art, ai::int32 postIndex, fdmath::Rect* bounds, std::ostringstream& o)
+        with the destination it committed in `drawn` when it wrote one, and
+        always leaves the art's style as it found it. */
+    bool AskAdobe(AIArtHandle art, ai::int32 postIndex, fdmath::Rect* bounds,
+                  fdmath::Quad* drawn, bool* haveDrawn, std::ostringstream& o)
     {
+    *haveDrawn = false;
     AIArtStyleHandle originalStyle = nullptr;
     sAIArtStyle->GetArtStyle(art, &originalStyle);
 
@@ -269,6 +272,11 @@ namespace
         *bounds = fdmath::BoundingRect(committed.source);
         adobeAnswered = true;
         o << "Adobe chose source " << fd::Describe(*bounds) << "; ";
+        if (committed.hasDestination)
+        {
+            *drawn = committed.destination;
+            *haveDrawn = true;
+        }
     }
 
     // Put the document back. UndoChanges discards what this context changed,
@@ -307,12 +315,14 @@ namespace
 }
 
 ASErr MeasureInputBounds(AIArtHandle art, ai::int32 postIndex, fdmath::Rect* bounds,
-                         BoundsSource* how, std::string* report)
+                         BoundsSource* how, std::string* report,
+                         fdmath::Quad* drawnQuad, bool* haveDrawnQuad)
 {
     std::ostringstream o;
     State before;
     ASErr err = Read(art, postIndex, &before);
     if (err) return err;
+    if (haveDrawnQuad) *haveDrawnQuad = false;
 
     fdmath::Rect geometry;
     const bool haveGeometry = GeometricBounds(art, &geometry) == kNoErr;
@@ -322,12 +332,14 @@ ASErr MeasureInputBounds(AIArtHandle art, ai::int32 postIndex, fdmath::Rect* bou
     AIArtHandle styled = nullptr;
     sAIArtStyle->GetStyledArt(art, &styled);
 
-    bool adobeAnswered = AskAdobe(art, postIndex, bounds, o);
+    fdmath::Quad drawn;
+    bool haveDrawn = false;
+    bool adobeAnswered = AskAdobe(art, postIndex, bounds, &drawn, &haveDrawn, o);
     if (adobeAnswered && IsUnrenderedAnswer(*bounds) && !(haveGeometry && IsUnrenderedAnswer(geometry)))
     {
         o << "that is the box Adobe reports before its effect has rendered; redrawing and asking again; ";
         sAIDocument->RedrawDocument();
-        adobeAnswered = AskAdobe(art, postIndex, bounds, o);
+        adobeAnswered = AskAdobe(art, postIndex, bounds, &drawn, &haveDrawn, o);
         if (adobeAnswered && IsUnrenderedAnswer(*bounds))
         {
             o << "the same box again; ";
@@ -338,6 +350,11 @@ ASErr MeasureInputBounds(AIArtHandle art, ai::int32 postIndex, fdmath::Rect* bou
     if (adobeAnswered)
     {
         *how = BoundsSource::kAdobe;
+        if (haveDrawn && drawnQuad && haveDrawnQuad)
+        {
+            *drawnQuad = drawn;
+            *haveDrawnQuad = true;
+        }
     }
     else
     {

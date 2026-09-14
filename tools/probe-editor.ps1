@@ -153,15 +153,27 @@ $chosenAfter = (Send-AiMessage 'fd read' ([string] $chosen)).Trim()
 $otherAfter = (Send-AiMessage 'fd read' ([string] $other)).Trim()
 Check 'instances' 'a drag edits only the Free Distort the editor chose' $otherBefore $otherAfter ($otherAfter -eq $otherBefore -and $chosenAfter -ne $otherBefore)
 
-# ---- a source that is not a rectangle ---------------------------------------------------------
+# ---- sources that are not rectangles ------------------------------------------------------------
+
+function SetSource([string[]] $pairs) {
+    foreach ($k in $pairs) {
+        $kv = $k -split '='
+        Send-AiMessage 'set param' ("0|{0}|real|{1}" -f $kv[0], $kv[1]) | Out-Null
+    }
+}
+$destination = 'dst0h=90','dst0v=330','dst1h=400','dst1v=330','dst2h=90','dst2v=100','dst3h=340','dst3v=100'
 
 Fresh
-Send-AiMessage 'set param' '0|src0h|real|90' | Out-Null
-foreach ($k in 'src0v=330','src1h=340','src1v=330','src2h=110','src2v=100','src3h=340','src3v=100','dst0h=90','dst0v=330','dst1h=400','dst1v=330','dst2h=90','dst2v=100','dst3h=340','dst3v=100') {
-    $kv = $k -split '='
-    Send-AiMessage 'set param' ("0|{0}|real|{1}" -f $kv[0], $kv[1]) | Out-Null
-}
+SetSource (@('src0h=90','src0v=330','src1h=340','src1v=330','src2h=110','src2v=100','src3h=340','src3v=100') + $destination)
 $status = Send-AiMessage 'editor refresh' 'measure'
-Check 'refusals' 'an effect whose source is not a rectangle is not edited, and the status says why' 'no target, reason given' (Field $status 'why') ((Field $status 'target') -eq 'none' -and (Field $status 'why') -match 'not a rectangle')
+Check 'sources' "an effect whose source is not a rectangle is edited, from where Adobe's commit says it draws" 'target valid, not a rectangle, quad from Adobe' ("{0}, {1}, {2}, formula against Adobe {3}" -f (Field $status 'target'), (Field $status 'source'), (Field $status 'quad from'), (Field $status 'formula against Adobe')) ((Field $status 'target') -eq 'valid' -and (Field $status 'source') -eq 'not a rectangle' -and (Field $status 'quad from') -eq "Adobe's commit")
+Send-AiMessage 'editor drag' '0|free|-1|70,350' | Out-Null
+$read = (Send-AiMessage 'fd read' '0').Trim()
+Check 'sources' "its first drag writes the source as the input bounds, as Adobe's own OK does" 'src (90,330 340,330 90,100 340,100)' $read ($read -match 'src \(90,330 340,330 90,100 340,100\) dst \(70,350 ')
+
+Fresh
+SetSource (@('src0h=200','src0v=330','src1h=200','src1v=330','src2h=110','src2v=100','src3h=340','src3v=100') + $destination)
+$status = Send-AiMessage 'editor refresh' 'measure'
+Check 'refusals' 'an effect whose source frame has no width is not edited, and the status says why' 'no target, reason given' (Field $status 'why') ((Field $status 'target') -eq 'none' -and (Field $status 'why') -match 'no width or no height')
 Save-ProbeResults -Path (Join-Path $evidence 'editor.tsv')
 Save-ProbeTranscript -Path (Join-Path $evidence 'editor.txt') -Lines $log

@@ -95,6 +95,48 @@ $rendered = @(Rendered 'fx')
 $worst = Compare-Ordered $preview $rendered
 Check 'grid' 'every previewed anchor and handle is where Adobe draws it after release' 'within 1e-6 pt' ("{0} points previewed, {1} rendered, worst deviation {2} pt" -f $preview.Count, $rendered.Count, $worst.ToString('G3', $inv)) ($preview.Count -eq 90 -and $worst -lt 1e-6)
 
+# ---- a source that is not a rectangle ---------------------------------------------------
+# Only a writer other than Adobe's dialog stores such a source. The editor reads
+# it as the renderer does (section D) and checks that reading against where
+# Adobe's own commit says it draws; the preview has to stay exact through the
+# drag that converts the source to a rectangle.
+
+Invoke-Efd "EFD.clear(); EFD.grid('fx');" | Out-Null
+Invoke-Efd "EFD.selectOnly('fx'); app.redraw();" | Out-Null
+Send-AiMessage 'fd append' | Out-Null
+Send-AiMessage 'fd write' '0|100,300,400,100|130,350,450,290,70,80,370,130' | Out-Null
+$convexSource = @{ src0h = 90; src0v = 320; src1h = 420; src1v = 280; src2h = 130; src2v = 90; src3h = 380; src3v = 120 }
+foreach ($k in $convexSource.Keys) { Send-AiMessage 'set param' ("0|{0}|real|{1}" -f $k, $convexSource[$k]) | Out-Null }
+Invoke-AiScript 'app.redraw(); "drawn";' | Out-Null
+$status = Send-AiMessage 'editor refresh' 'measure'
+Say ($status.TrimEnd())
+$deviation = Field $status 'formula against Adobe'
+Check 'non-rectangular source' "the editor takes a non-rectangular source, with its handles where Adobe's own commit says it draws" 'target valid; source not a rectangle; quad from Adobe; formula within 1e-6 pt of Adobe' ("target {0}; source {1}; quad from {2}; formula against Adobe {3}" -f (Field $status 'target'), (Field $status 'source'), (Field $status 'quad from'), $deviation) ((Field $status 'target') -eq 'valid' -and (Field $status 'source') -eq 'not a rectangle' -and (Field $status 'quad from') -eq "Adobe's commit" -and $deviation -ne '' -and [double]::Parse($deviation, $inv) -lt 1e-6)
+$drawnBefore = @(Rendered 'fx')
+$q = [regex]::Matches((Field $status 'quad'), '-?[0-9.]+') | ForEach-Object { [double]::Parse($_.Value, $inv) }
+
+# A press on a handle that does not move yet: the preview is what is drawn now.
+Send-AiMessage 'editor preview open' ("3|free|{0},{1}" -f (Format-AiNumber $q[6]), (Format-AiNumber $q[7])) | Out-Null
+$preview = @(Points (Send-AiMessage 'editor preview points'))
+$worst = Compare-Ordered $preview $drawnBefore
+Check 'non-rectangular source' 'before the pointer moves, the preview is exactly what Adobe draws for the non-rectangular source' 'within 1e-6 pt' ("{0} points, worst deviation {1} pt" -f $preview.Count, $worst.ToString('G3', $inv)) ($preview.Count -eq 90 -and $worst -lt 1e-6)
+Say (Send-AiMessage 'editor preview close').TrimEnd()
+$converted = (Send-AiMessage 'fd read' '0').Trim()
+$drawnAfter = @(Rendered 'fx')
+$worst = Compare-Ordered $drawnAfter $drawnBefore
+Check 'non-rectangular source' "releasing writes the source as the input bounds, as Adobe's OK does, and the artwork does not move" 'source 100..400 x 100..300; drawing within 1e-6 pt of before' ("{0}; worst deviation {1} pt" -f $converted, $worst.ToString('G3', $inv)) ($converted -match 'src \(100,300 400,300 100,100 400,100\)' -and $worst -lt 1e-6)
+
+# The drag after that, previewed and then drawn.
+Invoke-Efd "EFD.selectOnly('fx'); app.redraw();" | Out-Null
+$status = Send-AiMessage 'editor refresh' 'measure'
+$q = [regex]::Matches((Field $status 'quad'), '-?[0-9.]+') | ForEach-Object { [double]::Parse($_.Value, $inv) }
+Send-AiMessage 'editor preview open' ("1|free|{0},{1}" -f (Format-AiNumber ($q[2] + 35)), (Format-AiNumber ($q[3] - 25))) | Out-Null
+$preview = @(Points (Send-AiMessage 'editor preview points'))
+Say (Send-AiMessage 'editor preview close').TrimEnd()
+$rendered = @(Rendered 'fx')
+$worst = Compare-Ordered $preview $rendered
+Check 'non-rectangular source' 'a drag from a converted source previews exactly what Adobe draws after release' 'within 1e-6 pt' ("{0} points, worst deviation {1} pt" -f $preview.Count, $worst.ToString('G3', $inv)) ($preview.Count -eq 90 -and $worst -lt 1e-6)
+
 # ---- live point text -------------------------------------------------------------------
 
 Invoke-Efd "EFD.clear(); EFD.pointText('fx');" | Out-Null
