@@ -43,6 +43,7 @@ public:
     ASErr ToolMouseDown(AIToolMessage* message) override;
     ASErr ToolMouseDrag(AIToolMessage* message) override;
     ASErr ToolMouseUp(AIToolMessage* message) override;
+    ASErr EditTool(AIToolMessage* message) override;
 
 private:
     ASErr HandleScriptMessage(const char* selector, AIScriptMessage* message);

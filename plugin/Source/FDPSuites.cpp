@@ -40,6 +40,7 @@ extern "C"
     AIAnnotatorDrawerSuite*     sAIAnnotatorDrawer = nullptr;
     AIToolSuite*                sAITool = nullptr;
     AICursorSnapSuite*          sAICursorSnap = nullptr;
+    AIHardSoftSuite*            sAIHardSoft = nullptr;
     ASUserInteractionSuite*     sASUserInteraction = nullptr;
     AIUIThemeSuite*             sAIUITheme = nullptr;
 };
@@ -68,6 +69,7 @@ ImportSuite gImportSuites[] =
     kAIAnnotatorDrawerSuite,    kAIAnnotatorDrawerVersion,      &sAIAnnotatorDrawer,
     kAIToolSuite,               kAIToolVersion,                 &sAITool,
     kAICursorSnapSuite,         kAICursorSnapVersion,           &sAICursorSnap,
+    kAIHardSoftSuite,           kAIHardSoftVersion,             &sAIHardSoft,
 
     nullptr,                    kStartOptionalSuites,           nullptr,
     kASUserInteractionSuite,    kASUserInteractionVersion,      &sASUserInteraction,

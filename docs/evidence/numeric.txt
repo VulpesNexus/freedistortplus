@@ -1,0 +1,30 @@
+FreeDistort+ -- numeric entry and arrow keys, 2026-09-14 16:37
+[PASS] a field typed '12.5' is taken as 12,5 pt: accepted yes, 12.5 pt, shown as 12,5 pt
+[PASS] a field typed '12,5' is taken as 12,5 pt: accepted yes, 12.5 pt, shown as 12,5 pt
+[PASS] a field typed '1 in' is taken as 72 pt: accepted yes, 72 pt, shown as 72 pt
+[PASS] a field typed '3 mm' is taken as 8,50393700787 pt: accepted yes, 8.50393700787 pt, shown as 8,503937007874 pt
+[PASS] a field typed '10+5' is taken as 15 pt: accepted yes, 15 pt, shown as 15 pt
+[PASS] a field typed '-15.5 pt' is taken as -15,5 pt: accepted yes, -15.5 pt, shown as -15,5 pt
+[PASS] a field typed '12.3456789' is taken as 12,3456789 pt: accepted yes, 12.3456789 pt, shown as 12,3456789 pt
+[PASS] a field typed 'abc' is not a number: accepted no
+[MEASURED] how Illustrator formats 12.3456789 pt for a field: 12,3457 pt
+[PASS] the dialog's positions are the ruler's, as Illustrator's artboard coordinates give them: 90,270
+[PASS] the ruler conversion round-trips exactly: 90,330
+[MEASURED] AIHardSoftSuite::ConvertCoordinates back from the ruler, with convertForDisplay, for contrast: 90,-870
+[PASS] OK with nothing typed changes nothing, though a field shows fewer digits than the corner has: (90,330 400.123456789,330 90,100 340,100); field showed 400,1234 pt; OK with nothing changed
+[PASS] ...and adds no undo step: past 0
+[PASS] a dialog opened for a test does not take the foreground: not foreground
+[PASS] an offset of 25 pt on the bottom-right X moves that corner 25 pt right of the undistorted corner: (90,330 400.123456789,330 90,100 365,100); committed (90,330 400.123456789,330 90,100 365,100)
+[PASS] ...as exactly one undo step: past 1
+[PASS] ...which one Undo takes back: (90,330 400.123456789,330 90,100 340,100)
+preview capture while open: captured 2102x1291, PrintWindow True
+[PASS] a position of 200 pt on the top-left Y puts that corner 200 pt below the artboard top, as the ruler measures: (90,400 400.123456789,330 90,100 340,100); committed (90,400 400.123456789,330 90,100 340,100)
+[PASS] Cancel after typing and previewing puts the dictionary back exactly: (90,330 400.123456789,330 90,100 340,100); canceled
+[PASS] ...and leaves no undo step: past 0
+[PASS] the up arrow in a field steps it by one ruler unit, twice: (90,330 402.123456789,330 90,100 340,100); field showed 402,1234 pt
+[PASS] Enter in a field typed 1 in takes it and closes: the bottom-left X is 72 pt on the ruler: (90,330 400.123456789,330 72,100 340,100); committed (90,330 400.123456789,330 72,100 340,100)
+[PASS] with a corner selected, Right then Up move that corner by the keyboard increment each: (90,330 400.123456789,330 90,100 340.0028,100.0028); increment 0.0028; 4, last: moved corner 3 by 0,0.0028
+[PASS] ...one undo step per key: past 2
+[PASS] ...and the art itself is not nudged: 90,330,340,100;90,330,381.825865592,100.000112
+[MEASURED] with no corner selected, Right is left to Illustrator: the art geometry, and the dictionary: 90,330,340,100;90,330,381.825013418,100; (90,330 400.123456789,330 90,100 340,100)
+[PASS] with no corner selected, the plugin does not touch the dictionary: (90,330 400.123456789,330 90,100 340,100)

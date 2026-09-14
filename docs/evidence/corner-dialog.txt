@@ -1,0 +1,15 @@
+FreeDistort+ -- the corners dialog, driven by window messages in tools/CornerHarness, outside Illustrator
+
+PASS	OK with nothing typed returns every corner exactly, digits the fields do not show included	(100.250000000,330.500000000 410.123456789,360.987654321 100.250000000,100.125000000 340.750000000,100.125000000)
+PASS	and writes no preview	0 previews
+PASS	a typed position moves that one number, through the ruler	(110.000000000,330.500000000 410.123456789,360.987654321 100.250000000,100.125000000 340.750000000,100.125000000)
+PASS	one preview for one committed field	1 previews
+PASS	a decimal comma is a decimal separator (in this host's parser)	(100.250000000,330.500000000 410.123456789,360.987654321 100.250000000,100.125000000 340.750000000,487.500000000)
+PASS	an offset moves from the undistorted corner, in the ruler's direction	(100.250000000,330.500000000 410.123456789,360.987654321 100.250000000,100.125000000 340.750000000,105.625000000)
+PASS	text that is not a number changes nothing	(100.250000000,330.500000000 410.123456789,360.987654321 100.250000000,100.125000000 340.750000000,100.125000000)
+PASS	the up and down arrows step a field by one unit of the ruler	(100.250000000,328.500000000 410.123456789,361.987654321 100.250000000,100.125000000 340.750000000,100.125000000)
+PASS	Cancel returns false, whatever was typed	canceled
+PASS	Enter in a field takes what was typed there and closes with OK	(100.250000000,330.500000000 410.123456789,360.987654321 82.000000000,100.125000000 340.750000000,100.125000000)
+PASS	Undistort puts every corner where it is with no distortion	(100.250000000,330.500000000 340.750000000,330.500000000 100.250000000,100.125000000 340.750000000,100.125000000)
+PASS	with the preview off, a field still counts; turning it back on previews it	(60.000000000,330.500000000 410.123456789,360.987654321 100.250000000,100.125000000 340.750000000,100.125000000), 2 previews
+0 failed

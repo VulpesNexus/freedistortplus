@@ -32,6 +32,8 @@
 #include "AITool.h"
 #include "AICursorSnap.h"
 #include "AIUndo.h"
+#include "AIHardSoft.h"
+#include "AIUser.h"
 #include "AIUITheme.h"
 #include "ASUserInteraction.h"
 
@@ -57,6 +59,7 @@ extern "C" AIAnnotatorSuite*            sAIAnnotator;
 extern "C" AIAnnotatorDrawerSuite*      sAIAnnotatorDrawer;
 extern "C" AIToolSuite*                 sAITool;
 extern "C" AICursorSnapSuite*           sAICursorSnap;
+extern "C" AIHardSoftSuite*             sAIHardSoft;
 
 // Optional: a host without them still loads the plugin. Without the user
 // interaction suite, input bounds fall back to the art's geometric bounds;

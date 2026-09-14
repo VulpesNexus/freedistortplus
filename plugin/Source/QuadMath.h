@@ -327,6 +327,19 @@ namespace fdmath
         return out;
     }
 
+    /** One corner, locked to the axis the drag has moved furthest along:
+        what Illustrator's Free Transform tool does with Shift in its Free
+        Distort mode, and with Ctrl+Shift otherwise (measured,
+        docs/evidence/free-transform.tsv). */
+    inline Quad MoveCornerAxis(const Quad& start, int corner, Pt to)
+    {
+        Quad out = start;
+        const Pt delta = Sub(to, start.c[corner]);
+        if (std::fabs(delta.h) >= std::fabs(delta.v)) out.c[corner].h = to.h;
+        else out.c[corner].v = to.v;
+        return out;
+    }
+
     /** The corner that shares an edge with `corner` along the horizontal
         (top or bottom) edge, and along the vertical (left or right) edge. */
     inline int HorizontalNeighbor(int corner) { return corner ^ 1; }
@@ -344,11 +357,16 @@ namespace fdmath
         return out;
     }
 
-    /** Perspective, as a trapezoid edit: the corner moves along one axis and
-        its neighbor on the edge running across that axis moves the mirror
+    /** Converging sides, a trapezoid edit: the corner moves along one axis
+        and its neighbor on the edge running across that axis moves the mirror
         amount, so that edge grows or shrinks about its own midpoint. Which
-        axis is decided by the larger component of the drag. */
-    inline Quad MoveCornerPerspective(const Quad& start, int corner, Pt to)
+        axis is decided by the larger component of the drag. Illustrator's
+        Free Transform tool calls the same corner movement Perspective Distort
+        (Shift+Alt in its Free Distort mode, Ctrl+Alt+Shift otherwise), and
+        foreshortens the interior projectively; Free Distort cannot store
+        that, so here the interior stays bilinear, and the name says only what
+        the corners do. */
+    inline Quad MoveCornerConverging(const Quad& start, int corner, Pt to)
     {
         const Pt delta = Sub(to, start.c[corner]);
         Quad out = start;
@@ -366,39 +384,6 @@ namespace fdmath
             out.c[corner].v = start.c[corner].v + delta.v;
             out.c[partner].v = start.c[partner].v - delta.v;
         }
-        return out;
-    }
-
-    /** Affine: the quad stays a parallelogram. The dragged corner goes where
-        it is put, the diagonally opposite corner stays, and the remaining two
-        are solved so that opposite sides stay parallel while keeping the
-        edge directions of the start as far as that allows: the quad is the
-        start's parallelogram, shared-vertex at the opposite corner, sheared
-        and scaled so that its far corner lands on the pointer. */
-    inline Quad MoveCornerAffine(const Quad& start, int corner, Pt to)
-    {
-        const int opposite = Opposite(corner);
-        const int hn = HorizontalNeighbor(corner);   // shares the horizontal edge with `corner`
-        const int vn = VerticalNeighbor(corner);     // shares the vertical edge with `corner`
-        const Pt o = start.c[opposite];
-        // Edge directions leaving the fixed corner.
-        Pt a = Sub(start.c[vn], o);   // vn shares the horizontal edge with `opposite`
-        Pt b = Sub(start.c[hn], o);   // hn shares the vertical edge with `opposite`
-        const double det = Cross(a, b);
-        Quad out = start;
-        if (std::fabs(det) < 1e-12)
-        {
-            out.c[corner] = to;
-            return out;
-        }
-        // Express the new diagonal in the start's edge basis: d = x*a + y*b.
-        const Pt d = Sub(to, o);
-        const double x = Cross(d, b) / det;
-        const double y = Cross(a, d) / det;
-        out.c[opposite] = o;
-        out.c[vn] = Add(o, Scale(a, x));
-        out.c[hn] = Add(o, Scale(b, y));
-        out.c[corner] = to;
         return out;
     }
 

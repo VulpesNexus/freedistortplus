@@ -18,14 +18,16 @@ Install only one copy. The same file name in both Illustrator's own *Plug-ins* f
 
 1. Select one object.
 2. Choose *Effect > Distort & Transform > FreeDistort+…* (if Illustrator put it elsewhere, *Object > Transform > FreeDistort+…*). The object gets a *Free Distort* if it has none, and the *FreeDistort+* tool is selected.
-3. Drag a corner handle. While you drag, a magenta outline shows exactly where Illustrator will draw every edge; the artwork itself updates when you release. *Shift* keeps a trapezoid, *Alt* moves the opposite corner the other way, and *Shift+Alt* keeps a parallelogram. *Esc* during a drag cancels it.
-4. Each drag is one step in *Edit > Undo*.
+3. Drag a corner handle. While you drag, a magenta outline shows exactly where Illustrator will draw every edge; the artwork itself updates when you release. The keys are those of Illustrator's *Free Transform* tool in its *Free Distort* mode: *Shift* keeps the corner on one axis, *Alt* moves the opposite corner the other way, and *Shift+Alt* moves the other corner of the edge the other way, like *Free Transform*'s perspective. *Ctrl* changes nothing, so the keys you hold for *Free Transform* work here too. *Esc* during a drag cancels it.
+4. For exact numbers, double-click the *FreeDistort+* tool icon, or *Alt*-click a handle. The *Free Distort Corners* dialog takes each corner as a position on Illustrator's rulers or as an offset from the undistorted corner, in any unit and with arithmetic, the way Illustrator's own fields do. *Undistort* puts every corner back; holding *Alt* turns *Cancel* into *Reset*.
+5. Click a handle to select that corner, then use the arrow keys to move it by Illustrator's *Keyboard Increment*, ten times as far with *Shift*. With no corner selected, the arrow keys move the artwork as usual.
+6. Each drag, each dialog, and each arrow key press is one step in *Edit > Undo*.
 
 Double-clicking *Free Distort* in the *Appearance* panel still opens Adobe's dialog.
 
 ## What it does not do yet
 
-No numeric fields, snapping, or arrow-key nudging; no editing of a *Free Distort* applied to a fill or stroke rather than the whole object; no macOS build. The modifier keys may change once they are checked against Illustrator's *Free Transform* tool.
+No snapping yet; no editing of a *Free Distort* applied to a fill or stroke rather than the whole object; no macOS build. *Shift+Alt* makes the edge converge, but the artwork inside is not foreshortened the way *Free Transform*'s perspective foreshortens it: Adobe's *Free Distort* cannot store that.
 
 ## More
 

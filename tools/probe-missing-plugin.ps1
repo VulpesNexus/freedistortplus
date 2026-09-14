@@ -76,7 +76,7 @@ function Phase-Author {
     Invoke-Fdp ("(function(){{ var d = app.documents.add(DocumentColorSpace.RGB, 800, 600); d.saveAs(new File('{0}')); app.coordinateSystem = CoordinateSystem.DOCUMENTCOORDINATESYSTEM; FDP.DOC_NAME = 'fdp-missing.ai'; FDP.pentagon('path'); FDP.pointText('text'); var a = FDP.pentagon('g1', 450, 0); var b = FDP.pentagon('g2', 520, 80); var g = d.groupItems.add(); FDP.named('g2').move(g, ElementPlacement.PLACEATEND); FDP.named('g1').move(g, ElementPlacement.PLACEATEND); g.name = 'group'; return 'built'; }})();" -f ($docPath -replace '\\', '/')) | Out-Null
     # The path gets the same corner as probe-poc.ps1, so Adobe's dialog shows
     # the same preview and its handles sit at the same pixels in the absent phase.
-    $drags = @{ path = '1|free|-1|400,330'; text = '3|free|-1|NaN'; group = '0|perspective|-1|NaN' }
+    $drags = @{ path = '1|free|-1|400,330'; text = '3|free|-1|NaN'; group = '0|converging|-1|NaN' }
     foreach ($name in 'path', 'text', 'group') {
         Select-Named $name | Out-Null
         Send-AiMessage 'fd append' | Out-Null

@@ -53,6 +53,13 @@ $summary = ($output | Where-Object { $_ -match '^\d+ checks' } | Select-Object -
 if ($summary -match '^(\d+) checks, (\d+) failed') {
     Start-ProbeResults -Probe 'mathtest'
     Add-ProbeResult -Group 'arithmetic' -Case 'QuadMath.h against host samples and editing invariants' -Expected 'every check passes' -Observed ("{0} checks, {1} failed" -f $Matches[1], $Matches[2]) -Status $(if ([int] $Matches[2] -eq 0) { 'PASS' } else { 'FAIL' })
+    # One row per check as well, so the support matrix can name the checks a
+    # feature rests on.
+    foreach ($line in $output) {
+        if ([string] $line -match '^(PASS|FAIL)  (.+?)(  --  (.*))?$') {
+            Add-ProbeResult -Group 'check' -Case $Matches[2] -Expected 'passes' -Observed $(if ($Matches[4]) { $Matches[4] } else { $Matches[1].ToLower() }) -Status $Matches[1]
+        }
+    }
     Save-ProbeResults -Path ($OutPath -replace '\.txt$', '.tsv')
 }
 

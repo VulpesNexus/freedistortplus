@@ -1,2 +1,36 @@
 probe	group	case	expected	observed	status
-mathtest	arithmetic	QuadMath.h against host samples and editing invariants	every check passes	30 checks, 0 failed	PASS
+mathtest	arithmetic	QuadMath.h against host samples and editing invariants	every check passes	34 checks, 0 failed	PASS
+mathtest	check	the model reproduces the host: grid, source = bounds	passes	30 points, worst deviation 4.71e-10 pt	PASS
+mathtest	check	the model reproduces the host: curves and handles, source != bounds	passes	15 points, worst deviation 6.51e-10 pt	PASS
+mathtest	check	control: ignoring the input bounds does not fit the host	passes	pass	PASS
+mathtest	check	a non-rectangular source is read as the host commits it: convex source	passes	worst deviation 5.47e-10 pt	PASS
+mathtest	check	a non-rectangular source is read as the host commits it: trapezoid source, distorted destination	passes	worst deviation 3.33e-10 pt	PASS
+mathtest	check	a non-rectangular source is read as the host commits it: concave source	passes	worst deviation 0 pt	PASS
+mathtest	check	a non-rectangular source is read as the host commits it: bow-tie source	passes	worst deviation 0 pt	PASS
+mathtest	check	a non-rectangular source is read as the host commits it: convex source 1000 pt away	passes	worst deviation 4.23e-09 pt	PASS
+mathtest	check	a non-rectangular source is read as the host commits it: convex offsets over other input bounds	passes	worst deviation 4.97e-10 pt	PASS
+mathtest	check	control: the source's bounding box does not fit the host	passes	pass	PASS
+mathtest	check	for a rectangular source the general reading is the renormalization	passes	pass	PASS
+mathtest	check	a frame with no width or no height is not usable	passes	pass	PASS
+mathtest	check	renormalization matches Adobe's own re-commit after a 150% scale	passes	pass	PASS
+mathtest	check	renormalization round-trips	passes	pass	PASS
+mathtest	check	inverse bilinear solves every mildly distorted quad	passes	pass	PASS
+mathtest	check	inverse bilinear recovers (u, t)	passes	pass	PASS
+mathtest	check	every mode returns exactly to the start	passes	pass	PASS
+mathtest	check	free distortion moves only the dragged corner	passes	pass	PASS
+mathtest	check	the axis lock moves one number of one corner, along the drag's larger component	passes	pass	PASS
+mathtest	check	symmetric distortion keeps the centroid	passes	pass	PASS
+mathtest	check	converging sides keep the midpoint of the edge they change	passes	pass	PASS
+mathtest	check	Free Transform's corners: Ctrl, or Free Distort mode: free	passes	worst corner 0 pt	PASS
+mathtest	check	Free Transform's corners: Ctrl+Shift, or Shift in Free Distort mode: axis	passes	worst corner 0 pt	PASS
+mathtest	check	Free Transform's corners: Ctrl+Alt, or Alt in Free Distort mode: symmetric	passes	worst corner 2.66e-14 pt	PASS
+mathtest	check	Free Transform's corners: Ctrl+Alt+Shift, or Shift+Alt in Free Distort mode: converging	passes	worst corner 1.78e-14 pt	PASS
+mathtest	check	Free Transform's corners: Perspective Distort mode, a vertical drag: converging	passes	worst corner 0 pt	PASS
+mathtest	check	a rectangle is a rectangle	passes	pass	PASS
+mathtest	check	a skewed quad is not a rectangle	passes	pass	PASS
+mathtest	check	a mirrored rectangle is not in Adobe's order	passes	pass	PASS
+mathtest	check	a rectangle does not cross itself	passes	pass	PASS
+mathtest	check	a bow-tie crosses itself	passes	pass	PASS
+mathtest	check	a sheared rectangle is a parallelogram	passes	pass	PASS
+mathtest	check	a trapezoid is not a parallelogram	passes	pass	PASS
+mathtest	check	corner neighbors follow Adobe's numbering	passes	pass	PASS

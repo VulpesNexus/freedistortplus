@@ -1,0 +1,13 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Copyright (C) 2026 Vixen420
+//
+// The harness compiles the plugin's own dialog template, unmodified. If it
+// carried a copy instead, it would stop being evidence about what ships.
+
+#include <winres.h>
+#include "Resource.h"
+#include "FreeDistortPlusAbout.rc"
+
+// SysLink needs version 6 of the common controls. The plugin inherits that
+// from Illustrator's activation context; a bare executable has to ask for it.
+1 RT_MANIFEST "harness.manifest"

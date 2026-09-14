@@ -1,0 +1,51 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Copyright (C) 2026 Vixen420
+//
+// FreeDistort+ is free software: you may redistribute it and/or
+// modify it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. It comes with ABSOLUTELY NO WARRANTY. See the
+// file LICENSE, or <https://www.gnu.org/licenses/>, for the full text.
+//
+// Additional permission under GPL-3.0 section 7: this file may be combined with
+// the Adobe Illustrator SDK, whose sample framework sources are compiled into
+// every plugin built from it. See LICENSE-EXCEPTION.
+
+// The About dialog, in a file of its own so the plugin's resource script and
+// any harness can compile the same template. Deliberately the same layout,
+// control set, and geometry as Subgroup's and LiveShear's: every Illustrator plugin here wears
+// the same About window, and the way to keep that true is to copy this file
+// rather than to lay one out again by eye.
+//
+// Every string is set from FDPAbout.cpp rather than written here. The prose
+// is RTF, and the rest contains an em dash and a copyright sign, while a
+// resource script is compiled in a single-byte code page. Keeping the text on
+// the C++ side lets it be UTF-16 with those characters written as escapes,
+// which no encoding can misread.
+//
+// Sizes are in dialog units, so the layout follows the user's shell font and
+// DPI rather than a pixel guess. The upper panel ends at kAboutSplitDlgY; the
+// dialog procedure paints the two bands and the rule between them.
+
+IDD_FDP_ABOUT DIALOGEX 0, 0, 284, 244
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About FreeDistort+"
+FONT 9, "Segoe UI", 400, 0, 0x0
+BEGIN
+    // On the upper panel.
+    CONTROL         "", IDC_ABOUT_TITLE, "SysLink", WS_TABSTOP, 16, 12, 252, 20
+
+    // The prose. RICHEDIT50W is registered by loading Msftedit.dll, which
+    // FDPShowAboutDialog does before creating the dialog. No WS_TABSTOP and
+    // no border: it is a paragraph of text, not a field.
+    CONTROL         "", IDC_ABOUT_BODY, "RICHEDIT50W",
+                    ES_MULTILINE | ES_READONLY | WS_CHILD | WS_VISIBLE,
+                    16, 40, 252, 110
+
+    // On the button band, below kAboutSplitDlgY. The attribution heads the
+    // block and carries the author link; the notice below it repeats the name
+    // without one, because the same address twice in one paragraph is noise.
+    DEFPUSHBUTTON   "OK", IDOK, 216, 166, 52, 15
+    CONTROL         "", IDC_ABOUT_ATTRIB, "SysLink", WS_TABSTOP, 16, 188, 252, 11
+    CONTROL         "", IDC_ABOUT_LEGAL,  "SysLink", WS_TABSTOP, 16, 202, 252, 32
+END

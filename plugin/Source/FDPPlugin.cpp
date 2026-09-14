@@ -20,6 +20,11 @@
 #include "Introspect.h"
 #include "SDKDef.h"
 #include "SDKAboutPluginsHelper.h"
+#include "CornerDialog.h"
+#ifdef WIN_ENV
+#include "FDPAbout.h"
+#include "FDPTheme.h"
+#endif
 
 #include <clocale>
 #include <cstdlib>
@@ -163,6 +168,8 @@ ASErr FDPPlugin::PostStartupPlugin()
 
 ASErr FDPPlugin::ShutdownPlugin(SPInterfaceMessage* message)
 {
+    fEditor.Shutdown();
+    ShutdownCornerDialog();
     message->d.globals = nullptr;
     return Plugin::ShutdownPlugin(message);
 }
@@ -188,6 +195,31 @@ std::string FDPPlugin::OpenEditor()
     return said + "Editor " + (err ? "could not be selected (" + std::to_string(err) + ")" : "selected") + ".\n";
 }
 
+#ifdef WIN_ENV
+/* Illustrator's own dialog colors, turned into the plain struct the About
+   dialog takes, the same way LiveShear does it: the host is asked here, so
+   FDPAbout.cpp compiles without a line of Illustrator in it, and the numbers
+   come from the same reading the corners dialog uses. */
+static FDPAboutTheme AboutThemeFromHost()
+{
+    const fdptheme::Theme host = fdptheme::Read();
+    FDPAboutTheme about;
+    if (!host.fromHost) return about;
+    about.panel = host.editBackground;
+    about.panelText = host.editText;
+    about.band = host.background;
+    about.bandText = host.text;
+    about.rule = host.border;
+    about.link = host.focusRing;
+    about.ownerDrawButton = true;
+    about.button = host.control;
+    about.buttonText = host.text;
+    about.buttonBorder = host.border;
+    about.darkTitleBar = host.dark;
+    return about;
+}
+#endif
+
 ASErr FDPPlugin::GoMenuItem(AIMenuMessage* message)
 {
     if (message->menuItem == fEditorMenu)
@@ -196,6 +228,17 @@ ASErr FDPPlugin::GoMenuItem(AIMenuMessage* message)
     }
     else if (message->menuItem == fAboutMenu)
     {
+#ifdef WIN_ENV
+        // Our own module, where the dialog resource lives, found from the
+        // address of a function in it.
+        HMODULE self = nullptr;
+        if (GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+                               reinterpret_cast<LPCWSTR>(&FDPShowAboutDialog), &self) && self != nullptr)
+        {
+            if (FDPShowAboutDialog(self, GetActiveWindow(), AboutThemeFromHost())) return kNoErr;
+        }
+#endif
+        // Last resort, reached only if the dialog could not be created.
         SDKAboutPluginsHelper aboutPluginsHelper;
         const std::string about = std::string(kFDPProductName) + " " + kFDPVersionString + "\n" +
                                   kFDPDescription + "\n" + kFDPHomePage + "\n" + kFDPCopyright;
@@ -233,6 +276,11 @@ ASErr FDPPlugin::ToolMouseDrag(AIToolMessage* message)
 ASErr FDPPlugin::ToolMouseUp(AIToolMessage* message)
 {
     return fEditor.OwnsTool(message->tool) ? fEditor.MouseUp(message) : kNoErr;
+}
+
+ASErr FDPPlugin::EditTool(AIToolMessage* message)
+{
+    return fEditor.OwnsTool(message->tool) ? fEditor.EditTool() : kNoErr;
 }
 
 //  The test bridge:
@@ -429,14 +477,71 @@ ASErr FDPPlugin::HandleScriptMessage(const char* selector, AIScriptMessage* mess
         else
         {
             DistortEditor::Mode mode = DistortEditor::Mode::kFree;
-            if (f[1] == "perspective") mode = DistortEditor::Mode::kPerspective;
-            else if (f[1] == "symmetric") mode = DistortEditor::Mode::kSymmetric;
-            else if (f[1] == "affine") mode = DistortEditor::Mode::kAffine;
+            DistortEditor::ModeFromName(f[1], &mode);
             out << fEditor.PreviewOpen(std::atoi(f[0].c_str()), fdmath::Make(p[0], p[1]), mode);
         }
     }
     else if (sel == "editor preview points") out << fEditor.PreviewPoints();
     else if (sel == "editor preview close") out << fEditor.PreviewClose(true);
+    else if (sel == "editor numeric")
+    {
+        // corner|activate: activate 0 keeps the window from taking the
+        // foreground, for a probe driving it with window messages.
+        const std::vector<std::string> f = Split(in, '|', 2);
+        out << fEditor.OpenNumeric(f.size() > 0 ? std::atoi(f[0].c_str()) : 0, !(f.size() > 1 && f[1] == "0"));
+    }
+    else if (sel == "units format")
+    {
+        // A length in points, formatted the way the corners dialog shows it.
+        const std::wstring w = DistortEditor::FormatLength(std::strtod(in.c_str(), nullptr));
+        out << "formatted\t" << ai::UnicodeString(std::basic_string<ASUnicode>(w.begin(), w.end())).as_UTF8() << "\n";
+    }
+    else if (sel == "units parse")
+    {
+        // Text taken the way the corners dialog takes a field.
+        const ai::UnicodeString text = ai::UnicodeString::FromUTF8(in);
+        const std::basic_string<ASUnicode> u = text.as_ASUnicode();
+        double points = 0.0;
+        std::wstring evaluated;
+        const bool ok = DistortEditor::ParseLength(std::wstring(u.begin(), u.end()), &points, &evaluated);
+        char buffer[64];
+        std::snprintf(buffer, sizeof(buffer), "%.12g", points);
+        out << "accepted\t" << (ok ? "yes" : "no") << "\npoints\t" << (ok ? buffer : "") << "\nevaluated\t"
+            << ai::UnicodeString(std::basic_string<ASUnicode>(evaluated.begin(), evaluated.end())).as_UTF8() << "\n";
+    }
+    else if (sel == "coords")
+    {
+        // h,v in artwork coordinates, as the ruler shows them, and back.
+        const std::vector<double> n = Numbers(in);
+        if (n.size() == 2)
+        {
+            char buffer[160];
+            const fdmath::Pt display = DistortEditor::RulerFromArtwork(fdmath::Make(n[0], n[1]));
+            const fdmath::Pt back = DistortEditor::ArtworkFromRuler(display);
+            AIRealPoint raw = { static_cast<AIReal>(display.h), static_cast<AIReal>(display.v) };
+            sAIHardSoft->ConvertCoordinates(raw, kAICurrentCoordinateSystem, kAIDocumentCoordinateSystem, true);
+            std::snprintf(buffer, sizeof(buffer), "ruler\t%.12g,%.12g\nback\t%.12g,%.12g\nhost reverse\t%.12g,%.12g\n",
+                          display.h, display.v, back.h, back.v, raw.h, raw.v);
+            out << buffer;
+        }
+        else out << "Expected h,v\n";
+    }
+    else if (sel == "editor corner")
+    {
+        // Selects a corner, as a click on its handle does; -1 for none.
+        out << fEditor.SelectCorner(std::atoi(in.c_str()));
+    }
+    else if (sel == "pref")
+    {
+        // A preference read the way the plugin reads it: name, application prefix.
+        double r = 0.0;
+        ai::int32 i = 0;
+        AIBoolean b = false;
+        const ASErr er = sAIPreference->GetRealPreference(nullptr, in.c_str(), &r);
+        const ASErr ei = sAIPreference->GetIntegerPreference(nullptr, in.c_str(), &i);
+        const ASErr eb = sAIPreference->GetBooleanPreference(nullptr, in.c_str(), &b);
+        out << "real\t" << r << " (" << er << ")\ninteger\t" << i << " (" << ei << ")\nboolean\t" << (b ? 1 : 0) << " (" << eb << ")\n";
+    }
     else if (sel == "editor reset")
     {
         fEditor.ResetCounters();
@@ -450,9 +555,7 @@ ASErr FDPPlugin::HandleScriptMessage(const char* selector, AIScriptMessage* mess
         else
         {
             DistortEditor::Mode mode = DistortEditor::Mode::kFree;
-            if (f[1] == "perspective") mode = DistortEditor::Mode::kPerspective;
-            else if (f[1] == "symmetric") mode = DistortEditor::Mode::kSymmetric;
-            else if (f[1] == "affine") mode = DistortEditor::Mode::kAffine;
+            DistortEditor::ModeFromName(f[1], &mode);
             std::vector<fdmath::Pt> points;
             for (const std::string& pair : Split(f[3], ';'))
             {

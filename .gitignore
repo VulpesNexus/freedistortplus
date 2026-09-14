@@ -12,6 +12,10 @@ plugin/plugin.pipl
 *.tlog
 *.recipe
 
+# The About harness's build output (tools/AboutHarness/build.cmd).
+tools/AboutHarness/*.exe
+tools/CornerHarness/*.exe
+
 # Visual Studio user state, including any local AISDKRoot override kept in a
 # .user file rather than in AI_SDK_ROOT.
 *.user

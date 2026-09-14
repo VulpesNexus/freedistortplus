@@ -9,10 +9,10 @@ editor	drift	sixty wild steps that end where they began change nothing	(90,330 4
 editor	drift	...and the drawing is the same to the nanopoint	90,330,340,100;90,340.8,388.695652174,100	90,330,340,100;90,340.8,388.695652174,100	PASS
 editor	cancel	Escape part-way through a drag restores the dictionary exactly	(70,350 340,330 90,100 340,100)	(70,350 340,330 90,100 340,100)	PASS
 editor	cancel	a canceled drag leaves no undo step	past 0	past 0	PASS
-editor	modes	perspective: a mostly horizontal drag narrows the top edge about its midpoint	(120,330 310,330 90,100 340,100)	(120,330 310,330 90,100 340,100)	PASS
-editor	modes	perspective: a mostly vertical drag shortens the right edge about its midpoint	(90,330 340,300 90,100 340,130)	(90,330 340,300 90,100 340,130)	PASS
-editor	modes	symmetric: the opposite corner moves the other way	(100,320 340,330 90,100 330,110)	(100,320 340,330 90,100 330,110)	PASS
-editor	modes	affine: the result is a parallelogram with the dragged corner under the pointer	TL+BR = TR+BL, corner 1 at 380,330	(90,330 380,330 90,100 380,100), mismatch 0	PASS
+editor	modes	axis (Shift): a mostly horizontal drag moves the corner horizontally only	(90,330 380,330 90,100 340,100)	(90,330 380,330 90,100 340,100)	PASS
+editor	modes	symmetric (Alt): the opposite corner moves the other way	(100,320 340,330 90,100 330,110)	(100,320 340,330 90,100 330,110)	PASS
+editor	modes	converging (Shift+Alt): a mostly horizontal drag narrows the top edge about its midpoint	(120,330 310,330 90,100 340,100)	(120,330 310,330 90,100 340,100)	PASS
+editor	modes	converging (Shift+Alt): a mostly vertical drag shortens the right edge about its midpoint	(90,330 340,300 90,100 340,130)	(90,330 340,300 90,100 340,130)	PASS
 editor	independence	editing a duplicate leaves the original that shared its style alone	(90,330 400,330 90,100 340,100)	(90,330 400,330 90,100 340,100)	PASS
 editor	moved art	after the art moves, the handles move with it	(190,380 500,380 190,150 440,150)	(190,380 500,380 190,150 440,150)	PASS
 editor	moved art	the estimate made without asking Adobe agrees with asking	(190,380 500,380 190,150 440,150)	(190,380 500,380 190,150 440,150)	PASS

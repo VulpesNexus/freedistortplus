@@ -1,0 +1,301 @@
+operation	description	index	ah	av	lh	lv	rh	rv
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	0	100	100	100	100	100	100
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	1	149.574074074	100	149.574074074	100	149.574074074	100
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	2	209.062962963	100	209.062962963	100	209.062962963	100
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	3	258.637037037	100	258.637037037	100	258.637037037	100
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	4	328.040740741	100	328.040740741	100	328.040740741	100
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	5	397.444444444	100	397.444444444	100	397.444444444	100
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	6	397.444444444	135.2	397.444444444	135.2	397.444444444	135.2
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	7	328.040740741	135.2	328.040740741	135.2	328.040740741	135.2
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	8	258.637037037	135.2	258.637037037	135.2	258.637037037	135.2
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	9	209.062962963	135.2	209.062962963	135.2	209.062962963	135.2
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	10	149.574074074	135.2	149.574074074	135.2	149.574074074	135.2
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	11	100	135.2	100	135.2	100	135.2
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	12	100	179.2	100	179.2	100	179.2
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	13	149.574074074	179.2	149.574074074	179.2	149.574074074	179.2
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	14	209.062962963	179.2	209.062962963	179.2	209.062962963	179.2
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	15	258.637037037	179.2	258.637037037	179.2	258.637037037	179.2
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	16	328.040740741	179.2	328.040740741	179.2	328.040740741	179.2
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	17	397.444444444	179.2	397.444444444	179.2	397.444444444	179.2
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	18	397.444444444	232	397.444444444	232	397.444444444	232
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	19	328.040740741	232	328.040740741	232	328.040740741	232
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	20	258.637037037	232	258.637037037	232	258.637037037	232
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	21	209.062962963	232	209.062962963	232	209.062962963	232
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	22	149.574074074	232	149.574074074	232	149.574074074	232
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	23	100	232	100	232	100	232
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	24	100	276	100	276	100	276
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	25	149.574074074	276	149.574074074	276	149.574074074	276
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	26	209.062962963	276	209.062962963	276	209.062962963	276
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	27	258.637037037	276	258.637037037	276	258.637037037	276
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	28	328.040740741	276	328.040740741	276	328.040740741	276
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	29	397.444444444	276	397.444444444	276	397.444444444	276
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	0	100	100	100	100	100	100
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	1	142.775327497	100	142.775327497	100	142.775327497	100
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	2	197.486395439	100	197.486395439	100	197.486395439	100
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	3	246.174394736	100	246.174394736	100	246.174394736	100
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	4	319.614124285	100	319.614124285	100	319.614124285	100
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	5	400	100	400	100	400	100
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	6	410.493119266	142.794342508	410.493119266	142.794342508	410.493119266	142.794342508
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	7	326.937151707	140.797485461	326.937151707	140.797485461	326.937151707	140.797485461
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	8	250.831278108	138.978674017	250.831278108	138.978674017	250.831278108	138.978674017
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	9	200.496309315	137.775746924	200.496309315	137.775746924	200.496309315	137.775746924
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	10	144.048861834	136.426741143	144.048861834	136.426741143	144.048861834	136.426741143
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	11	100	135.374042183	100	135.374042183	100	135.374042183
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	12	100	182.575912798	100	182.575912798	100	182.575912798
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	13	145.751541949	185.128284564	145.751541949	185.128284564	145.751541949	185.128284564
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	14	204.530564493	188.407429073	204.530564493	188.407429073	204.530564493	188.407429073
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	15	257.086953237	191.339427363	257.086953237	191.339427363	257.086953237	191.339427363
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	16	336.807580175	195.786855115	336.807580175	195.786855115	336.807580175	195.786855115
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	17	424.688952181	200.689551791	424.688952181	200.689551791	424.688952181	200.689551791
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	18	443.536875496	277.557494052	443.536875496	277.557494052	443.536875496	277.557494052
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	19	349.847871878	268.435922298	349.847871878	268.435922298	349.847871878	268.435922298
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	20	265.314591913	260.20575281	265.314591913	260.20575281	265.314591913	260.20575281
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	21	209.820852411	254.802876195	209.820852411	254.802876195	209.820852411	254.802876195
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	22	147.976963969	248.781748376	147.976963969	248.781748376	147.976963969	248.781748376
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	23	100	244.110705857	100	244.110705857	100	244.110705857
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	24	100	300	100	300	100	300
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	25	150.003847634	306.756444786	150.003847634	306.756444786	150.003847634	306.756444786
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	26	214.656486101	315.492212188	214.656486101	315.492212188	214.656486101	315.492212188
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	27	272.85937552	323.356499185	272.85937552	323.356499185	272.85937552	323.356499185
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	28	361.86462951	335.382755419	361.86462951	335.382755419	361.86462951	335.382755419
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	29	461	348.777777778	461	348.777777778	461	348.777777778
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	0	7	5.333333333	7	5.333333333	7	5.333333333
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	1	72.5	21.111111111	72.5	21.111111111	72.5	21.111111111
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	2	151.1	40.044444444	151.1	40.044444444	151.1	40.044444444
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	3	216.6	55.822222222	216.6	55.822222222	216.6	55.822222222
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	4	308.3	77.911111111	308.3	77.911111111	308.3	77.911111111
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	5	400	100	400	100	400	100
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	6	418.6	158.933333333	418.6	158.933333333	418.6	158.933333333
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	7	326.9	136.844444444	326.9	136.844444444	326.9	136.844444444
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	8	235.2	114.755555556	235.2	114.755555556	235.2	114.755555556
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	9	169.7	98.977777778	169.7	98.977777778	169.7	98.977777778
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	10	91.1	80.044444444	91.1	80.044444444	91.1	80.044444444
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	11	25.6	64.266666667	25.6	64.266666667	25.6	64.266666667
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	12	48.85	137.933333333	48.85	137.933333333	48.85	137.933333333
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	13	114.35	153.711111111	114.35	153.711111111	114.35	153.711111111
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	14	192.95	172.644444444	192.95	172.644444444	192.95	172.644444444
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	15	258.45	188.422222222	258.45	188.422222222	258.45	188.422222222
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	16	350.15	210.511111111	350.15	210.511111111	350.15	210.511111111
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	17	441.85	232.6	441.85	232.6	441.85	232.6
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	18	469.75	321	469.75	321	469.75	321
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	19	378.05	298.911111111	378.05	298.911111111	378.05	298.911111111
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	20	286.35	276.822222222	286.35	276.822222222	286.35	276.822222222
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	21	220.85	261.044444444	220.85	261.044444444	220.85	261.044444444
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	22	142.25	242.111111111	142.25	242.111111111	142.25	242.111111111
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	23	76.75	226.333333333	76.75	226.333333333	76.75	226.333333333
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	24	100	300	100	300	100	300
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	25	165.5	315.777777778	165.5	315.777777778	165.5	315.777777778
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	26	244.1	334.711111111	244.1	334.711111111	244.1	334.711111111
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	27	309.6	350.488888889	309.6	350.488888889	309.6	350.488888889
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	28	401.3	372.577777778	401.3	372.577777778	401.3	372.577777778
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	29	493	394.666666667	493	394.666666667	493	394.666666667
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	0	100	99.999996609	100	99.999996609	100	99.999996609
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	1	150	99.999996609	150	99.999996609	150	99.999996609
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	2	210	99.999996609	210	99.999996609	210	99.999996609
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	3	260	99.999996609	260	99.999996609	260	99.999996609
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	4	330	99.999996609	330	99.999996609	330	99.999996609
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	5	400	99.999996609	400	99.999996609	400	99.999996609
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	6	412.220982143	133.482139466	412.220982143	133.482139466	412.220982143	133.482139466
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	7	339.369419643	133.482139466	339.369419643	133.482139466	339.369419643	133.482139466
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	8	266.517857143	133.482139466	266.517857143	133.482139466	266.517857143	133.482139466
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	9	214.481026786	133.482139466	214.481026786	133.482139466	214.481026786	133.482139466
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	10	152.036830357	133.482139466	152.036830357	133.482139466	152.036830357	133.482139466
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	11	100	133.482139466	100	133.482139466	100	133.482139466
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	12	100	179.376742163	100	179.376742163	100	179.376742163
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	13	154.828752021	179.376742163	154.828752021	179.376742163	154.828752021	179.376742163
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	14	220.623254447	179.376742163	220.623254447	179.376742163	220.623254447	179.376742163
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	15	275.452006468	179.376742163	275.452006468	179.376742163	275.452006468	179.376742163
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	16	352.212259297	179.376742163	352.212259297	179.376742163	352.212259297	179.376742163
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	17	428.972512127	179.376742163	428.972512127	179.376742163	428.972512127	179.376742163
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	18	451.610369207	241.398268408	451.610369207	241.398268408	451.610369207	241.398268408
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	19	369.567949725	241.398268408	369.567949725	241.398268408	369.567949725	241.398268408
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	20	287.525530244	241.398268408	287.525530244	241.398268408	287.525530244	241.398268408
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	21	228.923802042	241.398268408	228.923802042	241.398268408	228.923802042	241.398268408
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	22	158.601728201	241.398268408	158.601728201	241.398268408	158.601728201	241.398268408
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	23	100	241.398268408	100	241.398268408	100	241.398268408
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	24	100	299.999996609	100	299.999996609	100	299.999996609
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	25	162.166666667	299.999996609	162.166666667	299.999996609	162.166666667	299.999996609
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	26	236.766666667	299.999996609	236.766666667	299.999996609	236.766666667	299.999996609
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	27	298.933333333	299.999996609	298.933333333	299.999996609	298.933333333	299.999996609
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	28	385.966666667	299.999996609	385.966666667	299.999996609	385.966666667	299.999996609
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	29	473	299.999996609	473	299.999996609	473	299.999996609
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	0	100	100	100	100	100	100
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	1	150	100	150	100	150	100
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	2	210	100	210	100	210	100
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	3	260	100	260	100	260	100
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	4	330	100	330	100	330	100
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	5	400	100	400	100	400	100
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	6	410.770852576	128.511090585	410.770852576	128.511090585	410.770852576	128.511090585
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	7	335.744454707	128.511090585	335.744454707	128.511090585	335.744454707	128.511090585
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	8	260.718056838	128.511090585	260.718056838	128.511090585	260.718056838	128.511090585
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	9	207.127772646	128.511090585	207.127772646	128.511090585	207.127772646	128.511090585
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	10	142.819431616	128.511090585	142.819431616	128.511090585	142.819431616	128.511090585
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	11	89.229147424	128.511090585	89.229147424	128.511090585	89.229147424	128.511090585
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	12	73.375877555	170.47564354	73.375877555	170.47564354	73.375877555	170.47564354
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	13	132.250585037	170.47564354	132.250585037	170.47564354	132.250585037	170.47564354
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	14	202.900234015	170.47564354	202.900234015	170.47564354	202.900234015	170.47564354
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	15	261.774941496	170.47564354	261.774941496	170.47564354	261.774941496	170.47564354
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	16	344.199531971	170.47564354	344.199531971	170.47564354	344.199531971	170.47564354
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	17	426.624122445	170.47564354	426.624122445	170.47564354	426.624122445	170.47564354
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	18	450.32893132	233.22368956	450.32893132	233.22368956	450.32893132	233.22368956
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	19	356.842096704	233.22368956	356.842096704	233.22368956	356.842096704	233.22368956
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	20	263.355262088	233.22368956	263.355262088	233.22368956	263.355262088	233.22368956
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	21	196.578951648	233.22368956	196.578951648	233.22368956	196.578951648	233.22368956
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	22	116.44737912	233.22368956	116.44737912	233.22368956	116.44737912	233.22368956
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	23	49.67106868	233.22368956	49.67106868	233.22368956	49.67106868	233.22368956
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	24	24.444471571	300	24.444471571	300	24.444471571	300
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	25	99.629647714	300	99.629647714	300	99.629647714	300
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	26	189.851859086	300	189.851859086	300	189.851859086	300
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	27	265.037035229	300	265.037035229	300	265.037035229	300
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	28	370.296281829	300	370.296281829	300	370.296281829	300
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	29	475.555528429	300	475.555528429	300	475.555528429	300
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	0	100	100	100	100	100	100
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	1	175	110	175	110	175	110
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	2	247.321428571	119.642857143	247.321428571	119.642857143	247.321428571	119.642857143
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	3	296.721311475	126.229508197	296.721311475	126.229508197	296.721311475	126.229508197
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	4	353.676470588	133.823529412	353.676470588	133.823529412	353.676470588	133.823529412
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	5	400	140	400	140	400	140
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	6	400	164	400	164	400	164
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	7	353.676470588	160.294117647	353.676470588	160.294117647	353.676470588	160.294117647
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	8	296.721311475	155.737704918	296.721311475	155.737704918	296.721311475	155.737704918
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	9	247.321428571	151.785714286	247.321428571	151.785714286	247.321428571	151.785714286
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	10	175	146	175	146	175	146
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	11	100	140	100	140	100	140
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	12	100	190	100	190	100	190
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	13	175	191	175	191	175	191
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	14	247.321428571	191.964285714	247.321428571	191.964285714	247.321428571	191.964285714
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	15	296.721311475	192.62295082	296.721311475	192.62295082	296.721311475	192.62295082
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	16	353.676470588	193.382352941	353.676470588	193.382352941	353.676470588	193.382352941
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	17	400	194	400	194	400	194
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	18	400	230	400	230	400	230
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	19	353.676470588	233.088235294	353.676470588	233.088235294	353.676470588	233.088235294
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	20	296.721311475	236.885245902	296.721311475	236.885245902	296.721311475	236.885245902
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	21	247.321428571	240.178571429	247.321428571	240.178571429	247.321428571	240.178571429
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	22	175	245	175	245	175	245
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	23	100	250	100	250	100	250
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	24	100	300	100	300	100	300
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	25	175	290	175	290	175	290
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	26	247.321428571	280.357142857	247.321428571	280.357142857	247.321428571	280.357142857
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	27	296.721311475	273.770491803	296.721311475	273.770491803	296.721311475	273.770491803
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	28	353.676470588	266.176470588	353.676470588	266.176470588	353.676470588	266.176470588
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	29	400	260	400	260	400	260
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	0	100	100	100	100	100	100
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	1	142.860120909	100	142.860120909	100	142.860120909	100
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	2	197.638475154	100	197.638475154	100	197.638475154	100
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	3	246.347539817	100	246.347539817	100	246.347539817	100
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	4	319.749988382	100	319.749988382	100	319.749988382	100
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	5	400	100	400	100	400	100
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	6	407.661612131	144.114126097	407.661612131	144.114126097	407.661612131	144.114126097
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	7	325.105917075	142.100252297	325.105917075	142.100252297	325.105917075	142.100252297
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	8	249.758718019	140.262223436	249.758718019	140.262223436	249.758718019	140.262223436
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	9	199.845481436	139.044633791	199.845481436	139.044633791	199.845481436	139.044633791
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	10	143.794998509	137.677331402	143.794998509	137.677331402	143.794998509	137.677331402
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	11	100	136.60899081	100	136.60899081	100	136.60899081
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	12	100	184.611786717	100	184.611786717	100	184.611786717
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	13	145.022555074	187.150177375	145.022555074	187.150177375	145.022555074	187.150177375
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	14	202.748625687	190.404797601	202.748625687	190.404797601	202.748625687	190.404797601
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	15	254.253024477	193.308637344	254.253024477	193.308637344	254.253024477	193.308637344
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	16	332.179506064	197.702165267	332.179506064	197.702165267	332.179506064	197.702165267
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	17	417.80708986	202.529884584	417.80708986	202.529884584	417.80708986	202.529884584
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	18	430.901287554	277.923819742	430.901287554	277.923819742	430.901287554	277.923819742
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	19	341.277616205	269.217817236	341.277616205	269.217817236	341.277616205	269.217817236
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	20	260.015565717	261.324058761	260.015565717	261.324058761	260.015565717	261.324058761
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	21	206.463305559	256.122016664	206.463305559	256.122016664	206.463305559	256.122016664
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	22	146.589621573	250.305914344	146.589621573	250.305914344	146.589621573	250.305914344
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	23	100	245.78021978	100	245.78021978	100	245.78021978
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	24	100	300	100	300	100	300
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	25	147.981330222	306.394399067	147.981330222	306.394399067	147.981330222	306.394399067
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	26	209.770421783	314.628937533	209.770421783	314.628937533	209.770421783	314.628937533
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	27	265.157144292	322.010241992	265.157144292	322.010241992	265.157144292	322.010241992
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	28	349.422437892	333.240149797	349.422437892	333.240149797	349.422437892	333.240149797
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	29	442.666666667	345.666666667	442.666666667	345.666666667	442.666666667	345.666666667
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	0	100	100	100	100	100	100
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	1	150	100	150	100	150	100
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	2	210	100	210	100	210	100
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	3	260	100	260	100	260	100
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	4	330	100	330	100	330	100
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	5	400	100	400	100	400	100
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	6	413.186813187	132.967032967	413.186813187	132.967032967	413.186813187	132.967032967
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	7	340.10989011	132.967032967	340.10989011	132.967032967	340.10989011	132.967032967
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	8	267.032967033	132.967032967	267.032967033	132.967032967	267.032967033	132.967032967
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	9	214.835164835	132.967032967	214.835164835	132.967032967	214.835164835	132.967032967
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	10	152.197802198	132.967032967	152.197802198	132.967032967	152.197802198	132.967032967
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	11	100	132.967032967	100	132.967032967	100	132.967032967
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	12	100	178.488372093	100	178.488372093	100	178.488372093
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	13	155.23255814	178.488372093	155.23255814	178.488372093	155.23255814	178.488372093
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	14	221.511627907	178.488372093	221.511627907	178.488372093	221.511627907	178.488372093
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	15	276.744186047	178.488372093	276.744186047	178.488372093	276.744186047	178.488372093
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	16	354.069767442	178.488372093	354.069767442	178.488372093	354.069767442	178.488372093
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	17	431.395348837	178.488372093	431.395348837	178.488372093	431.395348837	178.488372093
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	18	456.25	240.625	456.25	240.625	456.25	240.625
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	19	373.125	240.625	373.125	240.625	373.125	240.625
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	20	290	240.625	290	240.625	290	240.625
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	21	230.625	240.625	230.625	240.625	230.625	240.625
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	22	159.375	240.625	159.375	240.625	159.375	240.625
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	23	100	240.625	100	240.625	100	240.625
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	24	100	300	100	300	100	300
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	25	163.333333333	300	163.333333333	300	163.333333333	300
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	26	239.333333333	300	239.333333333	300	239.333333333	300
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	27	302.666666667	300	302.666666667	300	302.666666667	300
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	28	391.333333333	300	391.333333333	300	391.333333333	300
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	29	480	300	480	300	480	300
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	0	-33.444444444	97.888888889	-33.444444444	97.888888889	-33.444444444	97.888888889
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	1	38.796296296	98.240740741	38.796296296	98.240740741	38.796296296	98.240740741
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	2	125.485185185	98.662962963	125.485185185	98.662962963	125.485185185	98.662962963
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	3	197.725925926	99.014814815	197.725925926	99.014814815	197.725925926	99.014814815
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	4	298.862962963	99.507407407	298.862962963	99.507407407	298.862962963	99.507407407
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	5	400	100	400	100	400	100
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	6	426.688888889	140.422222222	426.688888889	140.422222222	426.688888889	140.422222222
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	7	325.551851852	139.92962963	325.551851852	139.92962963	325.551851852	139.92962963
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	8	224.414814815	139.437037037	224.414814815	139.437037037	224.414814815	139.437037037
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	9	152.174074074	139.085185185	152.174074074	139.085185185	152.174074074	139.085185185
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	10	65.485185185	138.662962963	65.485185185	138.662962963	65.485185185	138.662962963
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	11	-6.755555556	138.311111111	-6.755555556	138.311111111	-6.755555556	138.311111111
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	12	26.605555556	188.838888889	26.605555556	188.838888889	26.605555556	188.838888889
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	13	98.846296296	189.190740741	98.846296296	189.190740741	98.846296296	189.190740741
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	14	185.535185185	189.612962963	185.535185185	189.612962963	185.535185185	189.612962963
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	15	257.775925926	189.964814815	257.775925926	189.964814815	257.775925926	189.964814815
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	16	358.912962963	190.457407407	358.912962963	190.457407407	358.912962963	190.457407407
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	17	460.05	190.95	460.05	190.95	460.05	190.95
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	18	500.083333333	251.583333333	500.083333333	251.583333333	500.083333333	251.583333333
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	19	398.946296296	251.090740741	398.946296296	251.090740741	398.946296296	251.090740741
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	20	297.809259259	250.598148148	297.809259259	250.598148148	297.809259259	250.598148148
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	21	225.568518519	250.246296296	225.568518519	250.246296296	225.568518519	250.246296296
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	22	138.87962963	249.824074074	138.87962963	249.824074074	138.87962963	249.824074074
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	23	66.638888889	249.472222222	66.638888889	249.472222222	66.638888889	249.472222222
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	24	100	300	100	300	100	300
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	25	172.240740741	300.351851852	172.240740741	300.351851852	172.240740741	300.351851852
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	26	258.92962963	300.774074074	258.92962963	300.774074074	258.92962963	300.774074074
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	27	331.17037037	301.125925926	331.17037037	301.125925926	331.17037037	301.125925926
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	28	432.307407407	301.618518519	432.307407407	301.618518519	432.307407407	301.618518519
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	29	533.444444444	302.111111111	533.444444444	302.111111111	533.444444444	302.111111111
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	0	100	100	100	100	100	100
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	1	150	100	150	100	150	100
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	2	210	100	210	100	210	100
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	3	260	100	260	100	260	100
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	4	330	100	330	100	330	100
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	5	400	100	400	100	400	100
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	6	411.678670704	127.542751249	411.678670704	127.542751249	411.678670704	127.542751249
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	7	336.228624375	127.542751249	336.228624375	127.542751249	336.228624375	127.542751249
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	8	260.778578047	127.542751249	260.778578047	127.542751249	260.778578047	127.542751249
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	9	206.885687812	127.542751249	206.885687812	127.542751249	206.885687812	127.542751249
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	10	142.214219531	127.542751249	142.214219531	127.542751249	142.214219531	127.542751249
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	11	88.321329296	127.542751249	88.321329296	127.542751249	88.321329296	127.542751249
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	12	70.889933584	168.652617962	70.889933584	168.652617962	70.889933584	168.652617962
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	13	130.593289056	168.652617962	130.593289056	168.652617962	130.593289056	168.652617962
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	14	202.237315622	168.652617962	202.237315622	168.652617962	202.237315622	168.652617962
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	15	261.940671094	168.652617962	261.940671094	168.652617962	261.940671094	168.652617962
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	16	345.525368755	168.652617962	345.525368755	168.652617962	345.525368755	168.652617962
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	17	429.110066416	168.652617962	429.110066416	168.652617962	429.110066416	168.652617962
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	18	455.726574134	231.424475289	455.726574134	231.424475289	455.726574134	231.424475289
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	19	359.720839538	231.424475289	359.720839538	231.424475289	359.720839538	231.424475289
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	20	263.715104942	231.424475289	263.715104942	231.424475289	263.715104942	231.424475289
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	21	195.139580231	231.424475289	195.139580231	231.424475289	195.139580231	231.424475289
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	22	112.848950578	231.424475289	112.848950578	231.424475289	112.848950578	231.424475289
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	23	44.273425866	231.424475289	44.273425866	231.424475289	44.273425866	231.424475289
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	24	15.196048512	300	15.196048512	300	15.196048512	300
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	25	93.464032341	300	93.464032341	300	93.464032341	300
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	26	187.385612937	300	187.385612937	300	187.385612937	300
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	27	265.653596766	300	265.653596766	300	265.653596766	300
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	28	375.228774127	300	375.228774127	300	375.228774127	300
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	29	484.803951488	300	484.803951488	300	484.803951488	300

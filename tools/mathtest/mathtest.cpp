@@ -7,7 +7,7 @@
 //  measure it there. This test pins plugin/Source/QuadMath.h, compiled
 //  unmodified, to those measurements, and checks the invariants every editing
 //  mode promises: that a drag computed from its start cannot drift, that the
-//  affine mode really keeps a parallelogram, and so on.
+//  axis lock moves one number, and so on.
 //
 //  The two sample tables are taken verbatim from host runs recorded in
 //  docs/evidence/mapping.tsv: source points of a path, and where Adobe Free
@@ -30,9 +30,8 @@ namespace
     void Check(bool ok, const std::string& what, const std::string& detail = "")
     {
         ++gChecks;
-        if (ok) return;
-        ++gFailures;
-        std::printf("FAIL  %s%s%s\n", what.c_str(), detail.empty() ? "" : "  --  ", detail.c_str());
+        if (!ok) ++gFailures;
+        std::printf("%s  %s%s%s\n", ok ? "PASS" : "FAIL", what.c_str(), detail.empty() ? "" : "  --  ", detail.c_str());
     }
 
     struct Sample
@@ -275,8 +274,8 @@ int main()
     {
         std::mt19937 rng(7);
         std::uniform_real_distribution<double> d(-80.0, 80.0);
-        bool driftFree = true, affineParallel = true, affineHitsPointer = true;
-        bool perspectiveKeepsMid = true, symmetricKeepsCentroid = true, freeTouchesOne = true;
+        bool driftFree = true, freeTouchesOne = true, axisTouchesOneNumber = true;
+        bool symmetricKeepsCentroid = true, convergingKeepsMid = true;
         for (int i = 0; i < 500; ++i)
         {
             const Quad start = RandomQuad(rng, 30.0);
@@ -286,40 +285,71 @@ int main()
             // Returning to the start point restores the start exactly, in every mode.
             driftFree = driftFree &&
                 Near(MoveCorner(start, corner, start.c[corner]), start, 0.0) &&
+                Near(MoveCornerAxis(start, corner, start.c[corner]), start, 0.0) &&
                 Near(MoveCornerSymmetric(start, corner, start.c[corner]), start, 0.0) &&
-                Near(MoveCornerPerspective(start, corner, start.c[corner]), start, 0.0);
+                Near(MoveCornerConverging(start, corner, start.c[corner]), start, 0.0);
 
             const Quad free = MoveCorner(start, corner, to);
             for (int k = 0; k < 4; ++k)
                 if (k != corner && Distance(free.c[k], start.c[k]) != 0.0) freeTouchesOne = false;
 
-            const Quad sym = MoveCornerSymmetric(start, corner, to);
-            symmetricKeepsCentroid = symmetricKeepsCentroid &&
-                Distance(Centroid(sym), Centroid(start)) < 1e-9;
-
-            const Quad persp = MoveCornerPerspective(start, corner, to);
             const Pt delta = Sub(to, start.c[corner]);
-            const int partner = std::fabs(delta.h) >= std::fabs(delta.v)
-                ? HorizontalNeighbor(corner) : VerticalNeighbor(corner);
-            const Pt midStart = Scale(Add(start.c[corner], start.c[partner]), 0.5);
-            const Pt midNow = Scale(Add(persp.c[corner], persp.c[partner]), 0.5);
-            perspectiveKeepsMid = perspectiveKeepsMid && Distance(midStart, midNow) < 1e-9;
+            const bool horizontal = std::fabs(delta.h) >= std::fabs(delta.v);
+            const Quad axis = MoveCornerAxis(start, corner, to);
+            for (int k = 0; k < 4; ++k)
+            {
+                const bool isCorner = k == corner;
+                const double dh = axis.c[k].h - start.c[k].h, dv = axis.c[k].v - start.c[k].v;
+                if (!isCorner && (dh != 0.0 || dv != 0.0)) axisTouchesOneNumber = false;
+                if (isCorner && (horizontal ? (dv != 0.0 || axis.c[k].h != to.h) : (dh != 0.0 || axis.c[k].v != to.v)))
+                    axisTouchesOneNumber = false;
+            }
 
-            const Quad rect = RectQuad(MakeRect(0, 100, 150, 0));
-            const Quad aff = MoveCornerAffine(rect, corner, Add(rect.c[corner], Make(d(rng), d(rng))));
-            affineParallel = affineParallel && IsParallelogram(aff, 1e-9);
-            const Pt target = Add(start.c[corner], Make(d(rng) * 0.2, d(rng) * 0.2));
-            const Quad aff2 = MoveCornerAffine(start, corner, target);
-            affineHitsPointer = affineHitsPointer && Distance(aff2.c[corner], target) < 1e-9;
+            const Quad sym = MoveCornerSymmetric(start, corner, to);
+            symmetricKeepsCentroid = symmetricKeepsCentroid && Distance(Centroid(sym), Centroid(start)) < 1e-9;
+
+            const Quad conv = MoveCornerConverging(start, corner, to);
+            const int partner = horizontal ? HorizontalNeighbor(corner) : VerticalNeighbor(corner);
+            const Pt midStart = Scale(Add(start.c[corner], start.c[partner]), 0.5);
+            const Pt midNow = Scale(Add(conv.c[corner], conv.c[partner]), 0.5);
+            convergingKeepsMid = convergingKeepsMid && Distance(midStart, midNow) < 1e-9;
         }
-        Check(driftFree, "free, symmetric and perspective edits return exactly to the start");
+        Check(driftFree, "every mode returns exactly to the start");
         Check(freeTouchesOne, "free distortion moves only the dragged corner");
+        Check(axisTouchesOneNumber, "the axis lock moves one number of one corner, along the drag's larger component");
         Check(symmetricKeepsCentroid, "symmetric distortion keeps the centroid");
-        Check(perspectiveKeepsMid, "perspective keeps the midpoint of the edge it changes");
-        Check(affineParallel, "affine distortion of a parallelogram stays a parallelogram");
-        Check(affineHitsPointer, "affine distortion puts the dragged corner under the pointer");
+        Check(convergingKeepsMid, "converging sides keep the midpoint of the edge they change");
     }
 
+    // ---- the corners Illustrator's Free Transform tool leaves ------------------
+    //
+    // Measured by hand, docs/evidence/free-transform.tsv: the grid path's
+    // bounding corners after one drag of the top-right corner. Given where that
+    // corner ended up, each mode must put the other three where Free Transform
+    // put them. (Free Transform's interior is projective; only the corners are
+    // compared, because only the corners are the same convention.)
+
+    {
+        const Quad start = RectQuad(MakeRect(100, 300, 400, 100));
+        struct FreeTransformSample { const char* name; Quad (*mode)(const Quad&, int, Pt); Quad after; };
+        const FreeTransformSample samples[] = {
+            { "Ctrl, or Free Distort mode: free", &MoveCorner, Q(100, 300, 442.667, 345.667, 100, 100, 400, 100) },
+            { "Ctrl+Shift, or Shift in Free Distort mode: axis", &MoveCornerAxis, Q(100, 300, 480, 300, 100, 100, 400, 100) },
+            { "Ctrl+Alt, or Alt in Free Distort mode: symmetric", &MoveCornerSymmetric, Q(100, 300, 493, 394.667, 7, 5.333, 400, 100) },
+            { "Ctrl+Alt+Shift, or Shift+Alt in Free Distort mode: converging", &MoveCornerConverging, Q(24.444, 300, 475.556, 300, 100, 100, 400, 100) },
+            { "Perspective Distort mode, a vertical drag: converging", &MoveCornerConverging, Q(100, 300, 400, 260, 100, 100, 400, 140) },
+        };
+        for (const FreeTransformSample& s : samples)
+        {
+            const Quad got = s.mode(start, kTopRight, s.after.c[kTopRight]);
+            double worst = 0.0;
+            for (int i = 0; i < 4; ++i) worst = std::fmax(worst, Distance(got.c[i], s.after.c[i]));
+            char detail[80];
+            std::snprintf(detail, sizeof(detail), "worst corner %.3g pt", worst);
+            // The tool's numbers were read at three decimals.
+            Check(worst < 2e-3, std::string("Free Transform's corners: ") + s.name, detail);
+        }
+    }
     // ---- shape predicates --------------------------------------------------
 
     Check(IsAxisAlignedRect(RectQuad(MakeRect(0, 10, 20, 0)), 0.0), "a rectangle is a rectangle");

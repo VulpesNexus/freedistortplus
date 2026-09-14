@@ -16,14 +16,18 @@ Everything the editor adds is an editing capability. The document only ever stor
 | Move one corner freely | yes, in a wireframe preview about 300 × 210 px | yes, on the artwork at any zoom | yes | verified |
 | See the result on the real artwork | no: wireframe preview only | yes: Adobe's effect redraws the document when a drag is released | nothing stored | verified |
 | Precision | whole points; 1.8 pt per preview pixel for a 250 pt object | the pointer's artwork coordinates, unrounded | yes | verified |
-| Numeric corner input | no | not yet | would be | not built |
+| Numeric corner input | no | yes: positions on Illustrator's ruler, or offsets from the undistorted corner, with a live preview; one undo step | yes | verified |
+| Numbers typed as Illustrator's own fields take them: either decimal separator, units, expressions, full precision | whole points | yes | nothing stored | verified |
+| Arrow keys move the selected corner by Illustrator's keyboard increment, Shift by ten | no | yes: click a handle to select it; one undo step per key | yes | verified |
+| The tool's icon and the About window follow Illustrator's theme | n/a | yes | nothing stored | verified |
 | One undo step per drag | one per dialog OK | yes | nothing stored | verified |
 | Cancel restores exactly | Cancel | Esc during a drag | nothing stored | verified |
 | No drift from wandering drags | n/a | yes | nothing stored | verified |
-| Perspective (trapezoid) constraint | no | Shift | yes: eight numbers | verified |
-| Symmetric constraint | no | Alt | yes: eight numbers | verified |
-| Affine (parallelogram) constraint | no | Shift+Alt | yes: eight numbers | verified |
-| True perspective foreshortening | no | no: the renderer is bilinear | cannot be | not representable by Adobe Free Distort |
+| Axis lock, as Free Transform's Shift in its Free Distort mode | no | Shift | yes: eight numbers | verified |
+| Converging sides, the corners of Free Transform's Perspective Distort | no | Shift+Alt | yes: eight numbers | verified |
+| Symmetric, as Free Transform's Alt in its Free Distort mode | no | Alt | yes: eight numbers | verified |
+| Free Transform's keys, measured by hand, reproduced at the corners | n/a | yes, with Ctrl ignored, so Free Transform habits carry over | nothing stored | verified |
+| True perspective foreshortening, which Free Transform's distort modes apply to the interior | no | no: the renderer is bilinear | cannot be | not representable by Adobe Free Distort |
 | Snap to anchors, guides, grid | no | not yet (Illustrator's own snapping planned) | nothing stored | not built |
 | Reference point, rotate, scale handles | no | not yet | would be eight numbers | not built |
 | Copy and paste a normalized distortion | no | not yet | would be eight numbers | not built |

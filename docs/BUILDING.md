@@ -54,10 +54,18 @@ python .\tools\solve-mapping.py  # which model fits
 .\tools\probe-source-quads.ps1   # non-rectangular sources: the drawing, and Adobe's own commit, over 121 cases
 .\tools\probe-source-follow.ps1  # Illustrator's own operations on distorted art
 python .\tools\solve-source-quads.py    # which reading of a source fits
+.\tools\probe-numeric.ps1        # the corners dialog and arrow keys, in the host
 python .\tools\make-support-matrix.py   # regenerates docs/FREE_DISTORT_SUPPORT_MATRIX.md from the results
 ```
 
-A drag with the real mouse cannot be scripted (section F of the investigation), so a person makes it and *tools/record-manual-drag.ps1* reads everything back over COM; its own help lists the steps before and after the drag.
+A drag with the real mouse cannot be scripted (section F of the investigation), so a person makes it and *tools/record-manual-drag.ps1* reads everything back over COM; its own help lists the steps before and after the drag. The same holds for *tools/record-free-transform.ps1* (one drag with Illustrator's *Free Transform* tool at a time, classified by *python .\tools\solve-free-transform.py*) and *tools/record-manual-checks.ps1* (the icon, the dialog, the About window, a real click and real arrow keys).
+
+Two windows can be looked at without Illustrator. Each harness builds the plugin's own source file unmodified:
+
+```powershell
+.\tools\CornerHarness\build.ps1 -Test        # the corners dialog, with its scripted checks
+.\tools\AboutHarness\build.cmd               # the About window; from a Visual Studio x64 prompt
+```
 
 Each writes its raw output under *docs/evidence/*, through `Hide-Personal` in *tools/ai.ps1*, so paths that name the machine are redacted as they are written.
 
@@ -99,9 +107,14 @@ The plugin answers `app.sendScriptMessage("FreeDistortPlus", selector, arguments
 | `fd corner` | `index\|corner\|h,v` | move one corner in on-canvas coordinates |
 | `fd append` | | add an identity Free Distort |
 | `editor open`, `editor status`, `editor refresh`, `editor handles` | `measure` for refresh | the editor's own state |
-| `editor drag` | `corner\|mode\|cancelAt\|h,v;h,v;...` | run a drag through the editor's drag code |
+| `editor drag` | `corner\|mode\|cancelAt\|h,v;h,v;...` | run a drag through the editor's drag code; mode is `free`, `axis`, `symmetric`, or `converging` |
 | `editor preview open`, `editor preview points`, `editor preview close` | `corner\|mode\|h,v`, none, none | leave a drag open, read the outline it draws, then release it |
 | `editor reset` | | zero the editor's tool-message counters |
+| `editor numeric` | `corner\|activate` | open the corners dialog; `0` for activate keeps it from taking the foreground |
+| `editor corner` | `corner` | select a corner as a click on its handle does; `-1` for none |
+| `units format`, `units parse` | points, text | how the dialog shows a length, and how it takes a field |
+| `coords` | `h,v` | a point on Illustrator's ruler, and back |
+| `pref` | name | an application preference read as real, integer, and Boolean |
 | `tools`, `tool select`, `view` | tool name for select | tool and view inspection |
 
 **Status: a test interface, not an API.** It is unsupported and may change or disappear between any two versions. It ships in the binary so the binary that passes the tests is the binary that ships. Everything it reaches is reachable through Illustrator's own scripting, and it opens no files, sockets, or processes.

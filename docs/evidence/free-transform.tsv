@@ -1,0 +1,11 @@
+operation	description	corners after (TL TR BL BR)	corners moved	affine worst (pt)	bilinear from corners worst (pt)	homography from corners worst (pt)	Free Distort can store it
+ft-none	Free Transform mode, top-right corner dragged up and right, no modifier	100.000,276.000 397.444,276.000 100.000,100.000 397.444,100.000	top-left, top-right, bottom-right	3.63e-10	6e-10	6e-10	yes
+ft-ctrl	Free Transform mode, top-right corner dragged right with Ctrl held after the drag began	100.000,300.000 461.000,348.778 100.000,100.000 400.000,100.000	top-right	35.2	21.2	6.56e-10	no
+ft-ctrl-alt	Free Transform mode, top-right corner dragged right with Ctrl+Alt held after the drag began	100.000,300.000 493.000,394.667 7.000,5.333 400.000,100.000	top-right, bottom-left	5.95e-10	6e-10	6e-10	yes
+ft-ctrl-shift	Free Transform mode, top-right corner dragged right and a little up with Ctrl+Shift held after the drag began	100.000,300.000 473.000,300.000 100.000,100.000 400.000,100.000	top-right	22.6	11.3	7.14e-10	no
+ft-ctrl-alt-shift	Free Transform mode, top-right corner dragged right with Ctrl+Alt+Shift held after the drag began	24.444,300.000 475.556,300.000 100.000,100.000 400.000,100.000	top-left, top-right	46.2	20.9	5.22e-10	no
+widget-perspective-down	Perspective Distort widget mode, top-right corner dragged mostly downward, no modifier	100.000,300.000 400.000,260.000 100.000,100.000 400.000,140.000	top-right, bottom-right	31.4	37.7	6.06e-10	no
+widget-free-distort	Free Distort widget mode, top-right corner dragged right and up, no modifier	100.000,300.000 442.667,345.667 100.000,100.000 400.000,100.000	top-right	28.2	18.4	6.93e-10	no
+widget-free-distort-shift	Free Distort widget mode, top-right corner dragged right and a little up with Shift held	100.000,300.000 480.000,300.000 100.000,100.000 400.000,100.000	top-right	24.9	12.4	4.89e-10	no
+widget-free-distort-alt	Free Distort widget mode, top-right corner dragged right with Alt held	100.000,300.000 533.444,302.111 -33.444,97.889 400.000,100.000	top-right, bottom-left	5.88e-10	8.25e-10	8.25e-10	yes
+widget-free-distort-shift-alt	Free Distort widget mode, top-right corner dragged right and a little up with Shift+Alt held	15.196,300.000 484.804,300.000 100.000,100.000 400.000,100.000	top-left, top-right	52.2	23.2	5.16e-10	no

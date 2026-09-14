@@ -1,4 +1,4 @@
-FreeDistort+ -- editing loop, 2026-09-14 15:56
+FreeDistort+ -- editing loop, 2026-09-14 16:37
 Added Free Distort as post-effect 0.
 Editor selected.
 active	yes
@@ -15,6 +15,11 @@ quad	(90,330 340,330 90,100 340,100)
 source	rectangle
 quad from	the formula
 drag	none
+last preview	preview of 1 paths, 5 segments (captured before the drag)
+active corner	-1
+keyboard increment	0.0028
+nudges	4, last: moved corner 3 by 0,0.0028
+last numeric	committed (90,330 400.123456789,330 72,100 340,100)
 preview source	preview of 1 paths, 5 segments
 [PASS] the command adds a Free Distort when there is none and selects the editor: yes, valid, Adobe
 [PASS] an untouched effect shows its handles on the input bounds: (90,330 340,330 90,100 340,100)
@@ -33,10 +38,10 @@ write post-effect 0: source [90 330 340 100] destination (70,350 340,330 90,100 
 end quad (70,350 340,330 90,100 340,100)
 [PASS] Escape part-way through a drag restores the dictionary exactly: (70,350 340,330 90,100 340,100)
 [PASS] a canceled drag leaves no undo step: past 0
-[PASS] perspective: a mostly horizontal drag narrows the top edge about its midpoint: (120,330 310,330 90,100 340,100)
-[PASS] perspective: a mostly vertical drag shortens the right edge about its midpoint: (90,330 340,300 90,100 340,130)
-[PASS] symmetric: the opposite corner moves the other way: (100,320 340,330 90,100 330,110)
-[PASS] affine: the result is a parallelogram with the dragged corner under the pointer: (90,330 380,330 90,100 380,100), mismatch 0
+[PASS] axis (Shift): a mostly horizontal drag moves the corner horizontally only: (90,330 380,330 90,100 340,100)
+[PASS] symmetric (Alt): the opposite corner moves the other way: (100,320 340,330 90,100 330,110)
+[PASS] converging (Shift+Alt): a mostly horizontal drag narrows the top edge about its midpoint: (120,330 310,330 90,100 340,100)
+[PASS] converging (Shift+Alt): a mostly vertical drag shortens the right edge about its midpoint: (90,330 340,300 90,100 340,130)
 [PASS] editing a duplicate leaves the original that shared its style alone: (90,330 400,330 90,100 340,100)
 [PASS] after the art moves, the handles move with it: (190,380 500,380 190,150 440,150)
 [PASS] the estimate made without asking Adobe agrees with asking: (190,380 500,380 190,150 440,150)

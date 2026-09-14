@@ -3,13 +3,47 @@ Compiler: cl.exe 14.44.35207, /W4 /WX /std:c++17 /O2
 
 FreeDistort+ -- quad arithmetic
 
+PASS  the model reproduces the host: grid, source = bounds  --  30 points, worst deviation 4.71e-10 pt
       grid, source = bounds: 30 points, worst deviation 4.71e-10 pt
+PASS  the model reproduces the host: curves and handles, source != bounds  --  15 points, worst deviation 6.51e-10 pt
       curves and handles, source != bounds: 15 points, worst deviation 6.51e-10 pt
+PASS  control: ignoring the input bounds does not fit the host
+PASS  a non-rectangular source is read as the host commits it: convex source  --  worst deviation 5.47e-10 pt
       convex source: worst deviation 5.47e-10 pt
+PASS  a non-rectangular source is read as the host commits it: trapezoid source, distorted destination  --  worst deviation 3.33e-10 pt
       trapezoid source, distorted destination: worst deviation 3.33e-10 pt
+PASS  a non-rectangular source is read as the host commits it: concave source  --  worst deviation 0 pt
       concave source: worst deviation 0 pt
+PASS  a non-rectangular source is read as the host commits it: bow-tie source  --  worst deviation 0 pt
       bow-tie source: worst deviation 0 pt
+PASS  a non-rectangular source is read as the host commits it: convex source 1000 pt away  --  worst deviation 4.23e-09 pt
       convex source 1000 pt away: worst deviation 4.23e-09 pt
+PASS  a non-rectangular source is read as the host commits it: convex offsets over other input bounds  --  worst deviation 4.97e-10 pt
       convex offsets over other input bounds: worst deviation 4.97e-10 pt
+PASS  control: the source's bounding box does not fit the host
+PASS  for a rectangular source the general reading is the renormalization
+PASS  a frame with no width or no height is not usable
+PASS  renormalization matches Adobe's own re-commit after a 150% scale
+PASS  renormalization round-trips
+PASS  inverse bilinear solves every mildly distorted quad
+PASS  inverse bilinear recovers (u, t)
+PASS  every mode returns exactly to the start
+PASS  free distortion moves only the dragged corner
+PASS  the axis lock moves one number of one corner, along the drag's larger component
+PASS  symmetric distortion keeps the centroid
+PASS  converging sides keep the midpoint of the edge they change
+PASS  Free Transform's corners: Ctrl, or Free Distort mode: free  --  worst corner 0 pt
+PASS  Free Transform's corners: Ctrl+Shift, or Shift in Free Distort mode: axis  --  worst corner 0 pt
+PASS  Free Transform's corners: Ctrl+Alt, or Alt in Free Distort mode: symmetric  --  worst corner 2.66e-14 pt
+PASS  Free Transform's corners: Ctrl+Alt+Shift, or Shift+Alt in Free Distort mode: converging  --  worst corner 1.78e-14 pt
+PASS  Free Transform's corners: Perspective Distort mode, a vertical drag: converging  --  worst corner 0 pt
+PASS  a rectangle is a rectangle
+PASS  a skewed quad is not a rectangle
+PASS  a mirrored rectangle is not in Adobe's order
+PASS  a rectangle does not cross itself
+PASS  a bow-tie crosses itself
+PASS  a sheared rectangle is a parallelogram
+PASS  a trapezoid is not a parallelogram
+PASS  corner neighbors follow Adobe's numbering
 
-30 checks, 0 failed
+34 checks, 0 failed

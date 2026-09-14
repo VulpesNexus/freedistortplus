@@ -18,6 +18,8 @@
 #include "FDPSuites.h"
 #include "FDPID.h"
 #include "Introspect.h"
+#include "CornerDialog.h"
+#include "FDPTheme.h"
 
 #include <algorithm>
 #include <array>
@@ -71,20 +73,149 @@ namespace
         return o.str();
     }
 
-    std::string ModeName(DistortEditor::Mode mode)
+}
+
+std::string DistortEditor::ModeName(Mode mode)
+{
+    switch (mode)
     {
-        switch (mode)
+        case Mode::kAxis:       return "axis";
+        case Mode::kSymmetric:  return "symmetric";
+        case Mode::kConverging: return "converging";
+        default:                return "free";
+    }
+}
+
+bool DistortEditor::ModeFromName(const std::string& name, Mode* mode)
+{
+    for (Mode m : { Mode::kFree, Mode::kAxis, Mode::kSymmetric, Mode::kConverging })
+        if (name == ModeName(m)) { *mode = m; return true; }
+    return false;
+}
+
+// ---- arrow keys ---------------------------------------------------------------
+//
+// Illustrator sends a tool no key messages (only [ and ]), and an arrow key
+// with any art selected nudges the art. So while this tool is active, a
+// message hook on Illustrator's own UI thread -- in this process, on this
+// thread, nothing injected anywhere -- looks at key presses as Illustrator
+// takes them from its queue. With a corner selected and the keyboard in a
+// document window, an arrow moves that corner instead, and the key is not
+// passed on. With no corner selected, arrows do what they always do: the art
+// moves, and its distortion with it.
+
+namespace
+{
+#ifdef WIN_ENV
+    HHOOK gKeyHook = nullptr;
+    DistortEditor* gKeyEditor = nullptr;
+
+    bool InDocumentWindow(HWND hwnd)
+    {
+        for (HWND h = hwnd; h != nullptr; h = GetParent(h))
         {
-            case DistortEditor::Mode::kPerspective: return "perspective";
-            case DistortEditor::Mode::kSymmetric:   return "symmetric";
-            case DistortEditor::Mode::kAffine:      return "affine";
-            default:                                return "free";
+            wchar_t cls[64] = { 0 };
+            GetClassNameW(h, cls, 64);
+            if (wcscmp(cls, L"OWL.Document") == 0) return true;
+        }
+        return false;
+    }
+
+    LRESULT CALLBACK KeyMessageHook(int code, WPARAM removal, LPARAM lp)
+    {
+        MSG* msg = reinterpret_cast<MSG*>(lp);
+        if (code == HC_ACTION && removal == PM_REMOVE && msg != nullptr && gKeyEditor != nullptr &&
+            msg->message == WM_KEYDOWN &&
+            (msg->wParam == VK_LEFT || msg->wParam == VK_RIGHT || msg->wParam == VK_UP || msg->wParam == VK_DOWN) &&
+            GetKeyState(VK_CONTROL) >= 0 && GetKeyState(VK_MENU) >= 0 && InDocumentWindow(msg->hwnd))
+        {
+            const int dh = msg->wParam == VK_LEFT ? -1 : (msg->wParam == VK_RIGHT ? 1 : 0);
+            const int dv = msg->wParam == VK_DOWN ? -1 : (msg->wParam == VK_UP ? 1 : 0);
+            const std::string said = gKeyEditor->Nudge(dh, dv, GetKeyState(VK_SHIFT) < 0);
+            // Taken: Illustrator must not also nudge the art.
+            if (said.rfind("moved", 0) == 0) msg->message = WM_NULL;
+        }
+        return CallNextHookEx(gKeyHook, code, removal, lp);
+    }
+#endif
+
+    /** Illustrator's keyboard increment, from its own preference, in points;
+        1 pt, Illustrator's default, when the preference cannot be read. */
+    double KeyboardIncrement()
+    {
+        double value = 0.0;
+        if (sAIPreference->GetRealPreference(nullptr, "cursorKeyLength", &value) == kNoErr && value > 0.0) return value;
+        return 1.0;
+    }
+}
+
+void DistortEditor::InstallKeyHook()
+{
+#ifdef WIN_ENV
+    gKeyEditor = this;
+    if (gKeyHook == nullptr) gKeyHook = SetWindowsHookExW(WH_GETMESSAGE, KeyMessageHook, nullptr, GetCurrentThreadId());
+#endif
+}
+
+void DistortEditor::RemoveKeyHook()
+{
+#ifdef WIN_ENV
+    if (gKeyHook != nullptr) UnhookWindowsHookEx(gKeyHook);
+    gKeyHook = nullptr;
+    gKeyEditor = nullptr;
+#endif
+}
+
+void DistortEditor::Shutdown()
+{
+    RemoveKeyHook();
+}
+
+std::string DistortEditor::Nudge(int dh, int dv, bool large)
+{
+    if (!fActive || fActiveCorner < 0 || fDragCorner >= 0 || fNumericOpen || fBusy) return "not taken\n";
+    // The hook runs between Illustrator's own messages, where no plugin
+    // context is set up. Pushing one makes everything below one undo step.
+    AIAppContextHandle context = nullptr;
+    const bool pushed = fPlugin != nullptr && sAIAppContext->PushAppContext(fPlugin, &context) == kNoErr;
+    std::ostringstream o;
+    if (!Retarget(true))
+    {
+        o << "not taken: " << fTarget.why;
+    }
+    else
+    {
+        const double step = KeyboardIncrement() * (large ? 10.0 : 1.0);
+        fdmath::Quad next = fTarget.quad;
+        next.c[fActiveCorner] = fdmath::Add(next.c[fActiveCorner], fdmath::Make(dh * step, dv * step));
+        std::string report;
+        const ASErr err = fd::Write(fTarget.art, fTarget.postIndex, fTarget.inputBounds, next, &report);
+        if (err)
+        {
+            o << "not taken: the write failed (" << err << ")";
+        }
+        else
+        {
+            sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Free Distort"), ai::UnicodeString("Redo Free Distort"));
+            fTarget.quad = next;
+            AIArtStyleHandle written = nullptr;
+            sAIArtStyle->GetArtStyle(fTarget.art, &written);
+            fTarget.styleAtMeasure = written;
+            fd::Read(fTarget.art, fTarget.postIndex, &fTarget.stored);
+            ++fNudges;
+            o << "moved corner " << fActiveCorner << " by " << Num(dh * step) << "," << Num(dv * step);
+            Invalidate();
+            sAIDocument->RedrawDocument();
         }
     }
+    if (pushed) sAIAppContext->PopAppContext(context);
+    fLastNudge = o.str();
+    return fLastNudge + "\n";
 }
 
 ASErr DistortEditor::Startup(SPPluginRef self)
 {
+    fPlugin = self;
     AIAddToolData data;
     data.title = ai::UnicodeString(kFDPToolTitle);
     data.tooltip = ai::UnicodeString(kFDPToolTooltip);
@@ -134,20 +265,249 @@ ASErr DistortEditor::Activate()
     return sAITool->SetSelectedTool(fTool);
 }
 
+// ---- numeric entry -----------------------------------------------------------
+
+/** What the corners dialog asks of Illustrator: the ruler's coordinates, the
+    document's units, and writes to the document that a later write or a
+    cancel replaces. Every write goes through fd::Write, so the dialog stores
+    exactly what a drag would, and every preview write is undone before the
+    next, so the undo history ends up with at most one change. */
+class EditorDialogHost : public CornerDialogHost
+{
+public:
+    EditorDialogHost(DistortEditor& editor, const fdmath::Quad& start, AIArtStyleHandle startStyle)
+        : fEditor(editor), fStart(start), fStartStyle(startStyle) {}
+
+    fdmath::Pt ToDisplay(fdmath::Pt artwork) override { return DistortEditor::RulerFromArtwork(artwork); }
+    fdmath::Pt FromDisplay(fdmath::Pt display) override { return DistortEditor::ArtworkFromRuler(display); }
+
+    std::wstring FormatLength(double points) override { return DistortEditor::FormatLength(points); }
+    bool ParseLength(const std::wstring& text, double* points) override { return DistortEditor::ParseLength(text, points); }
+
+    void Preview(const fdmath::Quad* quad) override
+    {
+        Discard();
+        const fdmath::Quad show = quad ? *quad : fStart;
+        if (quad != nullptr && !fdmath::Near(*quad, fStart, 0.0))
+        {
+            std::string report;
+            if (fd::Write(fEditor.fTarget.art, fEditor.fTarget.postIndex, fEditor.fTarget.inputBounds, *quad, &report) == kNoErr)
+            {
+                fWrote = true;
+                fWritten = *quad;
+                AIArtStyleHandle written = nullptr;
+                sAIArtStyle->GetArtStyle(fEditor.fTarget.art, &written);
+                fEditor.fTarget.styleAtMeasure = written;
+            }
+        }
+        fEditor.fTarget.quad = show;
+        fEditor.Invalidate();
+        sAIDocument->RedrawDocument();
+    }
+
+    /** Takes back the last preview write, if there is one. */
+    void Discard()
+    {
+        if (!fWrote) return;
+        sAIUndo->UndoChanges();
+        fWrote = false;
+        fEditor.fTarget.styleAtMeasure = fStartStyle;
+        fEditor.fTarget.quad = fStart;
+    }
+
+    bool Wrote() const { return fWrote; }
+    const fdmath::Quad& Written() const { return fWritten; }
+
+private:
+    DistortEditor& fEditor;
+    const fdmath::Quad fStart;
+    const AIArtStyleHandle fStartStyle;
+    bool fWrote = false;
+    fdmath::Quad fWritten;
+};
+
+namespace
+{
+    /** Illustrator's ruler as an affine map from artwork coordinates: origin
+        and the two axis scales, read from the host's forward conversion of
+        three points. The ruler neither rotates nor shears, so this is exact. */
+    struct Ruler { double oh, ov, sh, sv; };
+
+    Ruler ReadRuler()
+    {
+        auto forward = [](double h, double v) {
+            AIRealPoint p = { static_cast<AIReal>(h), static_cast<AIReal>(v) };
+            if (sAIHardSoft != nullptr)
+                sAIHardSoft->ConvertCoordinates(p, kAIDocumentCoordinateSystem, kAICurrentCoordinateSystem, true);
+            return fdmath::Make(p.h, p.v);
+        };
+        const fdmath::Pt o = forward(0.0, 0.0), x = forward(1.0, 0.0), y = forward(0.0, 1.0);
+        Ruler r = { o.h, o.v, x.h - o.h, y.v - o.v };
+        if (r.sh == 0.0) r.sh = 1.0;
+        if (r.sv == 0.0) r.sv = 1.0;
+        return r;
+    }
+}
+
+fdmath::Pt DistortEditor::RulerFromArtwork(fdmath::Pt artwork)
+{
+    const Ruler r = ReadRuler();
+    return fdmath::Make(r.oh + r.sh * artwork.h, r.ov + r.sv * artwork.v);
+}
+
+fdmath::Pt DistortEditor::ArtworkFromRuler(fdmath::Pt ruler)
+{
+    // Not AIHardSoftSuite::ConvertCoordinates in the other direction: with
+    // convertForDisplay set it is not the inverse of the forward conversion
+    // (measured on 30.7.0: a point shown at y 270 on a 600 pt artboard came
+    // back as -870, not 330). Inverting the forward map is exact.
+    const Ruler r = ReadRuler();
+    return fdmath::Make((ruler.h - r.oh) / r.sh, (ruler.v - r.ov) / r.sv);
+}
+
+std::wstring DistortEditor::FormatLength(double points)
+{
+    ai::UnicodeString s;
+    // Four decimals, the most Illustrator's formatter offers. The dialog keeps
+    // a field's exact value for as long as its text is not edited.
+    if (sAIUser->IUAIRealToStringUnits(static_cast<AIReal>(points), 4, s) != kNoErr) return std::wstring();
+    const std::basic_string<ASUnicode> u = s.as_ASUnicode();
+    return std::wstring(u.begin(), u.end());
+}
+
+bool DistortEditor::ParseLength(const std::wstring& text, double* points, std::wstring* evaluatedText)
+{
+    const std::basic_string<ASUnicode> u(text.begin(), text.end());
+    AIExpressionOptions options;
+    options.unit = kAIPointUnits;
+    options.minValue = -1.0e7;
+    options.maxValue = 1.0e7;
+    options.oldValue = 0.0;
+    options.precision = 12;
+    ai::UnicodeString evaluated;
+    AIBoolean changed = false;
+    AIDouble value = 0.0;
+    const AIErr err = sAIUser->EvaluateExpression(ai::UnicodeString(u), options, evaluated, changed, value);
+    if (evaluatedText != nullptr)
+    {
+        const std::basic_string<ASUnicode> e = evaluated.as_ASUnicode();
+        *evaluatedText = std::wstring(e.begin(), e.end());
+    }
+    // "Changed" is how the evaluator says the text was not a number it could
+    // take as it stood: it fell back to the old value, or clipped.
+    if (err != kNoErr || changed) return false;
+    *points = value;
+    return true;
+}
+
+namespace
+{
+    const char* const kPreferencePrefix = kFDPPluginName;
+
+    bool ReadBoolPreference(const char* name, bool fallback)
+    {
+        AIBoolean value = fallback;
+        if (sAIPreference->GetBooleanPreference(kPreferencePrefix, name, &value) != kNoErr) return fallback;
+        return value != 0;
+    }
+}
+
+std::string DistortEditor::OpenNumeric(int corner, bool activate)
+{
+    if (fNumericOpen) return "the corners dialog is already open\n";
+    if (fDragCorner >= 0) return "a drag is open\n";
+    // Measured in this message's own context, before anything is written.
+    if (!Retarget(true)) return "no target: " + fTarget.why + "\n";
+
+    CornerDialogState state;
+    state.start = fTarget.quad;
+    state.bounds = fTarget.inputBounds;
+    state.focusCorner = corner >= 0 && corner <= 3 ? corner : (fActiveCorner >= 0 ? fActiveCorner : 0);
+    state.offsets = ReadBoolPreference("NumericOffsets", false);
+    state.preview = ReadBoolPreference("NumericPreview", true);
+    state.activate = activate;
+    AIWindowRef appWindow = nullptr;
+    if (!sAIAppContext->GetPlatformAppWindow(&appWindow)) state.owner = appWindow;
+#ifdef WIN_ENV
+    const fdptheme::Theme theme = fdptheme::Read();
+    if (theme.fromHost)
+    {
+        state.colors.set = true;
+        state.colors.dark = theme.dark;
+        state.colors.background = theme.background;
+        state.colors.text = theme.text;
+        state.colors.editText = theme.editText;
+        state.colors.editBackground = theme.editBackground;
+        state.colors.border = theme.border;
+        state.colors.focusRing = theme.focusRing;
+        state.colors.control = theme.control;
+        state.colors.controlHot = theme.controlHot;
+        state.colors.controlPressed = theme.controlPressed;
+    }
+#endif
+
+    // The outline shows where Adobe will draw while the fields change, from
+    // the same capture a drag uses.
+    AIArtStyleHandle style = nullptr;
+    sAIArtStyle->GetArtStyle(fTarget.art, &style);
+    if (!fPreviewSource.empty() && fPreviewSourceArt == fTarget.art && fPreviewSourceStyle == style &&
+        fdmath::Near(fPreviewSourceQuad, fTarget.quad, 1e-9))
+        fPreview = fPreviewSource;
+    else
+        CapturePreview(fTarget.quad, &fPreview, &fPreviewNote);
+
+    EditorDialogHost host(*this, state.start, fTarget.styleAtMeasure);
+    fNumericOpen = true;
+    Invalidate();
+    const bool ok = RunCornerDialog(host, state);
+    fNumericOpen = false;
+
+    std::ostringstream o;
+    if (ok && !fdmath::Near(state.result, state.start, 0.0))
+    {
+        if (!host.Wrote() || !fdmath::Near(host.Written(), state.result, 0.0)) host.Preview(&state.result);
+        sAIUndo->SetUndoTextUS(ai::UnicodeString("Undo Free Distort"), ai::UnicodeString("Redo Free Distort"));
+        fd::Read(fTarget.art, fTarget.postIndex, &fTarget.stored);
+        o << "committed " << fd::Describe(state.result);
+    }
+    else
+    {
+        host.Discard();
+        fTarget.quad = state.start;
+        o << (ok ? "OK with nothing changed" : "canceled");
+    }
+    sAIPreference->PutBooleanPreference(kPreferencePrefix, "NumericOffsets", state.offsets);
+    sAIPreference->PutBooleanPreference(kPreferencePrefix, "NumericPreview", state.preview);
+    fPreview.clear();
+    Invalidate();
+    sAIDocument->RedrawDocument();
+    fLastNumeric = o.str();
+    return fLastNumeric + "\n";
+}
+
+ASErr DistortEditor::EditTool()
+{
+    OpenNumeric(fActiveCorner, true);
+    return kNoErr;
+}
+
 ASErr DistortEditor::SelectTool()
 {
     fActive = true;
     sAIAnnotator->SetAnnotatorActive(fAnnotator, true);
     Retarget(true);
     Invalidate();
+    InstallKeyHook();
     return kNoErr;
 }
 
 ASErr DistortEditor::DeselectTool()
 {
     if (fDragCorner >= 0) EndDrag(false);
+    RemoveKeyHook();
     Invalidate();
     fActive = false;
+    fActiveCorner = -1;
     sAIAnnotator->SetAnnotatorActive(fAnnotator, false);
     fTarget = Target();
     return kNoErr;
@@ -385,8 +745,8 @@ DistortEditor::Mode DistortEditor::ModeFromEvent(const AIEvent* event)
     if (event == nullptr) return Mode::kFree;
     const bool shift = (event->modifiers & aiEventModifiers_shiftKey) != 0;
     const bool alt = (event->modifiers & aiEventModifiers_optionKey) != 0;
-    if (shift && alt) return Mode::kAffine;
-    if (shift) return Mode::kPerspective;
+    if (shift && alt) return Mode::kConverging;
+    if (shift) return Mode::kAxis;
     if (alt) return Mode::kSymmetric;
     return Mode::kFree;
 }
@@ -549,10 +909,10 @@ void DistortEditor::StepDrag(fdmath::Pt pointer, Mode mode)
     fdmath::Quad next;
     switch (mode)
     {
-        case Mode::kPerspective: next = fdmath::MoveCornerPerspective(fDragStart, fDragCorner, pointer); break;
-        case Mode::kSymmetric:   next = fdmath::MoveCornerSymmetric(fDragStart, fDragCorner, pointer); break;
-        case Mode::kAffine:      next = fdmath::MoveCornerAffine(fDragStart, fDragCorner, pointer); break;
-        default:                 next = fdmath::MoveCorner(fDragStart, fDragCorner, pointer); break;
+        case Mode::kAxis:       next = fdmath::MoveCornerAxis(fDragStart, fDragCorner, pointer); break;
+        case Mode::kSymmetric:  next = fdmath::MoveCornerSymmetric(fDragStart, fDragCorner, pointer); break;
+        case Mode::kConverging: next = fdmath::MoveCornerConverging(fDragStart, fDragCorner, pointer); break;
+        default:                next = fdmath::MoveCorner(fDragStart, fDragCorner, pointer); break;
     }
 
     // Replace, do not accumulate: the previous step's write is discarded
@@ -603,10 +963,16 @@ ASErr DistortEditor::MouseDown(AIToolMessage* message)
 {
     ++fMouseDowns;
     fLastCursor = message->cursor;
+    fDownCursor = message->cursor;
+    fDownAlt = message->event != nullptr && (message->event->modifiers & aiEventModifiers_optionKey) != 0;
     if (!fTarget.valid) Retarget(false);
     const int corner = HitCorner(message->cursor);
     fLastHitCorner = corner;
-    if (corner < 0) return kNoErr;
+    if (corner < 0)
+    {
+        if (fActiveCorner >= 0) { fActiveCorner = -1; Invalidate(); }
+        return kNoErr;
+    }
     BeginDrag(corner);
     return kNoErr;
 }
@@ -636,6 +1002,21 @@ ASErr DistortEditor::MouseUp(AIToolMessage* message)
 {
     ++fMouseUps;
     fLastCursor = message->cursor;
+    // A press and release within a couple of pixels is a click, not a drag:
+    // it selects the corner, and with Alt it opens the corners dialog, the
+    // way Alt-clicking with Illustrator's transform tools opens theirs.
+    AIPoint down, up;
+    const bool click = fDragCorner >= 0 && ToView(FromAI(fDownCursor), &down) && ToView(FromAI(message->cursor), &up) &&
+                       std::abs(down.h - up.h) <= 2 && std::abs(down.v - up.v) <= 2;
+    if (click)
+    {
+        const int corner = fDragCorner;
+        EndDrag(false);
+        fActiveCorner = corner;
+        Invalidate();
+        if (fDownAlt) OpenNumeric(corner, true);
+        return kNoErr;
+    }
     EndDrag(!fDragCanceled);
     return kNoErr;
 }
@@ -745,7 +1126,7 @@ ASErr DistortEditor::Draw(AIAnnotatorMessage* message)
     sAIAnnotatorDrawer->SetOpacity(drawer, 1.0);
 
     // During a drag, where Adobe's effect is about to put the artwork.
-    if (fDragCorner >= 0 && !fDragCanceled && !fPreview.empty())
+    if (((fDragCorner >= 0 && !fDragCanceled) || fNumericOpen) && !fPreview.empty())
     {
         // Not the handles' blue: Illustrator outlines the selected source art
         // in its layer color, blue by default, and during a drag that outline
@@ -795,7 +1176,7 @@ ASErr DistortEditor::Draw(AIAnnotatorMessage* message)
         AIRect handle;
         handle.left = c[i].h - kHandleRadius; handle.right = c[i].h + kHandleRadius;
         handle.top = c[i].v - kHandleRadius; handle.bottom = c[i].v + kHandleRadius;
-        sAIAnnotatorDrawer->SetColor(drawer, i == fDragCorner ? accent : white);
+        sAIAnnotatorDrawer->SetColor(drawer, (i == fDragCorner || i == fActiveCorner) ? accent : white);
         sAIAnnotatorDrawer->DrawRect(drawer, handle, true);
         sAIAnnotatorDrawer->SetColor(drawer, accent);
         sAIAnnotatorDrawer->DrawRect(drawer, handle, false);
@@ -831,6 +1212,10 @@ std::string DistortEditor::Status() const
     if (fTarget.formulaDeviation >= 0.0) o << "formula against Adobe\t" << Num(fTarget.formulaDeviation) << "\n";
     o << "drag\t" << (fDragCorner >= 0 ? "open, corner " + std::to_string(fDragCorner) : std::string("none")) << "\n";
     if (!fPreviewNote.empty()) o << "last preview\t" << fPreviewNote << "\n";
+    o << "active corner\t" << fActiveCorner << "\n";
+    o << "keyboard increment\t" << Num(KeyboardIncrement()) << "\n";
+    o << "nudges\t" << fNudges << (fLastNudge.empty() ? "" : ", last: " + fLastNudge) << "\n";
+    if (!fLastNumeric.empty()) o << "last numeric\t" << fLastNumeric << "\n";
     o << "preview source\t" << (fPreviewSourceArt == fTarget.art && !fPreviewSource.empty()
         ? fPreviewSourceNote : std::string("none for this target")) << "\n";
     return o.str();

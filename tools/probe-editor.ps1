@@ -95,20 +95,17 @@ Check 'cancel' 'a canceled drag leaves no undo step' ("past {0}" -f $pastBefore)
 # ---- modes -----------------------------------------------------------------------------
 
 Fresh
-Send-AiMessage 'editor drag' '0|perspective|-1|120,332' | Out-Null
-Check 'modes' 'perspective: a mostly horizontal drag narrows the top edge about its midpoint' '(120,330 310,330 90,100 340,100)' (Dst) ((Dst) -eq '(120,330 310,330 90,100 340,100)')
-Fresh
-Send-AiMessage 'editor drag' '3|perspective|-1|343,130' | Out-Null
-Check 'modes' 'perspective: a mostly vertical drag shortens the right edge about its midpoint' '(90,330 340,300 90,100 340,130)' (Dst) ((Dst) -eq '(90,330 340,300 90,100 340,130)')
+Send-AiMessage 'editor drag' '1|axis|-1|380,338' | Out-Null
+Check 'modes' 'axis (Shift): a mostly horizontal drag moves the corner horizontally only' '(90,330 380,330 90,100 340,100)' (Dst) ((Dst) -eq '(90,330 380,330 90,100 340,100)')
 Fresh
 Send-AiMessage 'editor drag' '0|symmetric|-1|100,320' | Out-Null
-Check 'modes' 'symmetric: the opposite corner moves the other way' '(100,320 340,330 90,100 330,110)' (Dst) ((Dst) -eq '(100,320 340,330 90,100 330,110)')
+Check 'modes' 'symmetric (Alt): the opposite corner moves the other way' '(100,320 340,330 90,100 330,110)' (Dst) ((Dst) -eq '(100,320 340,330 90,100 330,110)')
 Fresh
-Send-AiMessage 'editor drag' '1|affine|-1|380,330' | Out-Null
-$affine = Dst
-$n = [regex]::Matches($affine, '-?[0-9.]+') | ForEach-Object { [double]::Parse($_.Value, [Globalization.CultureInfo]::InvariantCulture) }
-$gap = [math]::Abs(($n[0] + $n[6]) - ($n[2] + $n[4])) + [math]::Abs(($n[1] + $n[7]) - ($n[3] + $n[5]))
-Check 'modes' 'affine: the result is a parallelogram with the dragged corner under the pointer' 'TL+BR = TR+BL, corner 1 at 380,330' ("{0}, mismatch {1}" -f $affine, (Format-AiNumber $gap)) ($gap -lt 1e-6 -and $n[2] -eq 380 -and $n[3] -eq 330)
+Send-AiMessage 'editor drag' '0|converging|-1|120,332' | Out-Null
+Check 'modes' 'converging (Shift+Alt): a mostly horizontal drag narrows the top edge about its midpoint' '(120,330 310,330 90,100 340,100)' (Dst) ((Dst) -eq '(120,330 310,330 90,100 340,100)')
+Fresh
+Send-AiMessage 'editor drag' '3|converging|-1|343,130' | Out-Null
+Check 'modes' 'converging (Shift+Alt): a mostly vertical drag shortens the right edge about its midpoint' '(90,330 340,300 90,100 340,130)' (Dst) ((Dst) -eq '(90,330 340,300 90,100 340,130)')
 
 # ---- a duplicate that shares the style ----------------------------------------------------
 

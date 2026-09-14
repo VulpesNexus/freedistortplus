@@ -20,6 +20,7 @@
 
 #include <winres.h>
 #include "FDPID.h"
+#include "Resource.h"
 
 #ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
@@ -63,5 +64,11 @@ plugin pipl "plugin.pipl"
 
 // Tool icons, in the form the SDK's MultiArrowTool sample uses: a table from
 // resource ID to file name, and each SVG as a resource named for its file.
+// N is drawn dark for Illustrator's light interface, D light for its dark one.
 IDToFile txt "IDToFile.txt"
 FDP_Tool_Lg_N_at_2x svg "FDP_Tool_Lg_N@2x.svg"
+FDP_Tool_Lg_D_at_2x svg "FDP_Tool_Lg_D@2x.svg"
+
+// The About dialog, in its own file so the harness in tools/AboutHarness can
+// compile the same template.
+#include "FreeDistortPlusAbout.rc"

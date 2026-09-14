@@ -144,7 +144,7 @@ From the SDK headers, confirmed where the host could confirm it:
 | Know which Appearance entry has focus | partly | `AIArtStyleParserSuite::GetFocusEffect`; the header never says it is the panel's selection |
 | Draw handles over the artwork | yes | `AIAnnotatorSuite`, `AIAnnotatorDrawerSuite` |
 | A custom tool with drag handling | yes | `AIToolSuite`; drags suspend live effects unless `kToolDoesntWantArtStyleExecutionSuspender` |
-| Arrow keys while a tool is active | **no** tool message | only `[` and `]` reach a tool |
+| Arrow keys while a tool is active | **no** tool message; a message hook on Illustrator's own UI thread sees them | only `[` and `]` reach a tool; section I |
 | Drive a tool with posted mouse messages, for testing | **no** | Mouse messages posted to the document view reach no tool handler at all (measured with message counters in the tool), unlike Adobe's Drover dialogs, which accept them. The document view is the `OS_ViewContainer` window whose parent is `OWL.Document`: panels are Drover views with the same title, and the *Tools* panel is found first, which voided the first run of this test. |
 | Repaint the document, and so a live effect's result, during a tool's drag | **no** | `kToolDoesntWantArtStyleExecutionSuspender` and `AIDocumentSuite::RedrawDocument` on every drag step both left the artwork unchanged until release, as reported by a person dragging; no SDK call updates a view at once. Annotator drawing does update during a drag. |
 | See the canvas without bringing Illustrator forward | yes | `PrintWindow` with `PW_RENDERFULLCONTENT` on the document view captures artwork, live effects, and annotator drawing while Illustrator is behind other windows ([evidence/editor-handles-on-canvas.png](evidence/editor-handles-on-canvas.png)). |
@@ -194,17 +194,45 @@ Not built yet, on purpose: snapping bugs can hide coordinate bugs, and free drag
 
 ## I. Supported Free Transform-like modes
 
-Every mode compiles down to the same eight destination numbers, so none needs state Adobe cannot store:
+The modifier keys copy Illustrator's own *Free Transform* tool, measured rather than read from its help. A person made ten drags of the top-right corner of a grid path, one at a time, and *tools/record-free-transform.ps1* read every anchor back over COM after each ([evidence/free-transform.tsv](evidence/free-transform.tsv)):
 
-| Modifier | Mode | What it does |
+| *Free Transform*, as measured | Corners that moved | Interior | *Free Distort* can store the result |
+| --- | --- | --- | --- |
+| *Free Transform* mode, no key | three: scale about the opposite corner | affine | yes |
+| *Ctrl*; or *Free Distort* mode, no key | the dragged one, where it was put | projective | corners yes, interior no |
+| *Ctrl+Shift*; or *Shift* in *Free Distort* mode | the dragged one, along the drag's larger component only | projective | corners yes, interior no |
+| *Ctrl+Alt*; or *Alt* in *Free Distort* mode | the dragged one and the opposite one, the other way | affine: a rectangle becomes a parallelogram | yes |
+| *Ctrl+Alt+Shift*; *Shift+Alt* in *Free Distort* mode; or *Perspective Distort* mode | the dragged one and the other corner of the edge across the drag's larger component, the mirror amount | projective | corners yes, interior no |
+
+The interior column is the measurement that matters most. *Free Transform*'s distort modes are true perspective: a homography from the four corners places all ninety anchors and handles to 10⁻⁹ pt, while the bilinear map misses by 11 to 38 pt. *Free Distort* is bilinear (section B). So what an editor over *Free Distort* can share with *Free Transform* is which corners move and by how much, not what happens between them. Where *Free Transform* stays affine, the two agree everywhere.
+
+The editor is a distortion tool, so it takes *Free Transform*'s *Free Distort* mode as its model, and ignores *Ctrl*, so the keys held for *Free Transform* in its default mode work too:
+
+| Keys | Mode | What it does |
 | --- | --- | --- |
-| none | Free | the corner goes where it is put |
-| *Shift* | Perspective | a mostly horizontal drag widens or narrows that corner's horizontal edge about its midpoint; a mostly vertical drag does the same to its vertical edge |
-| *Alt* | Symmetric | the diagonally opposite corner moves the other way; the centroid stays |
-| *Shift+Alt* | Affine | the quad stays a parallelogram, with the opposite corner fixed and the dragged corner under the pointer |
+| none, or *Ctrl* | Free | the corner goes where it is put |
+| *Shift*, or *Ctrl+Shift* | Axis | the corner moves along the drag's larger component only |
+| *Alt*, or *Ctrl+Alt* | Symmetric | the diagonally opposite corner moves the other way; the centroid stays |
+| *Shift+Alt*, or *Ctrl+Alt+Shift* | Converging sides | the other corner of the edge across the drag's larger component moves the mirror amount, so that edge grows or shrinks about its midpoint |
 
-These modifiers are provisional. The Free Transform parity study (the brief's items 18 and 39), which measures what Illustrator's own Free Transform tool does in its Free Distort and Perspective Distort modes and at which modifiers, has not been run yet, and it decides the final mapping.
+*tools/mathtest* checks each mode against the corners *Free Transform* left: given where the dragged corner ended, each mode puts the other three where *Free Transform* put them.
 
+The fourth mode is not called perspective, though *Free Transform* calls the same corner movement *Perspective Distort*: its outline is a trapezoid, but the artwork inside is not foreshortened. An earlier build had a parallelogram mode on *Shift+Alt*. *Free Transform* has no such mode, so it was removed rather than put on a key of its own.
+### Numeric entry
+
+Double-clicking the tool's icon, the way Illustrator's transform tools open their dialogs, or *Alt*-clicking a handle opens *Free Distort Corners*. It has a horizontal and a vertical field per corner, laid out where the corners sit. The fields show either positions or offsets from the undistorted corner, and there is a live preview. Everything was measured through *tools/probe-numeric.ps1*, which works the real dialog inside Illustrator with window messages from another process, without the foreground ([evidence/numeric.txt](evidence/numeric.txt)), and through *tools/CornerHarness*, which builds the same dialog file outside Illustrator ([evidence/corner-dialog.txt](evidence/corner-dialog.txt), [evidence/corner-dialog-dark.png](evidence/corner-dialog-dark.png)).
+
+- **Fields take numbers the way Illustrator's own fields do**, through `AIUserSuite::EvaluateExpression`: "12.5" and "12,5" alike, "1 in", "3 mm", "10+5", full precision ("12.3456789"), and nothing for "abc". Illustrator formats with the interface's decimal separator, a comma on this machine ("12,3457 pt").
+- **Positions are the ruler's.** The dialog maps a corner through `AIHardSoftSuite::ConvertCoordinates` from document coordinates to the current ruler, which gives what Illustrator's artboard coordinates give: (90, 330) on a 600 pt artboard shows as (90, 270), y down. The same call in the other direction, with `convertForDisplay`, is **not its inverse**: 270 comes back as −870. So the dialog reads the ruler as an affine map from three forward conversions and inverts that, exactly.
+- **Nothing is lost to display precision.** A field shows four decimals ("400,1234 pt" for 400.123456789). A field whose text was not edited keeps the exact value, so *OK* with nothing typed changes nothing and adds no undo step.
+- **Transactions.** A field takes effect when it is left or on *Enter*; typing does not write. Each preview replaces the last with `UndoChanges`, so one *OK* is one undo step, and *Cancel* restores the dictionary exactly with none. Inside the modal dialog, unlike inside a tool's drag, Illustrator does repaint the document: a capture taken while the dialog was open shows Adobe's render already at the typed corner, under the outline ([evidence/numeric-dialog-preview.png](evidence/numeric-dialog-preview.png)).
+- **Keys.** The up and down arrows step a field by one ruler unit, ten with *Shift*. *Undistort* puts every corner where it is with no distortion. Holding *Alt* turns *Cancel* into *Reset*, back to the values the dialog opened with, as in Adobe's own dialogs.
+
+### Arrow keys
+
+Illustrator sends a tool no key messages, and with art selected an arrow nudges the art. While the tool is active, a `WH_GETMESSAGE` hook on Illustrator's UI thread watches key presses as Illustrator takes them from its queue. The hook is in this process and on that one thread; nothing is injected. With a corner selected by a click on its handle, and the key aimed at a document window, an arrow moves that corner by Illustrator's *Keyboard Increment* (*Shift*: ten times) and is not passed on. The write happens inside a pushed app context, which the SDK documents as one undoable operation. With no corner selected, arrows do what they always do.
+
+The increment is the `cursorKeyLength` preference, in points. On this machine it reads 0.0028, and the person at the machine read *0,0028 pt* in *Edit > Preferences > General*. By hand: a click selected the top-right corner without moving it; *Right* three times and *Shift+Right* once moved it exactly 0.0364 pt, 13 increments, as four undo steps; the art did not move ([evidence/manual-checks.txt](evidence/manual-checks.txt)).
 ## J. Unsupported modes and why
 
 - **True perspective foreshortening** cannot be stored. The renderer is bilinear (section B).
@@ -250,10 +278,8 @@ The write figures include the round trip through scripting, so they are upper bo
 Worst first.
 
 1. **Adobe's own rendering cannot update during a drag** (section G). The editor's exact outline stands in for it, verified against Adobe's render point by point and seen following a real drag. It needs Free Distort to be the last effect; with another effect after it, a drag shows only the handles.
-2. **The Free Transform parity study** (section I), which decides the final modifier mapping. It needs real input for the same reason.
-3. The first crash (section M): fixed on suspicion, not proven either way.
-4. A source frame with no width or height (section D). The editor declines it before asking Adobe anything; what Adobe's renderer does with one has not been measured, because it divides by zero.
-5. Ruler origins, several artboards, rotated views, and art inside rotated groups (section C).
-6. Free Distort inside a fill or stroke rather than on the whole object; the editor edits post-effects only.
-7. Arrow-key nudging: no tool message carries arrow keys, and Illustrator's own keyboard increment preference is not named in the SDK or in any obvious key of the preferences file.
-8. Menu placement, mostly settled. The command item is in Adobe's own `Live Vector &Distort && Transform` group, added from `PostStartupPlugin`. Unlike a live-effect item placed there (*.workspace/ADOBE_PLUGIN_MENUS.md*), this plain command does not break *Apply Last Effect*: Adobe's *Free Distort* item applies, and *Apply Last Effect* repeats it, with the command beside them ([evidence/persistence.txt](evidence/persistence.txt)). Not yet checked: *Apply Last Effect* after a third-party effect.
+2. The first crash (section M): fixed on suspicion, not proven either way.
+3. A source frame with no width or height (section D). The editor declines it before asking Adobe anything; what Adobe's renderer does with one has not been measured, because it divides by zero.
+4. Ruler origins, several artboards, rotated views, and art inside rotated groups (section C).
+5. Free Distort inside a fill or stroke rather than on the whole object; the editor edits post-effects only.
+6. Menu placement, mostly settled. The command item is in Adobe's own `Live Vector &Distort && Transform` group, added from `PostStartupPlugin`. Unlike a live-effect item placed there (*.workspace/ADOBE_PLUGIN_MENUS.md*), this plain command does not break *Apply Last Effect*: Adobe's *Free Distort* item applies, and *Apply Last Effect* repeats it, with the command beside them ([evidence/persistence.txt](evidence/persistence.txt)). Not yet checked: *Apply Last Effect* after a third-party effect.

@@ -34,6 +34,38 @@
 #define kFDPVersionPatch            0
 #define kFDPVersionString           "0.1.0-dev"
 
+/** The About window's title: the name and the release, linking to the
+    repository (.workspace/ADOBE_PLUGIN_ABOUT.md). The build suffix stays on the
+    file version, not on the window. */
+#define kFDPDisplayName             "FreeDistort+"
+#define FDP_STRINGIFY2(x)           #x
+#define FDP_STRINGIFY(x)            FDP_STRINGIFY2(x)
+#define kFDPDisplayVersion          FDP_STRINGIFY(kFDPVersionMajor) "." \
+                                    FDP_STRINGIFY(kFDPVersionMinor) "." \
+                                    FDP_STRINGIFY(kFDPVersionPatch)
+/* Wide forms for the dialog, pasted from the narrow literals so the characters
+   are never at the mercy of the source file's guessed encoding. */
+#define FDP_WIDEN2(x)               L ## x
+#define FDP_WIDEN(x)                FDP_WIDEN2(x)
+#define FDP_WDISPLAYNAME            FDP_WIDEN(kFDPDisplayName)
+#define FDP_WDISPLAYVERSION         FDP_WIDEN(FDP_STRINGIFY(kFDPVersionMajor)) L"." \
+                                    FDP_WIDEN(FDP_STRINGIFY(kFDPVersionMinor)) L"." \
+                                    FDP_WIDEN(FDP_STRINGIFY(kFDPVersionPatch))
+#define FDP_COPY                    L"\x00A9"   /* U+00A9 copyright sign */
+#define FDP_REPO_URL                L"https://github.com/VulpesNexus/freedistortplus"
+#define FDP_AUTHOR_URL              L"https://github.com/VulpesNexus"
+
+#ifdef __cplusplus
+namespace fdpid {
+    constexpr bool StartsWith(const char* text, const char* prefix)
+    {
+        return *prefix == '\0' ? true : (*text == *prefix && StartsWith(text + 1, prefix + 1));
+    }
+}
+static_assert(fdpid::StartsWith(kFDPVersionString, kFDPDisplayVersion),
+              "kFDPVersionString and the major.minor.patch numbers disagree.");
+#endif
+
 /** Adobe's effect. Its unique name, as the live effect registry reports it,
     and the keys of its parameter dictionary. Read from the host, never
     remembered: see docs/evidence/dictionary.txt. */

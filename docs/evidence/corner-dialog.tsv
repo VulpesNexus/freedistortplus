@@ -1,0 +1,13 @@
+probe	group	case	expected	observed	status
+corner-dialog	dialog	OK with nothing typed returns every corner exactly, digits the fields do not show included	passes	(100.250000000,330.500000000 410.123456789,360.987654321 100.250000000,100.125000000 340.750000000,100.125000000)	PASS
+corner-dialog	dialog	and writes no preview	passes	0 previews	PASS
+corner-dialog	dialog	a typed position moves that one number, through the ruler	passes	(110.000000000,330.500000000 410.123456789,360.987654321 100.250000000,100.125000000 340.750000000,100.125000000)	PASS
+corner-dialog	dialog	one preview for one committed field	passes	1 previews	PASS
+corner-dialog	dialog	a decimal comma is a decimal separator (in this host's parser)	passes	(100.250000000,330.500000000 410.123456789,360.987654321 100.250000000,100.125000000 340.750000000,487.500000000)	PASS
+corner-dialog	dialog	an offset moves from the undistorted corner, in the ruler's direction	passes	(100.250000000,330.500000000 410.123456789,360.987654321 100.250000000,100.125000000 340.750000000,105.625000000)	PASS
+corner-dialog	dialog	text that is not a number changes nothing	passes	(100.250000000,330.500000000 410.123456789,360.987654321 100.250000000,100.125000000 340.750000000,100.125000000)	PASS
+corner-dialog	dialog	the up and down arrows step a field by one unit of the ruler	passes	(100.250000000,328.500000000 410.123456789,361.987654321 100.250000000,100.125000000 340.750000000,100.125000000)	PASS
+corner-dialog	dialog	Cancel returns false, whatever was typed	passes	canceled	PASS
+corner-dialog	dialog	Enter in a field takes what was typed there and closes with OK	passes	(100.250000000,330.500000000 410.123456789,360.987654321 82.000000000,100.125000000 340.750000000,100.125000000)	PASS
+corner-dialog	dialog	Undistort puts every corner where it is with no distortion	passes	(100.250000000,330.500000000 340.750000000,330.500000000 100.250000000,100.125000000 340.750000000,100.125000000)	PASS
+corner-dialog	dialog	with the preview off, a field still counts; turning it back on previews it	passes	(60.000000000,330.500000000 410.123456789,360.987654321 100.250000000,100.125000000 340.750000000,100.125000000), 2 previews	PASS

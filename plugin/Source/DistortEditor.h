@@ -43,10 +43,13 @@ class DistortEditor
 public:
     enum class Mode
     {
-        kFree,          // the corner goes where it is put
-        kPerspective,   // Shift: the edge across the drag widens or narrows about its midpoint
+        // The keys are Illustrator's Free Transform tool's, in its Free Distort
+        // mode, measured by hand (docs/evidence/free-transform.tsv). Ctrl, which
+        // that tool needs outside its Free Distort mode, changes nothing here.
+        kFree,          // no key: the corner goes where it is put
+        kAxis,          // Shift: the corner keeps to the axis the drag moved furthest along
         kSymmetric,     // Alt: the opposite corner moves the other way
-        kAffine         // Shift+Alt: the quad stays a parallelogram
+        kConverging     // Shift+Alt: the edge across the drag widens or narrows about its midpoint
     };
 
     ASErr Startup(SPPluginRef self);
@@ -65,6 +68,40 @@ public:
 
     /** Makes this the current tool. */
     ASErr Activate();
+
+    /** A double-click on the tool's icon in the Tools panel: numeric entry for
+        the target's corners, the way Illustrator's transform tools open their
+        dialogs. */
+    ASErr EditTool();
+
+    /** Opens the corners dialog on the target, with the focus on `corner`'s
+        first field, and commits what it returns as one undo step. With
+        `activate` false the window does not take the foreground, for a test
+        driving it with window messages. Returns what happened. */
+    std::string OpenNumeric(int corner, bool activate);
+
+    /** Moves the selected corner by the keyboard increment, once, as one undo
+        step: what an arrow key does while this tool is active and a corner is
+        selected. `dh`, `dv` are steps (-1, 0, 1), `large` is Shift. */
+    std::string Nudge(int dh, int dv, bool large);
+
+    /** Stops listening for arrow keys; call at plugin shutdown. */
+    void Shutdown();
+
+    /** Selects a corner, as clicking its handle does; -1 for none. */
+    std::string SelectCorner(int corner) { fActiveCorner = (corner >= 0 && corner <= 3) ? corner : -1; Invalidate(); return "active corner " + std::to_string(fActiveCorner) + "\n"; }
+
+    /** A length in points as Illustrator formats one, in the document's ruler
+        units, to four decimals. */
+    static std::wstring FormatLength(double points);
+    /** Text evaluated the way Illustrator's own numeric fields evaluate it:
+        units, expressions, the interface's decimal separator. False when it
+        is not a number. `evaluated` receives what Illustrator made of it. */
+    static bool ParseLength(const std::wstring& text, double* points, std::wstring* evaluated = nullptr);
+
+    /** A point as Illustrator's rulers and Transform panel show it, and back. */
+    static fdmath::Pt RulerFromArtwork(fdmath::Pt artwork);
+    static fdmath::Pt ArtworkFromRuler(fdmath::Pt ruler);
 
     // ---- the test bridge ---------------------------------------------------
 
@@ -133,6 +170,13 @@ private:
     int HitCorner(const AIRealPoint& cursor) const;
     static Mode ModeFromEvent(const AIEvent* event);
 
+public:
+    /** The bridge's names for the modes: free, axis, symmetric, converging. */
+    static bool ModeFromName(const std::string& name, Mode* mode);
+    static std::string ModeName(Mode mode);
+
+private:
+
     AIToolHandle fTool = nullptr;
     AIAnnotatorHandle fAnnotator = nullptr;
     AINotifierHandle fSelectionChanged = nullptr;
@@ -188,6 +232,22 @@ private:
     // from the previous step.
     int fDragCorner = -1;
     bool fDragCanceled = false;
+    /** Where the mouse went down, and whether Alt was held: a press and
+        release that did not move is a click, which selects a corner, or with
+        Alt opens the corners dialog. */
+    AIRealPoint fDownCursor = { 0, 0 };
+    bool fDownAlt = false;
+    /** The corner last clicked, drawn filled; -1 for none. */
+    int fActiveCorner = -1;
+    /** The corners dialog is open; the outline follows its preview. */
+    bool fNumericOpen = false;
+    std::string fLastNumeric;
+    std::string fLastNudge;
+    int fNudges = 0;
+    SPPluginRef fPlugin = nullptr;
+    void InstallKeyHook();
+    void RemoveKeyHook();
+    friend class EditorDialogHost;
     bool fDragWrote = false;
     fdmath::Quad fDragStart;
     AIArtStyleHandle fDragStartStyle = nullptr;
