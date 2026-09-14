@@ -8,7 +8,7 @@
     Three phases, each needing a different Illustrator:
 
       author   plugin loaded: edit Free Distort through the editor on a path, a
-               point text, and a group; save efd-missing.ai
+               point text, and a group; save fdp-missing.ai
       absent   plugin NOT loaded: open it and watch for any alert; check the
                drawing is unchanged; drag a corner in Adobe's own dialog; save
       return   plugin loaded again: read what Adobe's dialog wrote
@@ -32,9 +32,9 @@ $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'ai.ps1')
 $repo = Split-Path -Parent $PSScriptRoot
 $evidence = Join-Path $repo 'docs\evidence'
-$state = Join-Path ([IO.Path]::GetTempPath()) 'efd-probes'
+$state = Join-Path ([IO.Path]::GetTempPath()) 'fdp-probes'
 $null = New-Item -ItemType Directory -Force -Path $state
-$docPath = Join-Path $state 'efd-missing.ai'
+$docPath = Join-Path $state 'fdp-missing.ai'
 $inv = [Globalization.CultureInfo]::InvariantCulture
 
 $transcript = Join-Path $evidence 'missing-plugin.txt'
@@ -57,7 +57,7 @@ function Save-All {
     Save-ProbeTranscript -Path $transcript -Lines $log
 }
 function Open-Doc {
-    Invoke-AiScript ("(function(){{ for (var i = 0; i < app.documents.length; i++) {{ if (app.documents[i].name === 'efd-missing.ai') {{ app.documents[i].close(SaveOptions.DONOTSAVECHANGES); }} }} app.open(new File('{0}')); app.coordinateSystem = CoordinateSystem.DOCUMENTCOORDINATESYSTEM; return app.activeDocument.name; }})();" -f ($docPath -replace '\\', '/'))
+    Invoke-AiScript ("(function(){{ for (var i = 0; i < app.documents.length; i++) {{ if (app.documents[i].name === 'fdp-missing.ai') {{ app.documents[i].close(SaveOptions.DONOTSAVECHANGES); }} }} app.open(new File('{0}')); app.coordinateSystem = CoordinateSystem.DOCUMENTCOORDINATESYSTEM; return app.activeDocument.name; }})();" -f ($docPath -replace '\\', '/'))
 }
 function Select-Named([string] $name) {
     Invoke-AiScript ("(function(){{ var d = app.activeDocument; d.selection = null; for (var i = 0; i < d.pageItems.length; i++) {{ if (d.pageItems[i].name === '{0}') {{ d.pageItems[i].selected = true; return 'selected'; }} }} return 'missing'; }})();" -f $name)
@@ -72,8 +72,8 @@ function Loaded([string] $plugin) {
 function Phase-Author {
     Say ('-- author, {0}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm'))
     Initialize-AiSession | Out-Null
-    Check 'author' 'the plugin is loaded' 'loaded' $(if (Loaded 'EnhancedFreeDistort') { 'loaded' } else { 'absent' }) (Loaded 'EnhancedFreeDistort')
-    Invoke-Efd ("(function(){{ var d = app.documents.add(DocumentColorSpace.RGB, 800, 600); d.saveAs(new File('{0}')); app.coordinateSystem = CoordinateSystem.DOCUMENTCOORDINATESYSTEM; EFD.DOC_NAME = 'efd-missing.ai'; EFD.pentagon('path'); EFD.pointText('text'); var a = EFD.pentagon('g1', 450, 0); var b = EFD.pentagon('g2', 520, 80); var g = d.groupItems.add(); EFD.named('g2').move(g, ElementPlacement.PLACEATEND); EFD.named('g1').move(g, ElementPlacement.PLACEATEND); g.name = 'group'; return 'built'; }})();" -f ($docPath -replace '\\', '/')) | Out-Null
+    Check 'author' 'the plugin is loaded' 'loaded' $(if (Loaded 'FreeDistortPlus') { 'loaded' } else { 'absent' }) (Loaded 'FreeDistortPlus')
+    Invoke-Fdp ("(function(){{ var d = app.documents.add(DocumentColorSpace.RGB, 800, 600); d.saveAs(new File('{0}')); app.coordinateSystem = CoordinateSystem.DOCUMENTCOORDINATESYSTEM; FDP.DOC_NAME = 'fdp-missing.ai'; FDP.pentagon('path'); FDP.pointText('text'); var a = FDP.pentagon('g1', 450, 0); var b = FDP.pentagon('g2', 520, 80); var g = d.groupItems.add(); FDP.named('g2').move(g, ElementPlacement.PLACEATEND); FDP.named('g1').move(g, ElementPlacement.PLACEATEND); g.name = 'group'; return 'built'; }})();" -f ($docPath -replace '\\', '/')) | Out-Null
     # The path gets the same corner as probe-poc.ps1, so Adobe's dialog shows
     # the same preview and its handles sit at the same pixels in the absent phase.
     $drags = @{ path = '1|free|-1|400,330'; text = '3|free|-1|NaN'; group = '0|perspective|-1|NaN' }
@@ -97,15 +97,15 @@ function Phase-Author {
     Say "drawing: $drawing"
     # Point the fixture library back at its own document before anything else
     # in this session uses it.
-    Invoke-AiScript 'app.activeDocument.save(); app.activeDocument.close(SaveOptions.DONOTSAVECHANGES); EFD.DOC_NAME = "efd-probe.ai"; "saved";' | Out-Null
+    Invoke-AiScript 'app.activeDocument.save(); app.activeDocument.close(SaveOptions.DONOTSAVECHANGES); FDP.DOC_NAME = "fdp-probe.ai"; "saved";' | Out-Null
     $bytes =[Text.Encoding]::ASCII.GetString([IO.File]::ReadAllBytes($docPath))
-    Check 'author' 'the saved file names no part of this plugin' 'no EnhancedFreeDistort or VulpesNexus in the file' $(if ($bytes -match 'EnhancedFreeDistort|VulpesNexus') { 'found' } else { 'none' }) (-not ($bytes -match 'EnhancedFreeDistort|VulpesNexus'))
+    Check 'author' 'the saved file names no part of this plugin' 'no FreeDistortPlus or VulpesNexus in the file' $(if ($bytes -match 'FreeDistortPlus|VulpesNexus') { 'found' } else { 'none' }) (-not ($bytes -match 'FreeDistortPlus|VulpesNexus'))
 }
 
 function Phase-Absent {
     Say ('-- absent, {0}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm'))
     Initialize-AiSession | Out-Null
-    Check 'absent' 'the plugin is not loaded' 'absent' $(if (Loaded 'EnhancedFreeDistort') { 'loaded' } else { 'absent' }) (-not (Loaded 'EnhancedFreeDistort'))
+    Check 'absent' 'the plugin is not loaded' 'absent' $(if (Loaded 'FreeDistortPlus') { 'loaded' } else { 'absent' }) (-not (Loaded 'FreeDistortPlus'))
 
     $watch = Start-Job -FilePath (Join-Path $PSScriptRoot 'watch-alerts.ps1') -ArgumentList 25, (Join-Path $evidence 'missing-plugin-alert')
     Start-Sleep -Milliseconds 1500
@@ -150,7 +150,7 @@ function Phase-Absent {
 function Phase-Return {
     Say ('-- return, {0}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm'))
     Initialize-AiSession | Out-Null
-    Check 'return' 'the plugin is loaded again' 'loaded' $(if (Loaded 'EnhancedFreeDistort') { 'loaded' } else { 'absent' }) (Loaded 'EnhancedFreeDistort')
+    Check 'return' 'the plugin is loaded again' 'loaded' $(if (Loaded 'FreeDistortPlus') { 'loaded' } else { 'absent' }) (Loaded 'FreeDistortPlus')
     Open-Doc | Out-Null
     Select-Named 'path' | Out-Null
     $ours = (Send-AiMessage 'fd read' '0').Trim()

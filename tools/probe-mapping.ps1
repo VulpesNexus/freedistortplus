@@ -8,7 +8,7 @@
     tools/solve-mapping.py fits candidate models (affine, homography, bilinear
     with and without the input-bounds renormalization) to what this records.
 
-    Needs Illustrator running with EnhancedFreeDistort.aip loaded. Writes
+    Needs Illustrator running with FreeDistortPlus.aip loaded. Writes
     docs/evidence/mapping.tsv.
 #>
 [CmdletBinding()]
@@ -35,7 +35,7 @@ $rows.Add("case`tfixture`tsource`tdestination`tinputBounds`tkind`tindex`tah`tav`
 Initialize-AiSession | Out-Null
 foreach ($c in $cases) {
     $name, $fixture, $source, $destination = $c
-    Invoke-Efd ("EFD.clear(); EFD.{0}('fx'); EFD.selectOnly('fx');" -f $fixture) | Out-Null
+    Invoke-Fdp ("FDP.clear(); FDP.{0}('fx'); FDP.selectOnly('fx');" -f $fixture) | Out-Null
     Send-AiMessage 'fd append' | Out-Null
     $wrote = Send-AiMessage 'fd write' ("0|{0}|{1}" -f $source, $destination)
     if ((($wrote -split "`r?`n") | Where-Object { $_ -like "result`t*" }) -ne "result`t0") { throw "write failed for $name`: $wrote" }
@@ -44,7 +44,7 @@ foreach ($c in $cases) {
     # reports it.
     $line = ($bounds -split "`r?`n") | Where-Object { $_ -like "input bounds`t*" } | Select-Object -First 1
     $inputBounds = $line.Substring(13).Trim('[', ']') -replace ' ', ','
-    $dump = Invoke-Efd 'EFD.sourceAndResult("fx");'
+    $dump = Invoke-Fdp 'FDP.sourceAndResult("fx");'
     foreach ($row in ($dump -split "`r?`n")) {
         if (-not $row) { continue }
         $rows.Add(("{0}`t{1}`t{2}`t{3}`t{4}`t{5}" -f $name, $fixture, $source, $destination, $inputBounds, $row))

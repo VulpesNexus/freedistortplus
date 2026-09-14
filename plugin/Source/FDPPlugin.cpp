@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (C) 2026 Vixen420
 //
-// Enhanced Free Distort is free software: you may redistribute it and/or
+// FreeDistort+ is free software: you may redistribute it and/or
 // modify it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or (at your
 // option) any later version. It comes with ABSOLUTELY NO WARRANTY. See the
@@ -11,11 +11,11 @@
 // the Adobe Illustrator SDK, whose sample framework sources are compiled into
 // every plugin built from it. See LICENSE-EXCEPTION.
 
-//  EFDPlugin.cpp -- see EFDPlugin.h.
+//  FDPPlugin.cpp -- see FDPPlugin.h.
 
 #include "IllustratorSDK.h"
-#include "EFDPlugin.h"
-#include "EFDSuites.h"
+#include "FDPPlugin.h"
+#include "FDPSuites.h"
 #include "FreeDistortEffect.h"
 #include "Introspect.h"
 #include "SDKDef.h"
@@ -76,21 +76,21 @@ namespace
 
 Plugin* AllocatePlugin(SPPluginRef pluginRef)
 {
-    return new EFDPlugin(pluginRef);
+    return new FDPPlugin(pluginRef);
 }
 
 void FixupReload(Plugin* plugin)
 {
-    EFDPlugin::FixupVTable(static_cast<EFDPlugin*>(plugin));
+    FDPPlugin::FixupVTable(static_cast<FDPPlugin*>(plugin));
 }
 
-EFDPlugin::EFDPlugin(SPPluginRef pluginRef)
+FDPPlugin::FDPPlugin(SPPluginRef pluginRef)
     : Plugin(pluginRef)
 {
-    strncpy(fPluginName, kEFDPluginName, kMaxStringLength);
+    strncpy(fPluginName, kFDPPluginName, kMaxStringLength);
 }
 
-ASErr EFDPlugin::Message(char* caller, char* selector, void* message)
+ASErr FDPPlugin::Message(char* caller, char* selector, void* message)
 {
     ASErr error = kNoErr;
     try
@@ -126,32 +126,32 @@ ASErr EFDPlugin::Message(char* caller, char* selector, void* message)
     return error;
 }
 
-ASErr EFDPlugin::StartupPlugin(SPInterfaceMessage* message)
+ASErr FDPPlugin::StartupPlugin(SPInterfaceMessage* message)
 {
     ASErr error = Plugin::StartupPlugin(message);
     if (error) return error;
 
     SDKAboutPluginsHelper aboutPluginsHelper;
-    error = aboutPluginsHelper.AddAboutPluginsMenuItem(message, kEFDAboutGroupName,
-        ai::UnicodeString(kEFDAboutGroupTitle), kEFDAboutMenuTitle, &fAboutMenu);
+    error = aboutPluginsHelper.AddAboutPluginsMenuItem(message, kFDPAboutGroupName,
+        ai::UnicodeString(kFDPAboutGroupTitle), kFDPAboutMenuTitle, &fAboutMenu);
     if (error) return error;
 
     return fEditor.Startup(message->d.self);
 }
 
-ASErr EFDPlugin::PostStartupPlugin()
+ASErr FDPPlugin::PostStartupPlugin()
 {
     // Where the command lives is being measured, not settled: Adobe's own
     // Effect > Distort & Transform submenu first, which exists only once every
     // plugin has loaded, and Object > Transform if that group cannot be found.
     // The bridge's "menu" selector reports which one took.
     AIPlatformAddMenuItemDataUS data;
-    data.itemText = ai::UnicodeString(kEFDMenuTitle);
+    data.itemText = ai::UnicodeString(kFDPMenuTitle);
     const char* const groups[] = { "Live Vector &Distort && Transform", kArrangeTransformMenuGroup };
     for (const char* group : groups)
     {
         data.groupName = group;
-        if (!sAIMenu->AddMenuItem(fPluginRef, "VulpesNexus Enhanced Free Distort", &data, 0, &fEditorMenu) && fEditorMenu)
+        if (!sAIMenu->AddMenuItem(fPluginRef, "VulpesNexus FreeDistort+", &data, 0, &fEditorMenu) && fEditorMenu)
         {
             fEditorMenuPlacement = group;
             sAIMenu->UpdateMenuItemAutomatically(fEditorMenu, kAutoEnableMenuItemAction, 0, 0, kIfAnyArt, 0, 0, 0);
@@ -161,13 +161,13 @@ ASErr EFDPlugin::PostStartupPlugin()
     return kNoErr;
 }
 
-ASErr EFDPlugin::ShutdownPlugin(SPInterfaceMessage* message)
+ASErr FDPPlugin::ShutdownPlugin(SPInterfaceMessage* message)
 {
     message->d.globals = nullptr;
     return Plugin::ShutdownPlugin(message);
 }
 
-std::string EFDPlugin::OpenEditor()
+std::string FDPPlugin::OpenEditor()
 {
     std::string why;
     AIArtHandle art = SingleTarget(&why);
@@ -188,7 +188,7 @@ std::string EFDPlugin::OpenEditor()
     return said + "Editor " + (err ? "could not be selected (" + std::to_string(err) + ")" : "selected") + ".\n";
 }
 
-ASErr EFDPlugin::GoMenuItem(AIMenuMessage* message)
+ASErr FDPPlugin::GoMenuItem(AIMenuMessage* message)
 {
     if (message->menuItem == fEditorMenu)
     {
@@ -197,48 +197,48 @@ ASErr EFDPlugin::GoMenuItem(AIMenuMessage* message)
     else if (message->menuItem == fAboutMenu)
     {
         SDKAboutPluginsHelper aboutPluginsHelper;
-        const std::string about = std::string(kEFDProductName) + " " + kEFDVersionString + "\n" +
-                                  kEFDDescription + "\n" + kEFDHomePage + "\n" + kEFDCopyright;
-        aboutPluginsHelper.PopAboutBox(message, "About Enhanced Free Distort", about.c_str());
+        const std::string about = std::string(kFDPProductName) + " " + kFDPVersionString + "\n" +
+                                  kFDPDescription + "\n" + kFDPHomePage + "\n" + kFDPCopyright;
+        aboutPluginsHelper.PopAboutBox(message, "About FreeDistort+", about.c_str());
     }
     return kNoErr;
 }
 
-ASErr EFDPlugin::Notify(AINotifierMessage* message)
+ASErr FDPPlugin::Notify(AINotifierMessage* message)
 {
     if (fEditor.OwnsNotifier(message->notifier)) return fEditor.Notify(message);
     return kNoErr;
 }
 
-ASErr EFDPlugin::SelectTool(AIToolMessage* message)
+ASErr FDPPlugin::SelectTool(AIToolMessage* message)
 {
     return fEditor.OwnsTool(message->tool) ? fEditor.SelectTool() : kNoErr;
 }
 
-ASErr EFDPlugin::DeselectTool(AIToolMessage* message)
+ASErr FDPPlugin::DeselectTool(AIToolMessage* message)
 {
     return fEditor.OwnsTool(message->tool) ? fEditor.DeselectTool() : kNoErr;
 }
 
-ASErr EFDPlugin::ToolMouseDown(AIToolMessage* message)
+ASErr FDPPlugin::ToolMouseDown(AIToolMessage* message)
 {
     return fEditor.OwnsTool(message->tool) ? fEditor.MouseDown(message) : kNoErr;
 }
 
-ASErr EFDPlugin::ToolMouseDrag(AIToolMessage* message)
+ASErr FDPPlugin::ToolMouseDrag(AIToolMessage* message)
 {
     return fEditor.OwnsTool(message->tool) ? fEditor.MouseDrag(message) : kNoErr;
 }
 
-ASErr EFDPlugin::ToolMouseUp(AIToolMessage* message)
+ASErr FDPPlugin::ToolMouseUp(AIToolMessage* message)
 {
     return fEditor.OwnsTool(message->tool) ? fEditor.MouseUp(message) : kNoErr;
 }
 
 //  The test bridge:
-//      app.sendScriptMessage("EnhancedFreeDistort", "<selector>", "<arguments>")
+//      app.sendScriptMessage("FreeDistortPlus", "<selector>", "<arguments>")
 //  A test interface, not an API. See docs/BUILDING.md.
-ASErr EFDPlugin::HandleScriptMessage(const char* selector, AIScriptMessage* message)
+ASErr FDPPlugin::HandleScriptMessage(const char* selector, AIScriptMessage* message)
 {
     if (message == nullptr) return kNoErr;
     const std::string sel(selector ? selector : "");
@@ -250,8 +250,8 @@ ASErr EFDPlugin::HandleScriptMessage(const char* selector, AIScriptMessage* mess
     {
         char probe[32];
         std::snprintf(probe, sizeof(probe), "%.2f", 0.25);
-        out << kEFDProductName << " " << kEFDVersionString << "\n"
-            << "plugin\t" << kEFDPluginName << "\n"
+        out << kFDPProductName << " " << kFDPVersionString << "\n"
+            << "plugin\t" << kFDPPluginName << "\n"
             << "decimal point\t" << probe << "\n";
     }
     else if (sel == "registry") out << introspect::DumpLiveEffectRegistry();

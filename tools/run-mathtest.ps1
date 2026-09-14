@@ -20,7 +20,7 @@ $plugin = Join-Path $repo 'plugin\Source'
 # A fresh ASCII directory each run: the compiler's working directory must not
 # sit under a path with non-ASCII characters, and a shared directory can leave
 # the previous executable locked.
-$work = Join-Path ([IO.Path]::GetTempPath()) ('efd-mathtest-' + [Guid]::NewGuid().ToString('N').Substring(0, 8))
+$work = Join-Path ([IO.Path]::GetTempPath()) ('fdp-mathtest-' + [Guid]::NewGuid().ToString('N').Substring(0, 8))
 if (-not $OutPath) { $OutPath = Join-Path $repo 'docs\evidence\mathtest.txt' }
 $null = New-Item -ItemType Directory -Force -Path $work
 $null = New-Item -ItemType Directory -Force -Path (Split-Path -Parent $OutPath)
@@ -43,7 +43,7 @@ $code = $LASTEXITCODE
 $output | ForEach-Object { Write-Output $_ }
 
 $lines = New-Object Collections.Generic.List[string]
-$lines.Add('Enhanced Free Distort -- quad arithmetic, without Illustrator')
+$lines.Add('FreeDistort+ -- quad arithmetic, without Illustrator')
 $lines.Add(("Compiler: cl.exe {0}, /W4 /WX /std:c++17 /O2" -f $toolchain.Version))
 $lines.Add('')
 foreach ($line in $output) { $lines.Add([string] $line) }

@@ -52,7 +52,7 @@ function Field([string] $text, [string] $name) {
 
 $drags = if ($WithEscape) { 2 } else { 1 }
 Start-ProbeResults -Probe 'mouse'
-Say ('Enhanced Free Distort -- a drag made with the real mouse, read over COM, {0}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm'))
+Say ('FreeDistort+ -- a drag made with the real mouse, read over COM, {0}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm'))
 Say ('By hand: one corner dragged and released{0}; Ctrl+Z once.' -f $(if ($WithEscape) { '; another dragged and canceled with Esc before release' } else { '' }))
 
 $status = Send-AiMessage 'editor status'

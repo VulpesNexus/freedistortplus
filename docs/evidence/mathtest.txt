@@ -1,7 +1,7 @@
-Enhanced Free Distort -- quad arithmetic, without Illustrator
+FreeDistort+ -- quad arithmetic, without Illustrator
 Compiler: cl.exe 14.44.35207, /W4 /WX /std:c++17 /O2
 
-Enhanced Free Distort -- quad arithmetic
+FreeDistort+ -- quad arithmetic
 
       grid, source = bounds: 30 points, worst deviation 4.71e-10 pt
       curves and handles, source != bounds: 15 points, worst deviation 6.51e-10 pt

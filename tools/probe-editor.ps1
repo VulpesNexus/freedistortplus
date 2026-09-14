@@ -9,7 +9,7 @@
     case is repeatable. What the real mouse adds on top (hit-testing a handle,
     the host's own drag dispatch) is covered by probe-mouse.ps1.
 
-    Needs Illustrator running with EnhancedFreeDistort.aip loaded. Writes
+    Needs Illustrator running with FreeDistortPlus.aip loaded. Writes
     docs/evidence/editor.txt and editor.tsv.
 #>
 [CmdletBinding()]
@@ -34,18 +34,18 @@ function Field([string] $text, [string] $name) {
 function Past { [int] (Field (Send-AiMessage 'undo count') 'past') }
 function Dst { ((Send-AiMessage 'fd read' '0') -replace '^.*dst ', '').Trim() }
 function Fresh([string] $name = 'pent') {
-    Invoke-Efd ("EFD.clear(); EFD.pentagon('{0}'); EFD.selectOnly('{0}');" -f $name) | Out-Null
+    Invoke-Fdp ("FDP.clear(); FDP.pentagon('{0}'); FDP.selectOnly('{0}');" -f $name) | Out-Null
     Send-AiMessage 'fd append' | Out-Null
     Send-AiMessage 'editor refresh' 'measure' | Out-Null
 }
 
 Start-ProbeResults -Probe 'editor'
-Say ('Enhanced Free Distort -- editing loop, {0}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm'))
+Say ('FreeDistort+ -- editing loop, {0}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm'))
 Initialize-AiSession | Out-Null
 
 # ---- opening --------------------------------------------------------------------
 
-Invoke-Efd 'EFD.clear(); EFD.pentagon("pent"); EFD.selectOnly("pent");' | Out-Null
+Invoke-Fdp 'FDP.clear(); FDP.pentagon("pent"); FDP.selectOnly("pent");' | Out-Null
 $opened = Send-AiMessage 'editor open'
 $status = Send-AiMessage 'editor status'
 Say ($opened.TrimEnd()); Say ($status.TrimEnd())
@@ -73,11 +73,11 @@ Check 'drag' 'Redo puts it back' '(90,330 340,330 60,70 340,100)' (Dst) ((Dst) -
 Fresh
 Send-AiMessage 'editor drag' '1|free|-1|410,360' | Out-Null
 $reference = Dst
-$renderReference = Invoke-Efd 'app.redraw(); EFD.bounds("pent");'
+$renderReference = Invoke-Fdp 'app.redraw(); FDP.bounds("pent");'
 $wild = (1..60 | ForEach-Object { '{0},{1}' -f (Format-AiNumber (410 + 173.1 * [math]::Sin($_ * 0.7))), (Format-AiNumber (360 + 91.7 * [math]::Cos($_ * 1.3))) }) -join ';'
 Send-AiMessage 'editor drag' ("1|free|-1|{0};410,360" -f $wild) | Out-Null
 Check 'drift' 'sixty wild steps that end where they began change nothing' $reference (Dst) ((Dst) -eq $reference)
-$render = Invoke-Efd 'app.redraw(); EFD.bounds("pent");'
+$render = Invoke-Fdp 'app.redraw(); FDP.bounds("pent");'
 Check 'drift' '...and the drawing is the same to the nanopoint' $renderReference $render ($render -eq $renderReference)
 
 # ---- Escape ---------------------------------------------------------------------------
@@ -114,11 +114,11 @@ Check 'modes' 'affine: the result is a parallelogram with the dragged corner und
 
 Fresh 'original'
 Send-AiMessage 'editor drag' '1|free|-1|400,330' | Out-Null
-Invoke-Efd 'var o = EFD.named("original"); var c = o.duplicate(); c.name = "copy"; EFD.selectOnly("copy"); "dup";' | Out-Null
+Invoke-Fdp 'var o = FDP.named("original"); var c = o.duplicate(); c.name = "copy"; FDP.selectOnly("copy"); "dup";' | Out-Null
 Send-AiMessage 'editor refresh' 'measure' | Out-Null
 Send-AiMessage 'editor drag' '2|free|-1|40,60' | Out-Null
 $copy = Dst
-Invoke-Efd 'EFD.selectOnly("original");' | Out-Null
+Invoke-Fdp 'FDP.selectOnly("original");' | Out-Null
 $original = Dst
 Check 'independence' 'editing a duplicate leaves the original that shared its style alone' '(90,330 400,330 90,100 340,100)' $original ($original -eq '(90,330 400,330 90,100 340,100)' -and $copy -eq '(90,330 400,330 40,60 340,100)')
 
@@ -126,7 +126,7 @@ Check 'independence' 'editing a duplicate leaves the original that shared its st
 
 Fresh
 Send-AiMessage 'editor drag' '1|free|-1|400,330' | Out-Null
-Invoke-Efd 'EFD.named("pent").translate(100, 50); app.redraw(); "moved";' | Out-Null
+Invoke-Fdp 'FDP.named("pent").translate(100, 50); app.redraw(); "moved";' | Out-Null
 $estimated = Field (Send-AiMessage 'editor refresh') 'quad'
 $measured = Field (Send-AiMessage 'editor refresh' 'measure') 'quad'
 Check 'moved art' 'after the art moves, the handles move with it' '(190,380 500,380 190,150 440,150)' $measured ($measured -eq '(190,380 500,380 190,150 440,150)')

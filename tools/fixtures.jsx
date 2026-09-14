@@ -1,8 +1,8 @@
 //  fixtures.jsx -- the artwork and measurements every probe shares.
 //
-//  Sent once per Illustrator session by Install-EfdFixtures (tools/ai.ps1);
+//  Sent once per Illustrator session by Install-FdpFixtures (tools/ai.ps1);
 //  Illustrator keeps a DoJavaScript call's globals for the next one, so the
-//  probes afterwards make short calls into EFD.*.
+//  probes afterwards make short calls into FDP.*.
 //
 //  Probes work only in their own document, found by name, never in whatever
 //  happens to be documents[0]: this machine's Illustrator is shared with other
@@ -13,13 +13,13 @@
 //
 //  Pure ASCII on purpose: the file is read in the system codepage.
 
-var EFD = (function () {
+var FDP = (function () {
 
     var api = {};
     var TAB = String.fromCharCode(9);
     var NL = String.fromCharCode(10);
 
-    api.DOC_NAME = 'efd-probe.ai';
+    api.DOC_NAME = 'fdp-probe.ai';
 
     /** The probes' own document: opened if it is already open, created and
         saved under the temp folder otherwise. */
@@ -32,7 +32,7 @@ var EFD = (function () {
             }
         }
         var d = app.documents.add(DocumentColorSpace.RGB, 800, 600);
-        var folder = new Folder(Folder.temp.fsName + '/efd-probes');
+        var folder = new Folder(Folder.temp.fsName + '/fdp-probes');
         if (!folder.exists) { folder.create(); }
         d.saveAs(new File(folder.fsName + '/' + api.DOC_NAME));
         app.coordinateSystem = CoordinateSystem.DOCUMENTCOORDINATESYSTEM;
@@ -51,7 +51,7 @@ var EFD = (function () {
     };
 
     api.send = function (selector, args) {
-        return app.sendScriptMessage('EnhancedFreeDistort', selector, args || '');
+        return app.sendScriptMessage('FreeDistortPlus', selector, args || '');
     };
 
     api.rgb = function (r, g, b) { var c = new RGBColor(); c.red = r; c.green = g; c.blue = b; return c; };
@@ -226,7 +226,7 @@ var EFD = (function () {
         var d = api.doc();
         var frame = d.pathItems.rectangle(420, 100, 260, 160);
         var t = d.textFrames.areaText(frame);
-        t.contents = 'Enhanced Free Distort keeps type live across several lines of text';
+        t.contents = 'FreeDistort+ keeps type live across several lines of text';
         t.textRange.characterAttributes.size = 24;
         api.register(name, t);
         return name;

@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Builds EnhancedFreeDistort.aip against a local copy of the Adobe
+    Builds FreeDistortPlus.aip against a local copy of the Adobe
     Illustrator SDK.
 
 .DESCRIPTION
@@ -18,7 +18,7 @@ $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'ai.ps1')
 
 $repo = Split-Path -Parent $PSScriptRoot
-$project = Join-Path $repo 'plugin\EnhancedFreeDistort.vcxproj'
+$project = Join-Path $repo 'plugin\FreeDistortPlus.vcxproj'
 if (-not $SdkRoot) {
     throw 'Set the AI_SDK_ROOT environment variable, or pass -SdkRoot, to point at your copy of the Adobe Illustrator 2026 SDK.'
 }
@@ -33,6 +33,6 @@ $output = & $toolchain.MSBuild $project "/p:Configuration=$Configuration" '/p:Pl
 $output | ForEach-Object { Hide-Personal ([string] $_) }
 if ($LASTEXITCODE -ne 0) { throw "Build failed with exit code $LASTEXITCODE." }
 
-$aip = Join-Path $repo "build\$Configuration\EnhancedFreeDistort.aip"
+$aip = Join-Path $repo "build\$Configuration\FreeDistortPlus.aip"
 if (-not (Test-Path $aip)) { throw "Build reported success but the plugin is missing." }
 Write-Output (Hide-Personal $aip)

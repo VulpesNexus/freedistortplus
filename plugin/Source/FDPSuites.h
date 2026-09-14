@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (C) 2026 Vixen420
 //
-// Enhanced Free Distort is free software: you may redistribute it and/or
+// FreeDistort+ is free software: you may redistribute it and/or
 // modify it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or (at your
 // option) any later version. It comes with ABSOLUTELY NO WARRANTY. See the
@@ -11,10 +11,10 @@
 // the Adobe Illustrator SDK, whose sample framework sources are compiled into
 // every plugin built from it. See LICENSE-EXCEPTION.
 
-//  EFDSuites.h -- the host suites this plugin uses.
+//  FDPSuites.h -- the host suites this plugin uses.
 
-#ifndef __EFDSUITES_H__
-#define __EFDSUITES_H__
+#ifndef __FDPSUITES_H__
+#define __FDPSUITES_H__
 
 #include "IllustratorSDK.h"
 #include "Suites.hpp"
@@ -64,4 +64,4 @@ extern "C" AICursorSnapSuite*           sAICursorSnap;
 extern "C" ASUserInteractionSuite*      sASUserInteraction;
 extern "C" AIUIThemeSuite*              sAIUITheme;
 
-#endif // __EFDSUITES_H__
+#endif // __FDPSUITES_H__

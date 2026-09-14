@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Copies EnhancedFreeDistort.aip into Illustrator's Additional Plug-ins
+    Copies FreeDistortPlus.aip into Illustrator's Additional Plug-ins
     Folder, or takes it out again.
 
 .DESCRIPTION
@@ -34,19 +34,19 @@ if (-not $PluginFolder) {
 }
 if (-not (Test-Path $PluginFolder)) { throw 'The Additional Plug-ins Folder does not exist.' }
 
-$target = Join-Path $PluginFolder 'EnhancedFreeDistort.aip'
+$target = Join-Path $PluginFolder 'FreeDistortPlus.aip'
 if ($Uninstall) {
     if (Test-Path $target) {
         [System.IO.File]::Delete($target)
-        Write-Output 'Removed EnhancedFreeDistort.aip.'
+        Write-Output 'Removed FreeDistortPlus.aip.'
     }
-    else { Write-Output 'EnhancedFreeDistort.aip was not installed.' }
+    else { Write-Output 'FreeDistortPlus.aip was not installed.' }
     return
 }
 
 $repo = Split-Path -Parent $PSScriptRoot
-$source = Join-Path $repo "build\$Configuration\EnhancedFreeDistort.aip"
+$source = Join-Path $repo "build\$Configuration\FreeDistortPlus.aip"
 if (-not (Test-Path $source)) { throw 'Build the plugin first: tools\build.ps1' }
 [System.IO.File]::Copy($source, $target, $true)
 $hash = (Get-FileHash $target -Algorithm SHA256).Hash
-Write-Output ("Installed EnhancedFreeDistort.aip ({0}), SHA-256 {1}." -f $Configuration, $hash)
+Write-Output ("Installed FreeDistortPlus.aip ({0}), SHA-256 {1}." -f $Configuration, $hash)

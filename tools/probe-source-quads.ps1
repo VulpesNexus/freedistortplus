@@ -20,7 +20,7 @@
     bounds and over curves with independent handles.
 
     tools/solve-source-quads.py fits candidate readings to what this records.
-    Needs Illustrator running with EnhancedFreeDistort.aip loaded. Writes
+    Needs Illustrator running with FreeDistortPlus.aip loaded. Writes
     docs/evidence/source-quads-cases.tsv and source-quads-points.tsv.
 #>
 [CmdletBinding()]
@@ -45,7 +45,7 @@ function Case([string] $name, [string] $fixture, [double[]] $src, [double[]] $ds
 }
 function Plus([double[]] $q, [int] $k, [double] $d) { $n = [double[]] $q.Clone(); $n[$k] += $d; return $n }
 
-$grid = "EFD.grid('fx')"
+$grid = "FDP.grid('fx')"
 Case 'rect-bounds-general' $grid $identity $general
 Case 'rect-inset-general' $grid @(120, 280, 380, 280, 120, 110, 380, 110) $general
 for ($k = 0; $k -lt 8; $k++) {
@@ -80,7 +80,7 @@ for ($i = 0; $i -lt 4; $i++) { Case ("random-wild-{0:00}" -f $i) $grid (Jitter $
 
 # Other input bounds: the grid scaled 1.5 x 0.6 with its corner at (250, 150),
 # so bounds 250..700 x 150..270.
-$wide = "EFD.gridAt('fx', 250, 150, 1.5, 0.6)"
+$wide = "FDP.gridAt('fx', 250, 150, 1.5, 0.6)"
 $wideBounds = @(250, 270, 700, 270, 250, 150, 700, 150)
 function Offset([double[]] $base, [double[]] $by) { [double[]] (0..7 | ForEach-Object { $base[$_] + $by[$_] }) }
 $convexDeviation = [double[]] (0..7 | ForEach-Object { $convex[$_] - $identity[$_] })
@@ -91,7 +91,7 @@ Case 'wide-grid-source-convex' $wide $convex $general
 for ($i = 0; $i -lt 6; $i++) { Case ("wide-random-{0:00}" -f $i) $wide (Jitter $wideBounds 90) (Jitter $wideBounds 110) }
 
 # Curves with independent handles; their bounds are not a round rectangle.
-$curves = "EFD.curves('fx')"
+$curves = "FDP.curves('fx')"
 Case 'curves-convex-general' $curves $convex $general
 for ($i = 0; $i -lt 4; $i++) { Case ("curves-random-{0:00}" -f $i) $curves (Jitter $identity 80) (Jitter $identity 100) }
 
@@ -118,7 +118,7 @@ function Stored {
 function Drawing {
     $s = New-Object Collections.Generic.List[string]
     $r = New-Object Collections.Generic.List[string]
-    foreach ($row in ((Invoke-Efd 'EFD.sourceAndResult("fx");') -split "`r?`n")) {
+    foreach ($row in ((Invoke-Fdp 'FDP.sourceAndResult("fx");') -split "`r?`n")) {
         if (-not $row) { continue }
         $kind, $rest = $row -split "`t", 2
         if ($kind -eq 'S') { $s.Add($rest) } else { $r.Add($rest) }
@@ -130,7 +130,7 @@ $done = 0
 foreach ($c in $cases) {
     $name, $fixture, $src, $dst = $c
     if ($Only.Count -and $Only -notcontains $name) { continue }
-    Invoke-Efd "EFD.clear(); $fixture; EFD.selectOnly('fx');" | Out-Null
+    Invoke-Fdp "FDP.clear(); $fixture; FDP.selectOnly('fx');" | Out-Null
     Send-AiMessage 'fd append' | Out-Null
     $wrote = Send-AiMessage 'fd write' ("0|100,300,400,100|{0}" -f $dst)
     if ($wrote -notmatch "result`t0") { throw "write failed for $name`: $wrote" }

@@ -135,7 +135,7 @@ namespace
 
 int main()
 {
-    std::printf("Enhanced Free Distort -- quad arithmetic\n\n");
+    std::printf("FreeDistort+ -- quad arithmetic\n\n");
 
     // ---- the renderer model against the host -----------------------------
 

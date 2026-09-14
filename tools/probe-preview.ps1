@@ -11,7 +11,7 @@
     back every previewed anchor and handle, commits, and compares them with
     what Adobe drew.
 
-    Needs Illustrator running with EnhancedFreeDistort.aip loaded. Writes
+    Needs Illustrator running with FreeDistortPlus.aip loaded. Writes
     docs/evidence/preview.txt, preview.tsv, and editor-preview-open.png.
 #>
 [CmdletBinding()]
@@ -40,7 +40,7 @@ function Points([string] $text) {
     }
 }
 function Rendered([string] $name) {
-    $rows = (Invoke-Efd ("EFD.sourceAndResult('{0}');" -f $name)) -split "`r?`n" | Where-Object { $_ -like 'R*' }
+    $rows = (Invoke-Fdp ("FDP.sourceAndResult('{0}');" -f $name)) -split "`r?`n" | Where-Object { $_ -like 'R*' }
     foreach ($r in $rows) {
         $f = $r -split "`t"
         # Adobe's rows are anchor, left (in) handle, right (out) handle; the
@@ -69,13 +69,13 @@ function Compare-Sets($a, $b) {
 }
 
 Start-ProbeResults -Probe 'preview'
-Say ('Enhanced Free Distort -- the live drag preview, {0}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm'))
+Say ('FreeDistort+ -- the live drag preview, {0}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm'))
 Initialize-AiSession | Out-Null
 
 # ---- a 30-anchor path, starting from a distorted quad ----------------------------------
 
-Invoke-Efd "EFD.clear(); EFD.grid('fx');" | Out-Null
-Invoke-Efd "EFD.selectOnly('fx'); app.redraw();" | Out-Null
+Invoke-Fdp "FDP.clear(); FDP.grid('fx');" | Out-Null
+Invoke-Fdp "FDP.selectOnly('fx'); app.redraw();" | Out-Null
 Send-AiMessage 'fd append' | Out-Null
 Send-AiMessage 'editor open' | Out-Null
 Send-AiMessage 'editor drag' '1|free|-1|450,290' | Out-Null
@@ -101,8 +101,8 @@ Check 'grid' 'every previewed anchor and handle is where Adobe draws it after re
 # Adobe's own commit says it draws; the preview has to stay exact through the
 # drag that converts the source to a rectangle.
 
-Invoke-Efd "EFD.clear(); EFD.grid('fx');" | Out-Null
-Invoke-Efd "EFD.selectOnly('fx'); app.redraw();" | Out-Null
+Invoke-Fdp "FDP.clear(); FDP.grid('fx');" | Out-Null
+Invoke-Fdp "FDP.selectOnly('fx'); app.redraw();" | Out-Null
 Send-AiMessage 'fd append' | Out-Null
 Send-AiMessage 'fd write' '0|100,300,400,100|130,350,450,290,70,80,370,130' | Out-Null
 $convexSource = @{ src0h = 90; src0v = 320; src1h = 420; src1v = 280; src2h = 130; src2v = 90; src3h = 380; src3v = 120 }
@@ -127,7 +127,7 @@ $worst = Compare-Ordered $drawnAfter $drawnBefore
 Check 'non-rectangular source' "releasing writes the source as the input bounds, as Adobe's OK does, and the artwork does not move" 'source 100..400 x 100..300; drawing within 1e-6 pt of before' ("{0}; worst deviation {1} pt" -f $converted, $worst.ToString('G3', $inv)) ($converted -match 'src \(100,300 400,300 100,100 400,100\)' -and $worst -lt 1e-6)
 
 # The drag after that, previewed and then drawn.
-Invoke-Efd "EFD.selectOnly('fx'); app.redraw();" | Out-Null
+Invoke-Fdp "FDP.selectOnly('fx'); app.redraw();" | Out-Null
 $status = Send-AiMessage 'editor refresh' 'measure'
 $q = [regex]::Matches((Field $status 'quad'), '-?[0-9.]+') | ForEach-Object { [double]::Parse($_.Value, $inv) }
 Send-AiMessage 'editor preview open' ("1|free|{0},{1}" -f (Format-AiNumber ($q[2] + 35)), (Format-AiNumber ($q[3] - 25))) | Out-Null
@@ -139,8 +139,8 @@ Check 'non-rectangular source' 'a drag from a converted source previews exactly 
 
 # ---- live point text -------------------------------------------------------------------
 
-Invoke-Efd "EFD.clear(); EFD.pointText('fx');" | Out-Null
-Invoke-Efd "EFD.selectOnly('fx'); app.redraw();" | Out-Null
+Invoke-Fdp "FDP.clear(); FDP.pointText('fx');" | Out-Null
+Invoke-Fdp "FDP.selectOnly('fx'); app.redraw();" | Out-Null
 Send-AiMessage 'fd append' | Out-Null
 Send-AiMessage 'editor refresh' 'measure' | Out-Null
 $status = Send-AiMessage 'editor status'
@@ -152,7 +152,7 @@ Say (Send-AiMessage 'editor preview close').TrimEnd()
 $rendered = @(Rendered 'fx')
 $worst = Compare-Sets $preview $rendered
 Check 'point text' 'the preview of live text matches the glyph outlines Adobe draws after release' 'within 1e-6 pt' ("{0} points previewed, {1} rendered, worst nearest distance {2} pt" -f $preview.Count, $rendered.Count, $worst.ToString('G3', $inv)) ($preview.Count -gt 0 -and $worst -lt 1e-6)
-$still = Invoke-Efd "(function(){ var o = EFD.named('fx'); return o.typename + '|' + o.contents; })();"
+$still = Invoke-Fdp "(function(){ var o = FDP.named('fx'); return o.typename + '|' + o.contents; })();"
 Check 'point text' 'the text is still live text afterwards' 'TextFrame|Distort' $still ($still -eq 'TextFrame|Distort')
 
 Save-ProbeResults -Path (Join-Path $evidence 'preview.tsv')

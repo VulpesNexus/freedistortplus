@@ -146,7 +146,7 @@ def main():
         "",
         "Everything the editor adds is an editing capability. The document only ever stores Adobe's own sixteen numbers, so the last column is about what the result *is*, not about anything extra being kept.",
         "",
-        "| Feature | Adobe's dialog | Enhanced editor | Stored as vanilla Free Distort? | Status |",
+        "| Feature | Adobe's dialog | FreeDistort+ | Stored as vanilla Free Distort? | Status |",
         "| --- | --- | --- | --- | --- |",
     ]
     for kind, feature, adobe, ours, stored, cases in FEATURES:

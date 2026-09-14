@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (C) 2026 Vixen420
 //
-// Enhanced Free Distort is free software: you may redistribute it and/or
+// FreeDistort+ is free software: you may redistribute it and/or
 // modify it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or (at your
 // option) any later version. It comes with ABSOLUTELY NO WARRANTY. See the
@@ -11,7 +11,7 @@
 // the Adobe Illustrator SDK, whose sample framework sources are compiled into
 // every plugin built from it. See LICENSE-EXCEPTION.
 
-//  EnhancedFreeDistort.rc -- version resource, the generated PIPL, and the
+//  FreeDistortPlus.rc -- version resource, the generated PIPL, and the
 //  tool icon.
 //
 //  The SDK's VersionInfo.rc stamps a binary with Adobe's company and product
@@ -19,7 +19,7 @@
 //  declares its own identity instead of including it.
 
 #include <winres.h>
-#include "EFDID.h"
+#include "FDPID.h"
 
 #ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
@@ -27,8 +27,8 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #endif
 
 1 VERSIONINFO
- FILEVERSION kEFDVersionMajor, kEFDVersionMinor, kEFDVersionPatch, 0
- PRODUCTVERSION kEFDVersionMajor, kEFDVersionMinor, kEFDVersionPatch, 0
+ FILEVERSION kFDPVersionMajor, kFDPVersionMinor, kFDPVersionPatch, 0
+ PRODUCTVERSION kFDPVersionMajor, kFDPVersionMinor, kFDPVersionPatch, 0
  FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
 #ifdef _DEBUG
  FILEFLAGS VS_FF_DEBUG
@@ -43,14 +43,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4"
         BEGIN
-            VALUE "CompanyName",      kEFDCompanyName, "\0"
-            VALUE "FileDescription",  kEFDDescription, "\0"
-            VALUE "FileVersion",      kEFDVersionString, "\0"
-            VALUE "InternalName",     kEFDPluginName, "\0"
-            VALUE "LegalCopyright",   kEFDCopyright, "\0"
-            VALUE "OriginalFilename", kEFDPluginName ".aip", "\0"
-            VALUE "ProductName",      kEFDProductName, "\0"
-            VALUE "ProductVersion",   kEFDVersionString, "\0"
+            VALUE "CompanyName",      kFDPCompanyName, "\0"
+            VALUE "FileDescription",  kFDPDescription, "\0"
+            VALUE "FileVersion",      kFDPVersionString, "\0"
+            VALUE "InternalName",     kFDPPluginName, "\0"
+            VALUE "LegalCopyright",   kFDPCopyright, "\0"
+            VALUE "OriginalFilename", kFDPPluginName ".aip", "\0"
+            VALUE "ProductName",      kFDPProductName, "\0"
+            VALUE "ProductVersion",   kFDPVersionString, "\0"
         END
     END
     BLOCK "VarFileInfo"
@@ -64,4 +64,4 @@ plugin pipl "plugin.pipl"
 // Tool icons, in the form the SDK's MultiArrowTool sample uses: a table from
 // resource ID to file name, and each SVG as a resource named for its file.
 IDToFile txt "IDToFile.txt"
-EFD_FreeDistortEditor_Lg_N_at_2x svg "EFD_FreeDistortEditor_Lg_N@2x.svg"
+FDP_Tool_Lg_N_at_2x svg "FDP_Tool_Lg_N@2x.svg"

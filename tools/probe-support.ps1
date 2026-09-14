@@ -11,7 +11,7 @@
     reaches it through Illustrator's conversion to paths, and the question for
     this plugin is only whether it goes where Adobe's effect goes.
 
-    Needs Illustrator running with EnhancedFreeDistort.aip loaded. Writes
+    Needs Illustrator running with FreeDistortPlus.aip loaded. Writes
     docs/evidence/support.txt and support.tsv.
 #>
 [CmdletBinding()]
@@ -46,17 +46,17 @@ $fixtures = [ordered]@{
 }
 
 Start-ProbeResults -Probe 'support'
-Say ('Enhanced Free Distort -- art types, {0}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm'))
+Say ('FreeDistort+ -- art types, {0}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm'))
 Initialize-AiSession | Out-Null
 
 foreach ($kind in $fixtures.Keys) {
     $fn = $fixtures[$kind]
     try {
-        $made = Invoke-Efd ("(function(){{ EFD.clear(); EFD.{0}('fx'); EFD.selectOnly('fx'); var o = EFD.named('fx'); return o.typename + '|' + (o.typename === 'TextFrame' ? o.contents : ''); }})();" -f $fn)
+        $made = Invoke-Fdp ("(function(){{ FDP.clear(); FDP.{0}('fx'); FDP.selectOnly('fx'); var o = FDP.named('fx'); return o.typename + '|' + (o.typename === 'TextFrame' ? o.contents : ''); }})();" -f $fn)
     }
     catch { Row $kind 'fixture' 'built' $_.Exception.Message 'ERROR'; continue }
     $typeBefore = ($made -split '\|')[0]; $contentsBefore = ($made -split '\|', 2)[1]
-    $before = Invoke-Efd 'app.redraw(); EFD.bounds("fx");'
+    $before = Invoke-Fdp 'app.redraw(); FDP.bounds("fx");'
 
     $append = Send-AiMessage 'fd append'
     $listed = (Send-AiMessage 'fd list').Trim()
@@ -72,7 +72,7 @@ foreach ($kind in $fixtures.Keys) {
         $declined = (Field $status 'target') -eq 'none' -and (Field $status 'why') -match 'raster'
         Row $kind 'the editor declines art Adobe''s effect does not change' 'no target, reason given' (Field $status 'why') $(if ($declined) { 'PASS' } else { 'FAIL' })
         Send-AiMessage 'fd write' '0|0,100,100,0|0,100,160,120,0,0,100,0' | Out-Null
-        $afterWrite = Invoke-Efd 'app.redraw(); EFD.bounds("fx");'
+        $afterWrite = Invoke-Fdp 'app.redraw(); FDP.bounds("fx");'
         Row $kind 'Adobe''s effect draws the image unchanged whatever its corners say' $before $afterWrite $(if ($afterWrite -eq $before) { 'PASS' } else { 'FAIL' })
         continue
     }
@@ -80,12 +80,12 @@ foreach ($kind in $fixtures.Keys) {
     if ($q.Count -ne 8) { Row $kind 'editor' 'a target' (Field $status 'why') 'FAIL'; continue }
     $to = '{0},{1}' -f (Format-AiNumber ($q[2] + 60)), (Format-AiNumber ($q[3] + 20))
     Send-AiMessage 'editor drag' "1|free|-1|$to" | Out-Null
-    $after = Invoke-Efd 'app.redraw(); EFD.bounds("fx");'
+    $after = Invoke-Fdp 'app.redraw(); FDP.bounds("fx");'
     $geomSame = ($before -split ';')[0] -eq ($after -split ';')[0]
     $drawn = ($before -split ';')[1] -ne ($after -split ';')[1]
     Row $kind 'dragging a corner redraws the art and leaves its geometry alone' 'visible bounds change, geometric bounds do not' ("visible {0} -> {1}; geometric {2}" -f ($before -split ';')[1], ($after -split ';')[1], $(if ($geomSame) { 'unchanged' } else { 'CHANGED' })) $(if ($geomSame -and $drawn) { 'PASS' } else { 'FAIL' })
 
-    $still = Invoke-Efd "(function(){ var o = EFD.named('fx'); return o.typename + '|' + (o.typename === 'TextFrame' ? o.contents : ''); })();"
+    $still = Invoke-Fdp "(function(){ var o = FDP.named('fx'); return o.typename + '|' + (o.typename === 'TextFrame' ? o.contents : ''); })();"
     Row $kind 'the art keeps its type and contents' $made $still $(if ($still -eq $made) { 'PASS' } else { 'FAIL' })
 
     $read = (Send-AiMessage 'fd read' '0').Trim()
@@ -96,8 +96,8 @@ foreach ($kind in $fixtures.Keys) {
     Row $kind "Adobe's own edit path keeps the editor's corners" ($read -replace '^.*dst ', '') ($vanilla -replace '^.*dst ', '') $(if ($sameDst) { 'PASS' } else { 'MEASURED' })
 
     if ($typeBefore -eq 'TextFrame') {
-        Invoke-Efd "(function(){ var o = EFD.named('fx'); o.contents = o.contents + ' more'; app.redraw(); return 'retyped'; })();" | Out-Null
-        $retyped = Invoke-Efd 'app.redraw(); EFD.bounds("fx");'
+        Invoke-Fdp "(function(){ var o = FDP.named('fx'); o.contents = o.contents + ' more'; app.redraw(); return 'retyped'; })();" | Out-Null
+        $retyped = Invoke-Fdp 'app.redraw(); FDP.bounds("fx");'
         Row $kind 'retyping the live text redraws it through the effect' 'visible bounds change again' ("{0} -> {1}" -f ($after -split ';')[1], ($retyped -split ';')[1]) $(if (($retyped -split ';')[1] -ne ($after -split ';')[1]) { 'PASS' } else { 'FAIL' })
     }
 }

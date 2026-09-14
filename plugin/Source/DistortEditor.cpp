@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (C) 2026 Vixen420
 //
-// Enhanced Free Distort is free software: you may redistribute it and/or
+// FreeDistort+ is free software: you may redistribute it and/or
 // modify it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or (at your
 // option) any later version. It comes with ABSOLUTELY NO WARRANTY. See the
@@ -15,8 +15,8 @@
 
 #include "IllustratorSDK.h"
 #include "DistortEditor.h"
-#include "EFDSuites.h"
-#include "EFDID.h"
+#include "FDPSuites.h"
+#include "FDPID.h"
 #include "Introspect.h"
 
 #include <algorithm>
@@ -86,10 +86,10 @@ namespace
 ASErr DistortEditor::Startup(SPPluginRef self)
 {
     AIAddToolData data;
-    data.title = ai::UnicodeString(kEFDToolTitle);
-    data.tooltip = ai::UnicodeString(kEFDToolTooltip);
-    data.normalIconResID = kEFDToolIconResID;
-    data.darkIconResID = kEFDToolIconDarkResID;
+    data.title = ai::UnicodeString(kFDPToolTitle);
+    data.tooltip = ai::UnicodeString(kFDPToolTooltip);
+    data.normalIconResID = kFDPToolIconResID;
+    data.darkIconResID = kFDPToolIconDarkResID;
     data.iconType = ai::IconType::kSVG;
     data.sameGroupAs = kNoTool;
     data.sameToolsetAs = kNoTool;
@@ -98,18 +98,18 @@ ASErr DistortEditor::Startup(SPPluginRef self)
     // the artwork would not change until the mouse came up. The preview is
     // the whole point of dragging on the canvas, so this tool opts out.
     const ai::int32 options = kToolWantsToTrackCursorOption | kToolDoesntWantArtStyleExecutionSuspender;
-    ASErr err = sAITool->AddTool(self, kEFDToolName, data, options, &fTool);
+    ASErr err = sAITool->AddTool(self, kFDPToolName, data, options, &fTool);
     if (err) return err;
 
-    err = sAIAnnotator->AddAnnotator(self, kEFDAnnotatorName, &fAnnotator);
+    err = sAIAnnotator->AddAnnotator(self, kFDPAnnotatorName, &fAnnotator);
     if (err) return err;
     sAIAnnotator->SetAnnotatorActive(fAnnotator, false);
 
-    sAINotifier->AddNotifier(self, kEFDNotifierName, kAIArtSelectionChangedNotifier, &fSelectionChanged);
-    sAINotifier->AddNotifier(self, kEFDNotifierName, kAIArtPropertiesChangedNotifier, &fPropertiesChanged);
-    sAINotifier->AddNotifier(self, kEFDNotifierName, kAIDocumentChangedNotifier, &fDocumentChanged);
-    sAINotifier->AddNotifier(self, kEFDNotifierName, kAIDocumentAboutToCloseNotifier, &fDocumentClosing);
-    sAINotifier->AddNotifier(self, kEFDNotifierName, kAIActiveDocumentWindowAboutToBeChangedNotifier, &fWindowChanging);
+    sAINotifier->AddNotifier(self, kFDPNotifierName, kAIArtSelectionChangedNotifier, &fSelectionChanged);
+    sAINotifier->AddNotifier(self, kFDPNotifierName, kAIArtPropertiesChangedNotifier, &fPropertiesChanged);
+    sAINotifier->AddNotifier(self, kFDPNotifierName, kAIDocumentChangedNotifier, &fDocumentChanged);
+    sAINotifier->AddNotifier(self, kFDPNotifierName, kAIDocumentAboutToCloseNotifier, &fDocumentClosing);
+    sAINotifier->AddNotifier(self, kFDPNotifierName, kAIActiveDocumentWindowAboutToBeChangedNotifier, &fWindowChanging);
     return kNoErr;
 }
 

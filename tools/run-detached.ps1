@@ -26,7 +26,7 @@ $ErrorActionPreference = 'Stop'
 $script = Join-Path $PSScriptRoot $Probe
 if (-not (Test-Path $script)) { throw "No such probe: $Probe" }
 
-$logs = Join-Path ([IO.Path]::GetTempPath()) 'efd-probes'
+$logs = Join-Path ([IO.Path]::GetTempPath()) 'fdp-probes'
 $null = New-Item -ItemType Directory -Force -Path $logs
 $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
 $base = Join-Path $logs ("{0}-{1}" -f [IO.Path]::GetFileNameWithoutExtension($Probe), $stamp)

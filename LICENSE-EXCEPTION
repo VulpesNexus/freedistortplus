@@ -12,7 +12,7 @@ An Illustrator plugin cannot be built without the Adobe Illustrator SDK, and
 the resulting binary is not merely linked against it. Adobe ships the plugin
 entry point, the message dispatch loop, and the suite acquisition as *source*,
 in samplecode/common/, and every plugin compiles that source into itself. In a
-release build of Enhanced Free Distort, seven of the twelve object files are
+release build of FreeDistort+, seven of the twelve object files are
 Adobe's:
 
     Main.obj  Plugin.obj  Suites.obj  AppContext.obj  SDKErrors.obj
@@ -33,15 +33,15 @@ relicense. Section 7 exists for exactly this situation, and this file uses it.
 The permission
 --------------
 
-As a special exception, the copyright holder of Enhanced Free Distort gives you
+As a special exception, the copyright holder of FreeDistort+ gives you
 permission to combine it with the Adobe Illustrator SDK, including the sample
 framework sources distributed with it, and with the Adobe Illustrator
 application itself. You may copy and distribute the resulting work under terms
 of your choice for the Adobe-licensed portions, provided that the portions of
-the work that are Enhanced Free Distort remain governed by the GNU General
+the work that are FreeDistort+ remain governed by the GNU General
 Public License version 3 or later in every respect.
 
-If you modify Enhanced Free Distort, you may extend this exception to your
+If you modify FreeDistort+, you may extend this exception to your
 version, but you are not obliged to do so. If you do not wish to do so, delete
 this exception statement from your version.
 
@@ -53,7 +53,7 @@ SDK, and complying with whatever agreement Adobe attaches to it, remains
 entirely between you and Adobe. This exception only removes the GPL's objection
 to the combination; it does not create a right to the other half of it.
 
-It also does not weaken the GPL over Enhanced Free Distort itself. The source in
+It also does not weaken the GPL over FreeDistort+ itself. The source in
 this repository, the test tools in tools/ (which link nothing and never needed
 the exception in the first place), and any modification you make to either,
 stay GPL-3.0-or-later.

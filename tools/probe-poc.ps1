@@ -13,7 +13,7 @@
     6. a corner dragged inside Adobe's dialog is read back by the plugin
     7. save, close, reopen: the dictionary is unchanged
 
-    Needs Illustrator running with EnhancedFreeDistort.aip loaded. Writes
+    Needs Illustrator running with FreeDistortPlus.aip loaded. Writes
     docs/evidence/poc.txt, poc.tsv, and the dialog captures.
 #>
 [CmdletBinding()]
@@ -38,13 +38,13 @@ function Field([string] $text, [string] $name) {
 }
 
 Start-ProbeResults -Probe 'poc'
-Say ('Enhanced Free Distort -- proof of concept, {0}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm'))
+Say ('FreeDistort+ -- proof of concept, {0}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm'))
 Initialize-AiSession | Out-Null
 Say ((Send-AiMessage version) -replace "`r?`n", ' | ')
 
 # ---- 1. find or add ----------------------------------------------------------
 
-Invoke-Efd 'EFD.clear(); EFD.pentagon("pent"); EFD.selectOnly("pent");' | Out-Null
+Invoke-Fdp 'FDP.clear(); FDP.pentagon("pent"); FDP.selectOnly("pent");' | Out-Null
 $added = Send-AiMessage 'fd append'
 Check 'find' 'the plugin adds an Adobe Free Distort to the selected object' 'result 0, post-effect 0' ($added -replace "`r?`n", ' ') ((Field $added 'result') -eq '0' -and (Field $added 'index') -eq '0')
 
@@ -70,14 +70,14 @@ Check 'bounds' 'measuring leaves no undo step behind' ("past {0}" -f (Field $und
 
 # ---- 3 and 4. move one corner ------------------------------------------------
 
-$before = Invoke-Efd 'EFD.bounds("pent");'
+$before = Invoke-Fdp 'FDP.bounds("pent");'
 $wrote = Send-AiMessage 'fd corner' '0|1|400,330'
 Say ($wrote.TrimEnd())
 $read = Send-AiMessage 'fd read' '0'
 Say "read: $($read.TrimEnd())"
 Check 'write' 'the destination corner the plugin wrote is in the dictionary' 'dst corner 1 = 400,330, source [90 330 340 100]' $read.Trim() ($read -match 'src \(90,330 340,330 90,100 340,100\) dst \(90,330 400,330 90,100 340,100\)')
 
-$after = Invoke-Efd 'app.redraw(); EFD.bounds("pent");'
+$after = Invoke-Fdp 'app.redraw(); FDP.bounds("pent");'
 $geomBefore = ($before -split ';')[0]; $geomAfter = ($after -split ';')[0]
 Check 'write' 'the source path is untouched' $geomBefore $geomAfter ($geomBefore -eq $geomAfter)
 # The model: the rightmost anchor (340,260) sits on the right edge, at t = 160/230
@@ -90,7 +90,7 @@ $appearance = Send-AiMessage appearance
 $names = ([regex]::Matches($appearance, '\[\d+\] "([^"]+)"') | ForEach-Object { $_.Groups[1].Value }) -join ', '
 Check 'write' 'the appearance holds Adobe Free Distort and nothing of this plugin' 'Adobe Free Distort' $names ($names -eq 'Adobe Free Distort')
 $entries = ([regex]::Match($appearance, '# (\d+) entries')).Groups[1].Value
-Check 'write' 'the dictionary holds only the sixteen Adobe keys' '16 entries, none of them ours' ("{0} entries" -f $entries) ($entries -eq '16' -and $appearance -notmatch 'VulpesNexus|EnhancedFreeDistort')
+Check 'write' 'the dictionary holds only the sixteen Adobe keys' '16 entries, none of them ours' ("{0} entries" -f $entries) ($entries -eq '16' -and $appearance -notmatch 'VulpesNexus|FreeDistortPlus')
 
 # ---- 5. Adobe's dialog shows it; Cancel changes nothing ------------------------
 
@@ -114,7 +114,7 @@ Check 'vanilla' "the editor's quad is Adobe's new state, read fresh" 'quad equal
 
 # ---- 7. save, close, reopen ----------------------------------------------------
 
-$path = Invoke-Efd 'var d = EFD.doc(); d.save(); var p = d.fullName.fsName; d.close(SaveOptions.DONOTSAVECHANGES); app.open(new File(p)); EFD.selectOnly("pent"); p;'
+$path = Invoke-Fdp 'var d = FDP.doc(); d.save(); var p = d.fullName.fsName; d.close(SaveOptions.DONOTSAVECHANGES); app.open(new File(p)); FDP.selectOnly("pent"); p;'
 $readReopened = Send-AiMessage 'fd read' '0'
 $quadsBefore = ($readVanilla -replace '^entries \d+ ', '').Trim()
 $quadsAfter = ($readReopened -replace '^entries \d+ ', '').Trim()

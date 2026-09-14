@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (C) 2026 Vixen420
 //
-// Enhanced Free Distort is free software: you may redistribute it and/or
+// FreeDistort+ is free software: you may redistribute it and/or
 // modify it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or (at your
 // option) any later version. It comes with ABSOLUTELY NO WARRANTY. See the
@@ -18,7 +18,7 @@
 //  with no SDK at all.
 //
 //  What the renderer does was measured, not assumed (see
-//  docs/ENHANCED_FREE_DISTORT_INVESTIGATION.md, section B):
+//  docs/FREEDISTORT_PLUS_INVESTIGATION.md, section B):
 //
 //    * The map is BILINEAR in the input art's geometric bounds, applied to
 //      every anchor point and every direction handle. It is not a homography

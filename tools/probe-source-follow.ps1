@@ -16,7 +16,7 @@
     against the same reading. The pass/fail facts go to source-follow.txt and
     source-follow.tsv.
 
-    Needs Illustrator running with EnhancedFreeDistort.aip loaded.
+    Needs Illustrator running with FreeDistortPlus.aip loaded.
 #>
 [CmdletBinding()]
 param()
@@ -51,7 +51,7 @@ function IsRectangle([string] $q) {
 function Drawing([string] $name) {
     $s = New-Object Collections.Generic.List[string]
     $r = New-Object Collections.Generic.List[string]
-    foreach ($row in ((Invoke-Efd ("EFD.sourceAndResult('{0}');" -f $name)) -split "`r?`n")) {
+    foreach ($row in ((Invoke-Fdp ("FDP.sourceAndResult('{0}');" -f $name)) -split "`r?`n")) {
         if (-not $row) { continue }
         $kind, $rest = $row -split "`t", 2
         if ($kind -eq 'S') { $s.Add($rest) } else { $r.Add($rest) }
@@ -65,7 +65,7 @@ $pointRows = New-Object Collections.Generic.List[string]
 $pointRows.Add("case`tkind`tindex`tah`tav`tlh`tlv`trh`trv")
 
 Start-ProbeResults -Probe 'source-follow'
-Say ('Enhanced Free Distort -- how the source follows the art, {0}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm'))
+Say ('FreeDistort+ -- how the source follows the art, {0}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm'))
 Initialize-AiSession | Out-Null
 Send-AiMessage 'tool select' 'Adobe Select Tool' | Out-Null
 
@@ -73,7 +73,7 @@ Send-AiMessage 'tool select' 'Adobe Select Tool' | Out-Null
 # path committed, then distorted in the form Adobe's dialog writes: source =
 # the input bounds, destination = the new corners.
 function Fresh([string] $name) {
-    Invoke-Efd ("EFD.clear(); EFD.pentagon('{0}'); EFD.selectOnly('{0}');" -f $name) | Out-Null
+    Invoke-Fdp ("FDP.clear(); FDP.pentagon('{0}'); FDP.selectOnly('{0}');" -f $name) | Out-Null
     Send-AiMessage 'fd append' | Out-Null
     Send-AiMessage 'edit effect' '0' | Out-Null
     Send-AiMessage 'fd write' '0|90,330,340,100|110,350,390,320,70,90,360,120' | Out-Null
@@ -99,7 +99,7 @@ foreach ($op in $operations) {
     $name, $code = $op
     Fresh $name
     $srcBefore, $dstBefore = Quads
-    Invoke-Efd ("(function(){{ var o = EFD.named('{0}'); {1} app.redraw(); return 'done'; }})();" -f $name, $code) | Out-Null
+    Invoke-Fdp ("(function(){{ var o = FDP.named('{0}'); {1} app.redraw(); return 'done'; }})();" -f $name, $code) | Out-Null
     $srcAfter, $dstAfter = Quads
     Check $name ("{0}: the operation leaves the dictionary as it was" -f $name) "src ($srcBefore) dst ($dstBefore)" "src ($srcAfter) dst ($dstAfter)" ($srcAfter -eq $srcBefore -and $dstAfter -eq $dstBefore)
     $before = Drawing $name
@@ -120,19 +120,19 @@ foreach ($op in $operations) {
 # Illustrator interpolates a live effect's parameters along a blend when the
 # effect handles it; each expanded step then carries an in-between dictionary.
 
-Invoke-Efd "EFD.clear(); EFD.pentagon('blendA'); EFD.pentagon('blendB', 420, 60); EFD.selectOnly('blendA');" | Out-Null
+Invoke-Fdp "FDP.clear(); FDP.pentagon('blendA'); FDP.pentagon('blendB', 420, 60); FDP.selectOnly('blendA');" | Out-Null
 Send-AiMessage 'fd append' | Out-Null
 Send-AiMessage 'fd write' '0|90,330,340,100|110,350,390,320,70,90,360,120' | Out-Null
-Invoke-Efd "EFD.selectOnly('blendB');" | Out-Null
+Invoke-Fdp "FDP.selectOnly('blendB');" | Out-Null
 Send-AiMessage 'fd append' | Out-Null
 Send-AiMessage 'fd write' '0|510,390,760,160|470,430,800,390,540,140,700,170' | Out-Null
-$made = Invoke-Efd "(function(){ var d = EFD.doc(); d.selection = null; EFD.named('blendA').selected = true; EFD.named('blendB').selected = true; app.executeMenuCommand('Path Blend Make'); app.redraw(); app.executeMenuCommand('Path Blend Expand'); app.redraw(); return d.selection.length + ' selected after expanding'; })();"
+$made = Invoke-Fdp "(function(){ var d = FDP.doc(); d.selection = null; FDP.named('blendA').selected = true; FDP.named('blendB').selected = true; app.executeMenuCommand('Path Blend Make'); app.redraw(); app.executeMenuCommand('Path Blend Expand'); app.redraw(); return d.selection.length + ' selected after expanding'; })();"
 Record 'blend' 'Object > Blend > Make, then Expand' $made
-$steps = Invoke-Efd "(function(){ var d = EFD.doc(); var names = []; function walk(it) { if (it.typename === 'GroupItem') { for (var i = 0; i < it.pageItems.length; i++) walk(it.pageItems[i]); } else { it.name = 'step' + names.length; names.push(it.name); } } for (var k = 0; k < d.selection.length; k++) walk(d.selection[k]); return names.join(','); })();"
+$steps = Invoke-Fdp "(function(){ var d = FDP.doc(); var names = []; function walk(it) { if (it.typename === 'GroupItem') { for (var i = 0; i < it.pageItems.length; i++) walk(it.pageItems[i]); } else { it.name = 'step' + names.length; names.push(it.name); } } for (var k = 0; k < d.selection.length; k++) walk(d.selection[k]); return names.join(','); })();"
 $stepNames = @($steps -split ',' | Where-Object { $_ })
 $rectangles = 0; $read = 0; $distinct = @{}
 foreach ($step in $stepNames) {
-    Invoke-Efd ("EFD.selectOnly('{0}');" -f $step) | Out-Null
+    Invoke-Fdp ("FDP.selectOnly('{0}');" -f $step) | Out-Null
     $list = Send-AiMessage 'fd list'
     if ($list -notmatch "object`t0") { continue }
     $s, $d = Quads

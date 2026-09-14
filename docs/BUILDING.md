@@ -1,4 +1,4 @@
-# Building and testing Enhanced Free Distort
+# Building and testing FreeDistort+
 
 Everything here was done on Windows 11 with Visual Studio 2022, against Adobe Illustrator 2026 (30.7.0). The plugin is Windows-only today; the geometry in *plugin/Source/QuadMath.h* is platform-neutral, but nothing has been built or tested on macOS.
 
@@ -19,18 +19,18 @@ $env:AI_SDK_ROOT = "<path to>\Adobe Illustrator 2026 SDK"
 .\tools\build.ps1
 ```
 
-The build writes *build\Release\EnhancedFreeDistort.aip*.
+The build writes *build\Release\FreeDistortPlus.aip*.
 
 ## Installing what you built
 
 The plugin goes in Illustrator's Additional Plug-ins Folder, the one per-generation folder every plugin shares: *%LOCALAPPDATA%\Adobe Illustrator Plug-ins\30* for Illustrator 2026. Point *Edit > Preferences > Plug-ins & Scratch Disks > Additional Plug-ins Folder* at it once. Then, with Illustrator closed:
 
 ```powershell
-.\tools\install.ps1              # copy EnhancedFreeDistort.aip into that folder
+.\tools\install.ps1              # copy FreeDistortPlus.aip into that folder
 .\tools\install.ps1 -Uninstall   # take it out again
 ```
 
-The script touches only *EnhancedFreeDistort.aip*; other plugins in the folder are left alone. It refuses to run while Illustrator is open, because Illustrator reads plugin folders only at startup and holds a loaded plugin open.
+The script touches only *FreeDistortPlus.aip*; other plugins in the folder are left alone. It refuses to run while Illustrator is open, because Illustrator reads plugin folders only at startup and holds a loaded plugin open.
 
 ## Tests
 
@@ -40,7 +40,7 @@ One test needs no Illustrator. It compiles *QuadMath.h* unmodified and checks it
 .\tools\run-mathtest.ps1
 ```
 
-The rest drive a real Illustrator over COM, with the plugin installed. They work only in their own document, *efd-probe.ai* in the temp folder, found by name, and never in whatever document happens to be open:
+The rest drive a real Illustrator over COM, with the plugin installed. They work only in their own document, *fdp-probe.ai* in the temp folder, found by name, and never in whatever document happens to be open:
 
 ```powershell
 .\tools\probe-poc.ps1            # the plugin and Adobe's own dialog edit the same state
@@ -70,20 +70,20 @@ Two probes restart Illustrator, and are run as detached processes so that nothin
 .\tools\run-detached.ps1 -Probe probe-churn.ps1                                    # document churn with and without the editor active
 ```
 
-*probe-missing-plugin.ps1* takes *EnhancedFreeDistort.aip*, and only that file, out of the Additional Plug-ins Folder and puts it back. While it opens the document without the plugin, *tools/watch-alerts.ps1* watches from a second process for any alert Illustrator raises, captures it, and dismisses it; the expected number is zero. Opening Adobe's dialog with this plugin absent needs another plugin's bridge, and uses LiveShear's when it is installed.
+*probe-missing-plugin.ps1* takes *FreeDistortPlus.aip*, and only that file, out of the Additional Plug-ins Folder and puts it back. While it opens the document without the plugin, *tools/watch-alerts.ps1* watches from a second process for any alert Illustrator raises, captures it, and dismisses it; the expected number is zero. Opening Adobe's dialog with this plugin absent needs another plugin's bridge, and uses LiveShear's when it is installed.
 
 `.\tools\capture-view.ps1 -Path <png>` captures Illustrator's document view with `PrintWindow`, without bringing Illustrator forward or touching the mouse or keyboard. `.\tools\canvas-driver.ps1` posts a mouse gesture to the document view; it is kept to show that Illustrator's tools do not receive posted input, and the editor's status line `tool messages` counts what does arrive.
 
 After changing the plugin, `.\tools\redeploy.ps1` builds, quits Illustrator (closing every document without saving), installs, and starts it again.
 
-Probe scripts share *tools/fixtures.jsx*, and work only in their own document, *efd-probe.ai* in the temp folder. Two Illustrator scripting behaviors shape them, and both cost a run before they were understood:
+Probe scripts share *tools/fixtures.jsx*, and work only in their own document, *fdp-probe.ai* in the temp folder. Two Illustrator scripting behaviors shape them, and both cost a run before they were understood:
 
 - **A document made active in one call is not yet the current document to a plugin in that call.** Session setup activates the probe document in a call of its own.
-- **After page items are removed in a call, items added later in that call are missing from every collection** (`pageItems`, `pathItems`, `getByName`) until the next call. Fixtures register what they create, and `EFD.named` falls back to that registry.
+- **After page items are removed in a call, items added later in that call are missing from every collection** (`pageItems`, `pathItems`, `getByName`) until the next call. Fixtures register what they create, and `FDP.named` falls back to that registry.
 
 ## The test bridge
 
-The plugin answers `app.sendScriptMessage("EnhancedFreeDistort", selector, arguments)`. The probes use these selectors:
+The plugin answers `app.sendScriptMessage("FreeDistortPlus", selector, arguments)`. The probes use these selectors:
 
 | Selector | Arguments | Does |
 | --- | --- | --- |
@@ -111,6 +111,6 @@ The plugin answers `app.sendScriptMessage("EnhancedFreeDistort", selector, argum
 ## Before committing
 
 ```powershell
-python .workspace\tools\housestyle.py --check EnhancedFreeDistort
-python .workspace\tools\privacy.py --check --tracked EnhancedFreeDistort
+python .workspace\tools\housestyle.py --check FreeDistort+
+python .workspace\tools\privacy.py --check --tracked FreeDistort+
 ```

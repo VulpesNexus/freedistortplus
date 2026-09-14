@@ -1,2 +1,2 @@
-19500.svg		EFD_FreeDistortEditor_Lg_N@2x.svg
-19501.svg		EFD_FreeDistortEditor_Lg_N@2x.svg
+19500.svg		FDP_Tool_Lg_N@2x.svg
+19501.svg		FDP_Tool_Lg_N@2x.svg

@@ -14,7 +14,7 @@
     codepage.
 #>
 
-$script:BridgePlugin = 'EnhancedFreeDistort'
+$script:BridgePlugin = 'FreeDistortPlus'
 
 function Get-AiApp {
     [CmdletBinding()]
@@ -103,8 +103,11 @@ function Start-Ai {
     param([string] $Exe = 'C:\Program Files\Adobe\Adobe Illustrator 2026\Support Files\Contents\Windows\Illustrator.exe')
 
     # Minimized, so a restart for a deploy does not take the foreground from
-    # whoever is using the machine.
-    if (-not (Get-Process Illustrator -ErrorAction SilentlyContinue)) { Start-Process $Exe -WindowStyle Minimized }
+    # whoever is using the machine. Started in Illustrator's own folder: a
+    # process inherits its working directory, and Illustrator's helpers
+    # (CEPHtmlEngine, the crash processor) outlive it holding whatever folder
+    # the caller was in, which then cannot be renamed.
+    if (-not (Get-Process Illustrator -ErrorAction SilentlyContinue)) { Start-Process $Exe -WindowStyle Minimized -WorkingDirectory (Split-Path -Parent $Exe) }
     if (-not (Wait-AiReady)) { throw 'Illustrator started but never became ready to run a script.' }
     'Illustrator running.'
 }
@@ -138,10 +141,10 @@ function Initialize-AiSession {
     # call of its own. A plugin asked about the selection in the same call
     # that switched documents still sees the previous document, and answers
     # "No selection." for artwork that is plainly selected.
-    Invoke-Efd 'EFD.doc(); app.redraw(); "ready";'
+    Invoke-Fdp 'FDP.doc(); app.redraw(); "ready";'
 }
 
-function Invoke-Efd {
+function Invoke-Fdp {
     <#
     .SYNOPSIS
         Runs one expression against tools/fixtures.jsx, installing it first if
@@ -150,7 +153,7 @@ function Invoke-Efd {
     [CmdletBinding()]
     param([Parameter(Mandatory, Position = 0)] [string] $Expression)
 
-    $probe = Invoke-AiScript 'typeof EFD === "undefined" ? "no" : "yes";'
+    $probe = Invoke-AiScript 'typeof FDP === "undefined" ? "no" : "yes";'
     if ($probe -ne 'yes') { Invoke-AiScript -Path (Join-Path $PSScriptRoot 'fixtures.jsx') | Out-Null }
     Invoke-AiScript $Expression
 }

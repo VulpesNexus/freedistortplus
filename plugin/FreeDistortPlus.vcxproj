@@ -13,7 +13,7 @@
 
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8E2D51C7-3A44-4F0B-9C61-5D7B2E90A3F4}</ProjectGuid>
-    <RootNamespace>EnhancedFreeDistort</RootNamespace>
+    <RootNamespace>FreeDistortPlus</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
 
@@ -41,7 +41,7 @@
   <PropertyGroup>
     <OutDir>$(MSBuildProjectDirectory)\..\build\$(Configuration)\</OutDir>
     <IntDir>$(MSBuildProjectDirectory)\..\build\obj\$(Configuration)\</IntDir>
-    <TargetName>EnhancedFreeDistort</TargetName>
+    <TargetName>FreeDistortPlus</TargetName>
     <TargetExt>.aip</TargetExt>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
@@ -87,14 +87,14 @@
       <AdditionalDependencies>comctl32.lib;user32.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>python "$(AISDKRoot)\tools\pipl\create_pipl.py" -input "[{\"name\":\"EnhancedFreeDistort\",\"entry_point\":\"PluginMain\"}]"</Command>
+      <Command>python "$(AISDKRoot)\tools\pipl\create_pipl.py" -input "[{\"name\":\"FreeDistortPlus\",\"entry_point\":\"PluginMain\"}]"</Command>
       <Message>Generating plugin.pipl</Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
 
   <ItemGroup>
-    <ClCompile Include="Source\EFDPlugin.cpp" />
-    <ClCompile Include="Source\EFDSuites.cpp" />
+    <ClCompile Include="Source\FDPPlugin.cpp" />
+    <ClCompile Include="Source\FDPSuites.cpp" />
     <ClCompile Include="Source\FreeDistortEffect.cpp" />
     <ClCompile Include="Source\DistortEditor.cpp" />
     <ClCompile Include="Source\Introspect.cpp" />
@@ -108,9 +108,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ClInclude Include="Source\EFDPlugin.h" />
-    <ClInclude Include="Source\EFDSuites.h" />
-    <ClInclude Include="Source\EFDID.h" />
+    <ClInclude Include="Source\FDPPlugin.h" />
+    <ClInclude Include="Source\FDPSuites.h" />
+    <ClInclude Include="Source\FDPID.h" />
     <ClInclude Include="Source\FreeDistortEffect.h" />
     <ClInclude Include="Source\DistortEditor.h" />
     <ClInclude Include="Source\QuadMath.h" />
@@ -118,7 +118,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ResourceCompile Include="Resources\Win\EnhancedFreeDistort.rc" />
+    <ResourceCompile Include="Resources\Win\FreeDistortPlus.rc" />
   </ItemGroup>
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

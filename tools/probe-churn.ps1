@@ -10,7 +10,7 @@
     therefore not evidence against the plugin by itself, and not evidence for
     it either. This interleaves two arms over the same cycle:
 
-      tool      the Free Distort Editor selected, its annotator drawing handles
+      tool      the FreeDistort+ selected, its annotator drawing handles
       control   the Selection tool selected, the annotator inactive
 
     and records, cycle by cycle, whether Illustrator survived. Illustrator is
@@ -25,24 +25,24 @@ $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'ai.ps1')
 $repo = Split-Path -Parent $PSScriptRoot
 $evidence = Join-Path $repo 'docs\evidence'
-$scratch = Join-Path ([IO.Path]::GetTempPath()) 'efd-probes'
+$scratch = Join-Path ([IO.Path]::GetTempPath()) 'fdp-probes'
 $null = New-Item -ItemType Directory -Force -Path $scratch
-$pdf = (Join-Path $scratch 'efd-churn.pdf') -replace '\\', '/'
+$pdf = (Join-Path $scratch 'fdp-churn.pdf') -replace '\\', '/'
 
 $log = New-Object Collections.Generic.List[string]
 function Say([string] $s) { $log.Add($s); Write-Output $s }
 Start-ProbeResults -Probe 'churn'
-Say ('Enhanced Free Distort -- document churn A/B, {0}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm'))
+Say ('FreeDistort+ -- document churn A/B, {0}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm'))
 
 function Prepare([string] $arm) {
     Initialize-AiSession | Out-Null
-    Invoke-Efd 'EFD.clear(); EFD.pentagon("pent");' | Out-Null
-    Invoke-Efd 'EFD.selectOnly("pent"); app.redraw();' | Out-Null
+    Invoke-Fdp 'FDP.clear(); FDP.pentagon("pent");' | Out-Null
+    Invoke-Fdp 'FDP.selectOnly("pent"); app.redraw();' | Out-Null
     Send-AiMessage 'fd append' | Out-Null
     Send-AiMessage 'fd corner' '0|1|400,340' | Out-Null
     if ($arm -eq 'tool') { Send-AiMessage 'editor open' | Out-Null }
     else { Send-AiMessage 'tool select' 'Adobe Select Tool' | Out-Null }
-    Invoke-Efd 'EFD.doc().save(); "saved";' | Out-Null
+    Invoke-Fdp 'FDP.doc().save(); "saved";' | Out-Null
 }
 
 $crashes = @{ tool = 0; control = 0 }
@@ -53,7 +53,7 @@ for ($cycle = 1; $cycle -le $CyclesPerArm; $cycle++) {
         try {
             Prepare $arm
             $active = (Send-AiMessage 'editor status') -split "`r?`n" | Where-Object { $_ -like "active`t*" }
-            Invoke-Efd ("(function(){{ var d = EFD.doc(); var o = new PDFSaveOptions(); o.preserveEditability = true; o.viewAfterSaving = false; d.saveAs(new File('{0}'), o); d.close(SaveOptions.DONOTSAVECHANGES); var r = app.open(new File('{0}')); app.redraw(); r.close(SaveOptions.DONOTSAVECHANGES); return 'cycled'; }})();" -f $pdf) | Out-Null
+            Invoke-Fdp ("(function(){{ var d = FDP.doc(); var o = new PDFSaveOptions(); o.preserveEditability = true; o.viewAfterSaving = false; d.saveAs(new File('{0}'), o); d.close(SaveOptions.DONOTSAVECHANGES); var r = app.open(new File('{0}')); app.redraw(); r.close(SaveOptions.DONOTSAVECHANGES); return 'cycled'; }})();" -f $pdf) | Out-Null
             Invoke-AiScript 'app.documents.length + "";' | Out-Null
             $survived[$arm]++
         }

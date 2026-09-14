@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (C) 2026 Vixen420
 //
-// Enhanced Free Distort is free software: you may redistribute it and/or
+// FreeDistort+ is free software: you may redistribute it and/or
 // modify it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or (at your
 // option) any later version. It comes with ABSOLUTELY NO WARRANTY. See the
@@ -11,24 +11,24 @@
 // the Adobe Illustrator SDK, whose sample framework sources are compiled into
 // every plugin built from it. See LICENSE-EXCEPTION.
 
-//  EFDPlugin.h -- plugin entry object.
+//  FDPPlugin.h -- plugin entry object.
 
-#ifndef __EFDPLUGIN_H__
-#define __EFDPLUGIN_H__
+#ifndef __FDPPLUGIN_H__
+#define __FDPPLUGIN_H__
 
 #include "IllustratorSDK.h"
 #include "Plugin.hpp"
 #include "AIScriptMessage.h"
-#include "EFDID.h"
+#include "FDPID.h"
 #include "DistortEditor.h"
 
-class EFDPlugin : public Plugin
+class FDPPlugin : public Plugin
 {
 public:
-    explicit EFDPlugin(SPPluginRef pluginRef);
-    virtual ~EFDPlugin() {}
+    explicit FDPPlugin(SPPluginRef pluginRef);
+    virtual ~FDPPlugin() {}
 
-    FIXUP_VTABLE_EX(EFDPlugin, Plugin);
+    FIXUP_VTABLE_EX(FDPPlugin, Plugin);
 
     ASErr Message(char* caller, char* selector, void* message) override;
     ASErr StartupPlugin(SPInterfaceMessage* message) override;
@@ -54,4 +54,4 @@ private:
     DistortEditor fEditor;
 };
 
-#endif // __EFDPLUGIN_H__
+#endif // __FDPPLUGIN_H__

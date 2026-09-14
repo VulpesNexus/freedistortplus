@@ -1,4 +1,4 @@
-# Enhanced Free Distort: a better editor over Adobe's own effect
+# FreeDistort+: a better editor over Adobe's own effect
 
 An investigation into whether Adobe Illustrator's built-in *Effect > Distort & Transform > Free Distort* can keep its renderer and its document format while its editor is replaced by something usable, and the proof-of-concept plugin built from the answer.
 
@@ -157,7 +157,7 @@ So **Outcome 1's interception is not available through the public SDK**, and the
 
 ## G. Editor architecture
 
-**The document is the result.** The editor is a tool (*Free Distort Editor*). Its annotator draws four things over the real artwork: the effect's destination corners, the outline, a bilinear grid at thirds, and the dashed input bounds. A capture of the canvas after an edit shows exactly that over Adobe's re-rendered artwork ([evidence/editor-handles-on-canvas.png](evidence/editor-handles-on-canvas.png)).
+**The document is the result.** The editor is a tool (*FreeDistort+*). Its annotator draws four things over the real artwork: the effect's destination corners, the outline, a bilinear grid at thirds, and the dashed input bounds. A capture of the canvas after an edit shows exactly that over Adobe's re-rendered artwork ([evidence/editor-handles-on-canvas.png](evidence/editor-handles-on-canvas.png)).
 
 **During a drag, the preview is the editor's; on release, it is Adobe's.** The first design assumed Adobe's effect would redraw the document on every drag step. A person dragging with the real mouse reported otherwise: the handles followed the pointer, but the artwork changed only on release. That held with `kToolDoesntWantArtStyleExecutionSuspender` set, and again with `AIDocumentSuite::RedrawDocument` called on every step ([evidence/mouse.txt](evidence/mouse.txt)). The SDK has no call that updates a view immediately. Illustrator simply does not repaint the document inside a tool's drag loop.
 
@@ -225,7 +225,7 @@ Nothing to persist beyond Adobe's dictionary ([evidence/persistence.txt](evidenc
 
 **Removing the plugin is a non-event.** *tools/probe-missing-plugin.ps1* measures it across three Illustrator sessions, restarting between them ([evidence/missing-plugin.txt](evidence/missing-plugin.txt)):
 
-1. **With the plugin**, a path, a point text, and a group each get a Free Distort edited through the editor, and the document is saved. The saved file contains neither `EnhancedFreeDistort` nor `VulpesNexus` anywhere in its bytes.
+1. **With the plugin**, a path, a point text, and a group each get a Free Distort edited through the editor, and the document is saved. The saved file contains neither `FreeDistortPlus` nor `VulpesNexus` anywhere in its bytes.
 2. **Without it**, Illustrator opens the document and raises **no alert of any kind**; a watcher in a second process looked for one for the whole open. Every object draws exactly as saved, to the micropoint. Another plugin reads the appearance as `Adobe Free Distort`. Adobe's own dialog opens showing the editor's corner ([evidence/missing-plugin-vanilla-open.png](evidence/missing-plugin-vanilla-open.png)), a corner is dragged in it, and OK commits. The document is saved.
 3. **With the plugin back**, it reads exactly what Adobe's dialog wrote, worst difference 0, and the editor shows that state with no conversion.
 
