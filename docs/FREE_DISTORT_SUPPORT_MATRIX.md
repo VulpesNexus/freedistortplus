@@ -28,7 +28,9 @@ Everything the editor adds is an editing capability. The document only ever stor
 | Symmetric, as Free Transform's Alt in its Free Distort mode | no | Alt | yes: eight numbers | verified |
 | Free Transform's keys, measured by hand, reproduced at the corners | n/a | yes, with Ctrl ignored, so Free Transform habits carry over | nothing stored | verified |
 | True perspective foreshortening, which Free Transform's distort modes apply to the interior | no | no: the renderer is bilinear | cannot be | not representable by Adobe Free Distort |
-| Snap to anchors, guides, grid | no | not yet (Illustrator's own snapping planned) | nothing stored | not built |
+| Snapping, through Illustrator's own Smart Guides | no | yes: art, guides, grid, artboards, and the undistorted corners, center, and edges; tolerance in screen pixels; follows View > Smart Guides | yes | untested |
+| Never writes into something it is no longer editing: object deleted, effect removed or moved, document closed, undo and redo | n/a | yes | nothing stored | verified |
+| Repeated use without crashing or leaking window resources | n/a | yes | nothing stored | verified |
 | Reference point, rotate, scale handles | no | not yet | would be eight numbers | not built |
 | Copy and paste a normalized distortion | no | not yet | would be eight numbers | not built |
 | Edits a duplicate without moving the original | yes | yes | yes | verified |
@@ -48,6 +50,7 @@ Everything the editor adds is an editing capability. The document only ever stor
 | The source follows the art through Illustrator's own transforms, reshaping, and blends | yes | yes | yes: the dictionary is untouched | verified |
 | A drag with the real mouse, through Illustrator's own tool dispatch | n/a | yes: one undo step, pointer coordinates unrounded | yes | verified |
 | The live outline during a real drag, and Adobe's render on release, as seen by a person | n/a | yes | nothing stored | verified |
+| Illustrator 30.7.0 can crash creating a document after documents were closed under scripting | the same | the same: it reproduces with this plugin removed, at the offset of a known Illustrator document churn crash (crash-sequence evidence) | n/a | design limit |
 | Adobe's own rendering updates during a drag | yes, in the preview | no: Illustrator does not repaint the document inside a tool's drag loop; the outline below stands in, and Adobe's render lands on release | nothing stored | design limit |
 | A live outline during the drag of exactly where Adobe will draw every anchor and handle | n/a | yes, for any art, when Free Distort is the last effect | nothing stored | verified |
 | Opens without the plugin, no warning | yes | yes | yes | verified |

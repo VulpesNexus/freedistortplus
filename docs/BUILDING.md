@@ -55,6 +55,8 @@ python .\tools\solve-mapping.py  # which model fits
 .\tools\probe-source-follow.ps1  # Illustrator's own operations on distorted art
 python .\tools\solve-source-quads.py    # which reading of a source fits
 .\tools\probe-numeric.ps1        # the corners dialog and arrow keys, in the host
+.\tools\probe-snap.ps1           # Illustrator's Smart Guides during a drag, with this tool's own targets
+.\tools\probe-lifecycle.ps1      # the object, the effect, or the document changing under the editor; a leak watch
 python .\tools\make-support-matrix.py   # regenerates docs/FREE_DISTORT_SUPPORT_MATRIX.md from the results
 ```
 
@@ -70,6 +72,8 @@ Two windows can be looked at without Illustrator. Each harness builds the plugin
 Each writes its raw output under *docs/evidence/*, through `Hide-Personal` in *tools/ai.ps1*, so paths that name the machine are redacted as they are written.
 
 *probe-poc.ps1* opens Adobe's Free Distort dialog twice. The call that opens it blocks, so a background job (*tools/dialog-driver.ps1*) finds the window and drives it with posted window messages, which do not move the real pointer or take the keyboard. The dialog does take the foreground while it is open, which matters if someone else is using the desktop.
+
+All of them, in order, with the solvers and the matrix at the end and a count of results per probe: `.\tools\run-detached.ps1 -Probe run-suite.ps1` (an hour or more).
 
 Two probes restart Illustrator, and are run as detached processes so that nothing killing the calling shell can leave Illustrator without its plugins:
 

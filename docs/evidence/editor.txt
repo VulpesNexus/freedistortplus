@@ -1,4 +1,4 @@
-FreeDistort+ -- editing loop, 2026-09-14 16:37
+FreeDistort+ -- editing loop, 2026-09-14 17:29
 Added Free Distort as post-effect 0.
 Editor selected.
 active	yes
@@ -15,11 +15,10 @@ quad	(90,330 340,330 90,100 340,100)
 source	rectangle
 quad from	the formula
 drag	none
-last preview	preview of 1 paths, 5 segments (captured before the drag)
 active corner	-1
 keyboard increment	0.0028
-nudges	4, last: moved corner 3 by 0,0.0028
-last numeric	committed (90,330 400.123456789,330 72,100 340,100)
+nudges	0
+smart guides	on
 preview source	preview of 1 paths, 5 segments
 [PASS] the command adds a Free Distort when there is none and selects the editor: yes, valid, Adobe
 [PASS] an untouched effect shows its handles on the input bounds: (90,330 340,330 90,100 340,100)

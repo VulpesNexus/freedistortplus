@@ -174,6 +174,13 @@ ASErr FDPPlugin::ShutdownPlugin(SPInterfaceMessage* message)
     return Plugin::ShutdownPlugin(message);
 }
 
+ASErr FDPPlugin::UnloadPlugin(SPInterfaceMessage* message)
+{
+    // The arrow-key hook points into this module; it must never outlive it.
+    fEditor.Shutdown();
+    return Plugin::UnloadPlugin(message);
+}
+
 std::string FDPPlugin::OpenEditor()
 {
     std::string why;
@@ -531,6 +538,27 @@ ASErr FDPPlugin::HandleScriptMessage(const char* selector, AIScriptMessage* mess
         // Selects a corner, as a click on its handle does; -1 for none.
         out << fEditor.SelectCorner(std::atoi(in.c_str()));
     }
+    else if (sel == "snap info")
+    {
+        // Whether Illustrator's snapping answers for the null view and for
+        // the document's first view, and what Track does with a point.
+        AIDocumentViewHandle first = nullptr;
+        const ASErr ve = sAIDocumentView->GetNthDocumentView(0, &first);
+        out << "use smart guides (null view)\t" << (sAICursorSnap->UseSmartGuides(nullptr) ? "yes" : "no") << "\n"
+            << "first view\t" << (first ? "found" : "none") << " (" << ve << ")\n"
+            << "use smart guides (first view)\t" << (first && sAICursorSnap->UseSmartGuides(first) ? "yes" : "no") << "\n";
+        const std::vector<double> n = Numbers(in);
+        if (n.size() == 2)
+        {
+            AIEvent plain;
+            std::memset(&plain, 0, sizeof(plain));
+            AIRealPoint p = { static_cast<AIReal>(n[0]), static_cast<AIReal>(n[1]) }, q = p;
+            const ASErr te = sAICursorSnap->Track(first, p, &plain, "ATFPLMG v i o", &q);
+            char buffer[120];
+            std::snprintf(buffer, sizeof(buffer), "track\t%.12g,%.12g -> %.12g,%.12g (%d)\n", p.h, p.v, q.h, q.v, static_cast<int>(te));
+            out << buffer;
+        }
+    }
     else if (sel == "pref")
     {
         // A preference read the way the plugin reads it: name, application prefix.
@@ -554,15 +582,18 @@ ASErr FDPPlugin::HandleScriptMessage(const char* selector, AIScriptMessage* mess
         if (f.size() < 4) out << "Expected corner|mode|cancelAt|h,v;h,v;...\n";
         else
         {
+            // A mode name, optionally with "+snap": the points then go through
+            // Illustrator's snapping as a mouse drag's do.
             DistortEditor::Mode mode = DistortEditor::Mode::kFree;
-            DistortEditor::ModeFromName(f[1], &mode);
+            const bool snap = f[1].size() > 5 && f[1].compare(f[1].size() - 5, 5, "+snap") == 0;
+            DistortEditor::ModeFromName(snap ? f[1].substr(0, f[1].size() - 5) : f[1], &mode);
             std::vector<fdmath::Pt> points;
             for (const std::string& pair : Split(f[3], ';'))
             {
                 const std::vector<double> n = Numbers(pair);
                 if (n.size() == 2) points.push_back(fdmath::Make(n[0], n[1]));
             }
-            out << fEditor.SimulateDrag(std::atoi(f[0].c_str()), points, mode, std::atoi(f[2].c_str()));
+            out << fEditor.SimulateDrag(std::atoi(f[0].c_str()), points, mode, std::atoi(f[2].c_str()), snap);
         }
     }
     else

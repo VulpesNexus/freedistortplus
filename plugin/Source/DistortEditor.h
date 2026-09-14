@@ -115,7 +115,7 @@ public:
     /** Runs a drag through exactly the code the mouse runs -- begin at the
         corner, one step per point, end -- in the calling context. `cancelAt`
         is the step after which Escape is simulated, or -1. */
-    std::string SimulateDrag(int corner, const std::vector<fdmath::Pt>& points, Mode mode, int cancelAt);
+    std::string SimulateDrag(int corner, const std::vector<fdmath::Pt>& points, Mode mode, int cancelAt, bool snap = false);
 
     /** The corners' positions in view pixels, for a probe that drives the
         real mouse and needs to know where to press. */
@@ -243,6 +243,14 @@ private:
     bool fNumericOpen = false;
     std::string fLastNumeric;
     std::string fLastNudge;
+    std::string fLastSnap;
+    std::vector<fdmath::Pt> fSnapTargets;   // this drag's own: undistorted corners and center, the other corners' start
+    fdmath::Pt fSnapMark;
+    bool fSnapMarked = false;
+    /** The pointer, snapped by Illustrator's own Smart Guides to art, guides,
+        the grid, artboards, and this drag's own targets. */
+    fdmath::Pt Snap(fdmath::Pt pointer, const AIEvent* event);
+    void SetSnapTargets();
     int fNudges = 0;
     SPPluginRef fPlugin = nullptr;
     void InstallKeyHook();

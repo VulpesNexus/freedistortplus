@@ -22,7 +22,7 @@ numeric	dialog	Cancel after typing and previewing puts the dictionary back exact
 numeric	dialog	...and leaves no undo step	past 0	past 0	PASS
 numeric	dialog	the up arrow in a field steps it by one ruler unit, twice	(90,330 402.123456789,330 90,100 340,100)	(90,330 402.123456789,330 90,100 340,100); field showed 402,1234 pt	PASS
 numeric	dialog	Enter in a field typed 1 in takes it and closes: the bottom-left X is 72 pt on the ruler	(90,330 400.123456789,330 72,100 340,100)	(90,330 400.123456789,330 72,100 340,100); committed (90,330 400.123456789,330 72,100 340,100)	PASS
-numeric	keys	with a corner selected, Right then Up move that corner by the keyboard increment each	(90,330 400.123456789,330 90,100 340.0028,100.0028)	(90,330 400.123456789,330 90,100 340.0028,100.0028); increment 0.0028; 4, last: moved corner 3 by 0,0.0028	PASS
+numeric	keys	with a corner selected, Right then Up move that corner by the keyboard increment each	(90,330 400.123456789,330 90,100 340.0028,100.0028)	(90,330 400.123456789,330 90,100 340.0028,100.0028); increment 0.0028; 2, last: moved corner 3 by 0,0.0028	PASS
 numeric	keys	...one undo step per key	past 2	past 2	PASS
 numeric	keys	...and the art itself is not nudged	90,330,340,100;...	90,330,340,100;90,330,381.825865592,100.000112	PASS
 numeric	keys	with no corner selected, Right is left to Illustrator: the art geometry, and the dictionary		90,330,340,100;90,330,381.825013418,100; (90,330 400.123456789,330 90,100 340,100)	MEASURED

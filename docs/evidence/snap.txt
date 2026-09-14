@@ -1,0 +1,13 @@
+FreeDistort+ -- snapping, 2026-09-14 17:35
+[MEASURED] Smart Guides before the run: on
+[PASS] Illustrator's engine snaps the corner onto the art's own bounding-box guide, as for its own tools: (90,330 340,250.3 90,100 340,100); snapped 341.2,250.3 by Illustrator to 340,250.3
+[MEASURED] another path's anchor 1.6 pt away, with no pointer having passed over that path: the engine's answer: (90,330 521.5,215 90,100 340,100); snapped 521.5,211.5 by Illustrator to 521.5,215
+[PASS] a corner released near where it is undistorted lands there exactly: (90,330 340,330 90,100 340,100); snapped 341.2,331.1 to undistorted corner 340,330
+[PASS] a corner released near the art's undistorted center lands on it: (90,330 215,215 90,100 340,100); snapped 215.9,214.2 to undistorted center 215,215
+[PASS] far from every target, the corner goes where the pointer is: (90,330 640.5,440.3 90,100 340,100); not snapped at 640.5,440.3
+[PASS] with Shift, a snap never breaks the axis lock: the snapped x is kept, y stays where it was: (90,330 215,330 90,100 340,100); snapped 216.2,331.8 by Illustrator to 215,331.8
+[PASS] the reach is in screen pixels: at 600% a corner 2 pt from where it is undistorted does not snap back: (90,330 341.6,331.2 90,100 340,100); not snapped at 341.6,331.2
+[PASS] ...while at 600% half a point still does: (90,330 340,330 90,100 340,100); snapped 340.4,330.3 to undistorted corner 340,330
+[PASS] with View > Smart Guides off, this tool's own targets do not snap: (90,330 341.2,331.1 90,100 340,100); not snapped at 341.2,331.1; smart guides off
+[MEASURED] with View > Smart Guides off, another path's anchor 1.6 pt away, under this machine's View > Snap to Point setting: the engine's answer: (90,330 521.5,211.5 90,100 340,100); not snapped at 521.5,211.5
+[MEASURED] Smart Guides after the run: on

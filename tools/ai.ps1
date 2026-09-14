@@ -42,6 +42,13 @@ function Invoke-AiScript {
     if ($PSCmdlet.ParameterSetName -eq 'File') {
         $Code = [System.IO.File]::ReadAllText($Path)
     }
+    # Crash forensics: with FDP_STEPLOG naming a file, every call is appended
+    # to it before it runs, so after a crash the last line is the call that was
+    # running. The file is a working log in the temp folder, never evidence.
+    if ($env:FDP_STEPLOG) {
+        $shown = if ($Code.Length -gt 300) { $Code.Substring(0, 300) + '...' } else { $Code }
+        [IO.File]::AppendAllText($env:FDP_STEPLOG, ("{0:HH:mm:ss.fff}  {1}`r`n" -f (Get-Date), ($shown -replace "`r?`n", ' ')))
+    }
     (Get-AiApp).DoJavaScript($Code)
 }
 
@@ -219,7 +226,14 @@ function Hide-Personal {
             @{ From = [IO.Path]::GetTempPath().TrimEnd('\');                 To = '<temp>' },
             @{ From = $env:USERPROFILE;                                      To = '<user>' },
             @{ From = (Split-Path -Parent $repoRoot);                        To = '<workspace>' }
-        ) | Where-Object { $_.From } | Sort-Object { -$_.From.Length }
+        ) | Where-Object { $_.From }
+        # The same folders as a tool spells them when it flattens a path into
+        # one name, every non-alphanumeric character a dash, the drive's colon
+        # and every backslash and space included. No rule above matches that spelling,
+        # and the drive-letter catch-all below cannot either once an earlier
+        # rule has replaced the drive letter.
+        $rules = @($rules) + @($rules | ForEach-Object { @{ From = ($_.From -replace '[^A-Za-z0-9]', '-'); To = $_.To } }) |
+            Sort-Object { -$_.From.Length }
         $name = $env:USERNAME
     }
     process {

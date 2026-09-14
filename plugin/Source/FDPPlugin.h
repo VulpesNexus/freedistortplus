@@ -34,6 +34,7 @@ public:
     ASErr StartupPlugin(SPInterfaceMessage* message) override;
     ASErr PostStartupPlugin() override;
     ASErr ShutdownPlugin(SPInterfaceMessage* message) override;
+    ASErr UnloadPlugin(SPInterfaceMessage* message) override;
 
     ASErr GoMenuItem(AIMenuMessage* message) override;
     ASErr Notify(AINotifierMessage* message) override;

@@ -1,13 +1,13 @@
 probe	group	case	expected	observed	status
 persistence	clipboard	copy and paste carry the edited Free Distort, all sixteen numbers	src (90,330 340,330 90,100 340,100) dst (90,330 400,345 70,85 340,100)	src (90,330 340,330 90,100 340,100) dst (90,330 400,345 70,85 340,100)	PASS
 persistence	clipboard	where the pasted copy draws, against the original		original 90,330,340,100;80.8,335.4,381.739130435,85.6; pasted 258.773913043,419.586956522,508.773913043,189.586956522;249.573913043,424.986956522,550.513043478,175.186956522	MEASURED
-persistence	export	a PDF saved with Illustrator editing capabilities reopens with the same Free Distort	src (90,330 340,330 90,100 340,100) dst (90,330 400,345 70,85 340,100)	src (90,330 340,330 90,100 340,100) dst (90,330 400,345 70,85 340,100)	PASS
-persistence	export	the PDF names no part of this plugin	none	none	PASS
-persistence	export	SVG export writes the distorted drawing	an SVG with a polygon or path	492 bytes	PASS
+persistence	export	SVG export writes the distorted drawing	an SVG with a polygon or path	651 bytes	PASS
 persistence	export	the SVG names no part of this plugin	none	none	PASS
 persistence	menu	where the command was placed		Live Vector &Distort && Transform	MEASURED
 persistence	menu	the command, invoked by its command string, adds Free Distort and selects the editor	active, target valid	yes, valid	PASS
 persistence	menu	Adobe's own Free Distort item still applies, and Apply Last Effect repeats it, with this command in the same submenu	counts 0, 1, 2	0, 1, 2	PASS
-persistence	cost	200 drag steps on pentagon		0.42 ms per dictionary write (all 200 steps in one call, round trip included); redrawing the result 47 ms	MEASURED
-persistence	cost	200 drag steps on grid		0.98 ms per dictionary write (all 200 steps in one call, round trip included); redrawing the result 66 ms	MEASURED
-persistence	cost	200 drag steps on areaText		0.34 ms per dictionary write (all 200 steps in one call, round trip included); redrawing the result 248 ms	MEASURED
+persistence	cost	200 drag steps on pentagon		0.50 ms per dictionary write (all 200 steps in one call, round trip included); redrawing the result 75 ms	MEASURED
+persistence	cost	200 drag steps on grid		1.14 ms per dictionary write (all 200 steps in one call, round trip included); redrawing the result 61 ms	MEASURED
+persistence	cost	200 drag steps on areaText		0.40 ms per dictionary write (all 200 steps in one call, round trip included); redrawing the result 247 ms	MEASURED
+persistence	export	a PDF saved with Illustrator editing capabilities reopens with the same Free Distort	src (90,330 340,330 90,100 340,100) dst (90,330 400,345 70,85 340,100)	src (90,330 340,330 90,100 340,100) dst (90,330 400,345 70,85 340,100)	PASS
+persistence	export	the PDF names no part of this plugin	none	none	PASS

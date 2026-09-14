@@ -24,6 +24,7 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <cstring>
 #include <sstream>
 
 #ifdef WIN_ENV
@@ -782,6 +783,7 @@ bool DistortEditor::BeginDrag(int corner)
         CapturePreview(fDragStart, &fPreview, &note);
         fPreviewNote = note + " (captured at the start of the drag)";
     }
+    SetSnapTargets();
     return true;
 }
 
@@ -902,6 +904,103 @@ bool DistortEditor::CapturePreview(const fdmath::Quad& quad, std::vector<Preview
     return !preview->empty();
 }
 
+// ---- snapping -------------------------------------------------------------------
+//
+// Two layers. Illustrator's own engine, AICursorSnapSuite::Track, snaps to what
+// Illustrator's tools snap to -- guides, the grid, artboards, the art's
+// bounding-box guides, and the anchors Smart Guides pick up as the pointer
+// passes over art -- and applies View > Smart Guides, Snap to Point, and Snap
+// to Grid itself. It is given a real view: given none, it reports Smart Guides
+// off whatever the menu says (measured).
+//
+// This drag's own targets need no search of the document: where each corner is
+// with no distortion, the undistorted center, and where the other corners were
+// when the drag began. They snap within a distance measured in screen pixels,
+// so the feel is the same at every zoom, and win over the engine's answer when
+// the pointer is within reach of one. Custom constraints handed to the engine
+// with SetCustom had no measurable effect in a scripted drag, so they are not
+// relied on. The target is marked on the canvas while it holds.
+//
+// Order: the pointer is snapped first and the mode applied after, so a mode's
+// constraint is never broken by a snap. With Shift the corner keeps to one axis
+// and only that component of the snapped point is used.
+
+namespace
+{
+    /** How close, in screen pixels, the pointer has to come to one of the
+        drag's own targets to take it. */
+    constexpr double kTargetSnapPixels = 6.0;
+}
+
+void DistortEditor::SetSnapTargets()
+{
+    fSnapTargets.clear();
+    if (fDragCorner < 0) return;
+    const fdmath::Quad undistorted = fdmath::RectQuad(fTarget.inputBounds);
+    for (int i = 0; i < 4; ++i) fSnapTargets.push_back(undistorted.c[i]);
+    fSnapTargets.push_back(fdmath::Scale(fdmath::Add(undistorted.c[0], undistorted.c[3]), 0.5));
+    for (int i = 0; i < 4; ++i)
+        if (i != fDragCorner) fSnapTargets.push_back(fDragStart.c[i]);
+}
+
+fdmath::Pt DistortEditor::Snap(fdmath::Pt pointer, const AIEvent* event)
+{
+    fSnapMarked = false;
+    AIDocumentViewHandle view = nullptr;
+    if (sAICursorSnap == nullptr || sAIDocumentView->GetNthDocumentView(0, &view) || view == nullptr)
+    {
+        fLastSnap = "none: no document view";
+        return pointer;
+    }
+
+    // The drag's own targets, when Smart Guides are on.
+    if (sAICursorSnap->UseSmartGuides(view))
+    {
+        AIPoint at;
+        if (ToView(pointer, &at, view))
+        {
+            double best = kTargetSnapPixels;
+            int hit = -1;
+            for (size_t i = 0; i < fSnapTargets.size(); ++i)
+            {
+                AIPoint p;
+                if (!ToView(fSnapTargets[i], &p, view)) continue;
+                const double d = std::hypot(static_cast<double>(p.h - at.h), static_cast<double>(p.v - at.v));
+                if (d <= best) { best = d; hit = static_cast<int>(i); }
+            }
+            if (hit >= 0)
+            {
+                static const char* const kNames[] = { "undistorted corner", "undistorted corner", "undistorted corner", "undistorted corner", "undistorted center" };
+                const fdmath::Pt target = fSnapTargets[hit];
+                fSnapMark = target;
+                fSnapMarked = true;
+                fLastSnap = std::string("snapped ") + Num(pointer.h) + "," + Num(pointer.v) + " to " +
+                            (hit < 5 ? kNames[hit] : "a corner where it was") + " " + Num(target.h) + "," + Num(target.v);
+                return target;
+            }
+        }
+    }
+
+    // Shift and Alt choose this tool's modes; passed on, they would also ask
+    // the engine for its own angle constraints.
+    AIEvent plain;
+    std::memset(&plain, 0, sizeof(plain));
+    if (event != nullptr) plain = *event;
+    plain.modifiers = 0;
+    const AIRealPoint in = ToAI(pointer);
+    AIRealPoint out = in;
+    const AIErr err = sAICursorSnap->Track(view, in, &plain, "ATFPLMG v i o", &out);
+    if (err)
+    {
+        fLastSnap = "none: Track returned " + std::to_string(err);
+        return pointer;
+    }
+    const fdmath::Pt snapped = FromAI(out);
+    fLastSnap = fdmath::Distance(snapped, pointer) > 1e-9
+        ? "snapped " + Num(pointer.h) + "," + Num(pointer.v) + " by Illustrator to " + Num(snapped.h) + "," + Num(snapped.v)
+        : "not snapped at " + Num(pointer.h) + "," + Num(pointer.v);
+    return snapped;
+}
 void DistortEditor::StepDrag(fdmath::Pt pointer, Mode mode)
 {
     if (fDragCorner < 0 || fDragCanceled || !fTarget.valid) return;
@@ -941,6 +1040,7 @@ void DistortEditor::StepDrag(fdmath::Pt pointer, Mode mode)
 
 void DistortEditor::EndDrag(bool commit)
 {
+    fSnapMarked = false;
     if (fDragCorner < 0) return;
     if (!commit && fDragWrote)
     {
@@ -994,7 +1094,7 @@ ASErr DistortEditor::MouseDrag(AIToolMessage* message)
         return kNoErr;
     }
 #endif
-    StepDrag(FromAI(message->cursor), ModeFromEvent(message->event));
+    StepDrag(Snap(FromAI(message->cursor), message->event), ModeFromEvent(message->event));
     return kNoErr;
 }
 
@@ -1035,9 +1135,10 @@ ASErr DistortEditor::Notify(AINotifierMessage* message)
         fHaveDrawnRect = false;
         return kNoErr;
     }
-    // Our own writes raise these too, during a drag and while measuring; the
-    // target is already current then.
-    if (!fActive || fBusy || fDragCorner >= 0) return kNoErr;
+    // Our own writes raise these too, during a drag, while measuring, and
+    // while the corners dialog previews; the target is already current then,
+    // and the dialog holds on to it.
+    if (!fActive || fBusy || fDragCorner >= 0 || fNumericOpen) return kNoErr;
     Invalidate();
     Retarget(false);
     Invalidate();
@@ -1167,6 +1268,19 @@ ASErr DistortEditor::Draw(AIAnnotatorMessage* message)
         }
     }
 
+    // A snap to one of the drag's own targets: a small ring where it holds.
+    if (fDragCorner >= 0 && fSnapMarked)
+    {
+        AIPoint m;
+        if (ToView(fSnapMark, &m, message->view))
+        {
+            AIRect ring = { m.h - 6, m.v - 6, m.h + 6, m.v + 6 };
+            sAIAnnotatorDrawer->SetColor(drawer, Rgb(230, 0, 160));
+            sAIAnnotatorDrawer->SetLineWidth(drawer, 1.0);
+            sAIAnnotatorDrawer->DrawEllipse(drawer, ring, false);
+        }
+    }
+
     // The destination outline, in drawing order rather than Adobe's numbering.
     for (int step = 0; step < 4; ++step)
         sAIAnnotatorDrawer->DrawLine(drawer, c[fdmath::OutlineOrder(step)], c[fdmath::OutlineOrder(step + 1)]);
@@ -1216,6 +1330,10 @@ std::string DistortEditor::Status() const
     o << "keyboard increment\t" << Num(KeyboardIncrement()) << "\n";
     o << "nudges\t" << fNudges << (fLastNudge.empty() ? "" : ", last: " + fLastNudge) << "\n";
     if (!fLastNumeric.empty()) o << "last numeric\t" << fLastNumeric << "\n";
+    if (!fLastSnap.empty()) o << "last snap\t" << fLastSnap << "\n";
+    AIDocumentViewHandle firstView = nullptr;
+    const bool haveView = !sAIDocumentView->GetNthDocumentView(0, &firstView) && firstView != nullptr;
+    o << "smart guides\t" << (sAICursorSnap != nullptr && haveView && sAICursorSnap->UseSmartGuides(firstView) ? "on" : "off") << "\n";
     o << "preview source\t" << (fPreviewSourceArt == fTarget.art && !fPreviewSource.empty()
         ? fPreviewSourceNote : std::string("none for this target")) << "\n";
     return o.str();
@@ -1229,7 +1347,7 @@ std::string DistortEditor::Refresh(bool measure)
     return Status();
 }
 
-std::string DistortEditor::SimulateDrag(int corner, const std::vector<fdmath::Pt>& points, Mode mode, int cancelAt)
+std::string DistortEditor::SimulateDrag(int corner, const std::vector<fdmath::Pt>& points, Mode mode, int cancelAt, bool snap)
 {
     std::ostringstream o;
     if (!BeginDrag(corner))
@@ -1240,7 +1358,7 @@ std::string DistortEditor::SimulateDrag(int corner, const std::vector<fdmath::Pt
     o << "begin corner " << corner << " mode " << ModeName(mode) << " start " << fd::Describe(fDragStart) << "\n";
     for (size_t i = 0; i < points.size(); ++i)
     {
-        StepDrag(points[i], mode);
+        StepDrag(snap ? Snap(points[i], nullptr) : points[i], mode);
         if (static_cast<int>(i) == cancelAt)
         {
             if (fDragWrote) sAIUndo->UndoChanges();

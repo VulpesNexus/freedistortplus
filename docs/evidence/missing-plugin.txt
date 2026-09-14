@@ -1,4 +1,4 @@
--- author, 2026-09-14 12:58
+-- author, 2026-09-14 18:13
 [PASS] the plugin is loaded: loaded
 path: end quad (90,330 400,330 90,100 340,100)
 path: entries 16 src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 340,100)
@@ -8,14 +8,14 @@ group: end quad (575,410 825,410 540,100 860,100)
 group: entries 16 src (540,410 860,410 540,100 860,100) dst (575,410 825,410 540,100 860,100)
 drawing: g1:540,330,790,100 g2:610,410,860,180 group:550,410,832.903226,100 path:90,330,381.73913,100 text:125.472656,388.62793,357.388896,314.681427
 [PASS] the saved file names no part of this plugin: none
--- absent, 2026-09-14 12:58
+-- absent, 2026-09-14 18:14
 [PASS] the plugin is not loaded: absent
 [PASS] opening the document raises no alert at all: no alert
 [PASS] the drawing is exactly what was saved: g1:540,330,790,100 g2:610,410,860,180 group:550,410,832.903226,100 path:90,330,381.73913,100 text:125.472656,388.62793,357.388896,314.681427
 [PASS] the appearance, read by another plugin, is Adobe Free Distort: Adobe Free Distort
 vanilla dialog: dialog 556,207,906,556 view 564,238,898,548 class=DroverLord - Window Class | dragged 237,191,265,211 | closed=True via ok / EditEffectParameters on post-effect 0 returned 0
 [PASS] Adobe's own dialog edits the effect with the plugin absent: dialog 556,207,906,556 view 564,238,898,548 class=DroverLord - Window Class | dragged 237,191,265,211 | closed=True via ok
--- return, 2026-09-14 12:59
+-- return, 2026-09-14 18:15
 [PASS] the plugin is loaded again: loaded
 plugin reads: entries 16 src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 390,65)
 [PASS] the plugin reads exactly what Adobe's dialog wrote while it was absent: entries 16 src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 390,65); worst difference 0

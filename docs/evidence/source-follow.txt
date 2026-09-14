@@ -1,4 +1,4 @@
-Enhanced Free Distort -- how the source follows the art, 2026-09-14 15:30
+FreeDistort+ -- how the source follows the art, 2026-09-14 18:12
 [PASS] move: the operation leaves the dictionary as it was: src (90,330,340,330,90,100,340,100) dst (110,350,390,320,70,90,360,120)
 [PASS] move: Adobe's edit path afterwards writes a rectangular source: src (140,350,390,350,140,120,390,120) dst (160,370,440,340,120,110,410,140)
 [PASS] move: and that commit does not change the drawing: unchanged

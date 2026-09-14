@@ -60,23 +60,6 @@ Check 'clipboard' 'copy and paste carry the edited Free Distort, all sixteen num
 $pastedDrawn = Invoke-Fdp 'FDP.bounds("pasted");'
 Record 'clipboard' 'where the pasted copy draws, against the original' ("original {0}; pasted {1}" -f $drawn, $pastedDrawn)
 
-# ---- PDF with Illustrator editing capabilities, and back ----------------------------------------
-
-$pdf = Join-Path $scratch 'fdp-persistence.pdf'
-$pdfResult = Invoke-Fdp ("(function(){{ var d = FDP.doc(); FDP.selectOnly('pent'); var o = new PDFSaveOptions(); o.preserveEditability = true; o.viewAfterSaving = false; d.saveAs(new File('{0}'), o); d.close(SaveOptions.DONOTSAVECHANGES); var r = app.open(new File('{0}')); app.coordinateSystem = CoordinateSystem.DOCUMENTCOORDINATESYSTEM; var p = null; for (var i = 0; i < r.pageItems.length; i++) {{ if (r.pageItems[i].name === 'pent') {{ p = r.pageItems[i]; }} }} r.selection = null; if (p) {{ p.selected = true; }} return r.name + '|' + (p ? 'found' : 'missing'); }})();" -f ($pdf -replace '\\', '/'))
-Say "pdf: $pdfResult"
-$fromPdf = Quads
-Check 'export' 'a PDF saved with Illustrator editing capabilities reopens with the same Free Distort' $edited $fromPdf ($fromPdf -eq $edited)
-$pdfBytes = [Text.Encoding]::ASCII.GetString([IO.File]::ReadAllBytes($pdf))
-Check 'export' 'the PDF names no part of this plugin' 'none' $(if ($pdfBytes -match 'FreeDistortPlus|VulpesNexus') { 'found' } else { 'none' }) (-not ($pdfBytes -match 'FreeDistortPlus|VulpesNexus'))
-# Put the probe document back in place, as the fixtures expect.
-Invoke-AiScript "(function(){ for (var i = app.documents.length - 1; i >= 0; i--) { if (app.documents[i].name === 'fdp-persistence.pdf') { app.documents[i].close(SaveOptions.DONOTSAVECHANGES); } } return 'closed'; })();" | Out-Null
-Initialize-AiSession | Out-Null
-Invoke-Fdp 'FDP.clear(); FDP.pentagon("pent"); FDP.selectOnly("pent");' | Out-Null
-Send-AiMessage 'fd append' | Out-Null
-Send-AiMessage 'editor refresh' 'measure' | Out-Null
-Send-AiMessage 'editor drag' '1|free|-1|400,345' | Out-Null
-
 # ---- SVG ----------------------------------------------------------------------------------------
 
 $svg = Join-Path $scratch 'fdp-persistence.svg'
@@ -128,6 +111,26 @@ function Time-Drag([string] $fixture, [string] $name, [int] $steps) {
 Time-Drag 'pentagon' 'cost' 200
 Time-Drag 'grid' 'cost' 200
 Time-Drag 'areaText' 'cost' 200
+
+# ---- PDF with Illustrator editing capabilities, and back ----------------------------------------
+
+Invoke-Fdp 'FDP.clear(); FDP.pentagon("pent"); FDP.selectOnly("pent");' | Out-Null
+Send-AiMessage 'fd append' | Out-Null
+Send-AiMessage 'editor refresh' 'measure' | Out-Null
+Send-AiMessage 'editor drag' '1|free|-1|400,345' | Out-Null
+Send-AiMessage 'editor drag' '2|free|-1|70,85' | Out-Null
+
+$pdf = Join-Path $scratch 'fdp-persistence.pdf'
+$pdfResult = Invoke-Fdp ("(function(){{ var d = FDP.doc(); FDP.selectOnly('pent'); var o = new PDFSaveOptions(); o.preserveEditability = true; o.viewAfterSaving = false; d.saveAs(new File('{0}'), o); d.close(SaveOptions.DONOTSAVECHANGES); var r = app.open(new File('{0}')); app.coordinateSystem = CoordinateSystem.DOCUMENTCOORDINATESYSTEM; var p = null; for (var i = 0; i < r.pageItems.length; i++) {{ if (r.pageItems[i].name === 'pent') {{ p = r.pageItems[i]; }} }} r.selection = null; if (p) {{ p.selected = true; }} return r.name + '|' + (p ? 'found' : 'missing'); }})();" -f ($pdf -replace '\\', '/'))
+Say "pdf: $pdfResult"
+$fromPdf = Quads
+Check 'export' 'a PDF saved with Illustrator editing capabilities reopens with the same Free Distort' $edited $fromPdf ($fromPdf -eq $edited)
+$pdfBytes = [Text.Encoding]::ASCII.GetString([IO.File]::ReadAllBytes($pdf))
+Check 'export' 'the PDF names no part of this plugin' 'none' $(if ($pdfBytes -match 'FreeDistortPlus|VulpesNexus') { 'found' } else { 'none' }) (-not ($pdfBytes -match 'FreeDistortPlus|VulpesNexus'))
+# Last, and nothing after it but closing the PDF: Illustrator 30.7.0 can crash
+# creating a document after documents were closed under scripting, with or
+# without this plugin (docs/evidence/crash-sequence.txt).
+Invoke-AiScript "(function(){ for (var i = app.documents.length - 1; i >= 0; i--) { if (app.documents[i].name === 'fdp-persistence.pdf') { app.documents[i].close(SaveOptions.DONOTSAVECHANGES); } } return 'closed'; })();" | Out-Null
 
 Save-ProbeResults -Path (Join-Path $evidence 'persistence.tsv')
 Save-ProbeTranscript -Path (Join-Path $evidence 'persistence.txt') -Lines $log

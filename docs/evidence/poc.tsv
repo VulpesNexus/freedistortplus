@@ -1,10 +1,10 @@
 probe	group	case	expected	observed	status
 poc	find	the plugin adds an Adobe Free Distort to the selected object	result 0, post-effect 0	result 0 index 0	PASS
-poc	find	the effect is registered by Adobe, with the title the Appearance panel shows	Adobe Free Distort / Free Distort	93 Adobe Free Distort Free Distort 1.0 0x87 0x2	PASS
+poc	find	the effect is registered by Adobe, with the title the Appearance panel shows	Adobe Free Distort / Free Distort	80 Adobe Free Distort Free Distort 1.0 0x87 0x2	PASS
 poc	find	the plugin finds it again by name	object, post-effect 0	object 0	PASS
 poc	bounds	Adobe's own edit path answers the input bounds	from Adobe, [90 330 340 100]	Adobe, [90 330 340 100]	PASS
 poc	bounds	measuring leaves the appearance exactly as it was	identical appearance dump	identical	PASS
-poc	bounds	measuring leaves no undo step behind	past 3	past 3	PASS
+poc	bounds	measuring leaves no undo step behind	past 2	past 2	PASS
 poc	write	the destination corner the plugin wrote is in the dictionary	dst corner 1 = 400,330, source [90 330 340 100]	entries 16 src (90,330 340,330 90,100 340,100) dst (90,330 400,330 90,100 340,100)	PASS
 poc	write	the source path is untouched	90,330,340,100	90,330,340,100	PASS
 poc	write	Adobe's renderer draws the new corner where the bilinear model says	381.73913043478262	381.739130435	PASS

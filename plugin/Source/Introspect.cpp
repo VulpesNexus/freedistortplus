@@ -435,12 +435,25 @@ std::string EditEffectParameter(ai::int32 effectIndex, const std::string& keyNam
             else if (type == "string") err = sAIDictionary->SetStringEntry(fresh, key, value.c_str());
             else err = kBadParameterErr;
         }
-        if (!err) err = sAIArtStyleParser->SetLiveEffectParams(pe, fresh);
+        bool parserHoldsReference = false;
+        if (!err)
+        {
+            err = sAIArtStyleParser->SetLiveEffectParams(pe, fresh);
+            // As fd::Write does: ask the dictionary whether the parser took a
+            // reference, and release ours only if it did.
+            const ai::int32 countWithProbe = sAIDictionary->AddRef(fresh);
+            sAIDictionary->Release(fresh);
+            parserHoldsReference = countWithProbe >= 3;
+        }
+        else if (fresh != nullptr)
+        {
+            sAIDictionary->Release(fresh);
+            fresh = nullptr;
+        }
         AIArtStyleHandle newStyle = nullptr;
         if (!err) err = sAIArtStyleParser->CreateNewStyle(parser, &newStyle);
         if (!err && newStyle) err = sAIArtStyle->SetArtStyle(art, newStyle);
-        // The parser's own reference, if it keeps one, is its to release; ours
-        // is dropped only once the style exists, which then owns the contents.
+        if (parserHoldsReference) sAIDictionary->Release(fresh);
         sAIArtStyleParser->DisposeParser(parser);
         out << "  " << (deleteKey ? "deleted " : "set ") << keyName << " on post-effect " << effectIndex
             << " (result " << err << ")\n";

@@ -1,4 +1,4 @@
-Enhanced Free Distort -- art types, 2026-09-14 14:32
+FreeDistort+ -- art types, 2026-09-14 17:37
 [PASS] path / the effect can be added: object	0
 [PASS] path / input bounds: from Adobe: [90 330 340 100]; geometric bounds [90 330 340 100]
 [PASS] path / dragging a corner redraws the art and leaves its geometry alone: visible 90,330,340,100 -> 90,337.2,381.739130435,100; geometric unchanged
@@ -26,11 +26,11 @@ Enhanced Free Distort -- art types, 2026-09-14 14:32
 [PASS] point text / Adobe's own edit path keeps the editor's corners: (125.47265625,388.627929688 383.470214844,408.627929688 125.47265625,338.943359375 323.470214844,338.943359375)
 [PASS] point text / retyping the live text redraws it through the effect: 125.47265625,402.130497718,367.001844717,338.943359375 -> 125.47265625,393.953435152,566.184471949,338.943359375
 [PASS] area text / the effect can be added: object	0
-[PASS] area text / input bounds: from Adobe: [100.936035156 420.001464844 320.221679688 345.096191406]; geometric bounds [100 420 360 260]
-[PASS] area text / dragging a corner redraws the art and leaves its geometry alone: visible 100,423.047851563,360,260 -> 100.936035156,437.087328776,375.876738812,345.096191406; geometric unchanged
-[PASS] area text / the art keeps its type and contents: TextFrame|Enhanced Free Distort keeps type live across several lines of text
-[PASS] area text / Adobe's own edit path keeps the editor's corners: (100.936035156,420.001464844 380.221679688,440.001464844 100.936035156,345.096191406 320.221679688,345.096191406)
-[PASS] area text / retyping the live text redraws it through the effect: 100.936035156,437.087328776,375.876738812,345.096191406 -> 100.936035156,434.961990741,375.876738812,345.096191406
+[PASS] area text / input bounds: from Adobe: [100.432128906 420.001464844 354.133300781 345.120117188]; geometric bounds [100 420 360 260]
+[PASS] area text / dragging a corner redraws the art and leaves its geometry alone: visible 100,423.047851563,360,260 -> 100.432128906,433.084660461,390.999045416,345.120117188; geometric unchanged
+[PASS] area text / the art keeps its type and contents: TextFrame|FreeDistort+ keeps type live across several lines of text
+[PASS] area text / Adobe's own edit path keeps the editor's corners: (100.432128906,420.001464844 414.133300781,440.001464844 100.432128906,345.120117188 354.133300781,345.120117188)
+[PASS] area text / retyping the live text redraws it through the effect: 100.432128906,433.084660461,390.999045416,345.120117188 -> 100.432128906,433.089647094,391.006434818,345.096191406
 [PASS] symbol instance / the effect can be added: object	0
 [PASS] symbol instance / input bounds: from Adobe: [120 380 370 150]; geometric bounds [120 380 370 150]
 [PASS] symbol instance / dragging a corner redraws the art and leaves its geometry alone: visible 120,380,370,150 -> 120,387.2,411.739130435,150; geometric unchanged

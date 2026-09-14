@@ -1,25 +1,25 @@
 probe	group	case	expected	observed	status
 semantics	dictionary	a Free Distort added without its dialog holds		# 0 entries	MEASURED
 semantics	dictionary	an empty dictionary draws the art unchanged	result = source	identical	PASS
-semantics	dictionary	Adobe's commit writes these keys		src2v Real, dst2v Real, src2h Real, src1v Real, dst3h Real, dst3v Real, dst0v Real, src0v Real, src1h Real, dst1v Real, dst2h Real, src3h Real, src3v Real, dst1h Real, dst0h Real, src0h Real, -DefaultApplyEffectsKey Boolean	MEASURED
+semantics	dictionary	Adobe's commit writes these keys		-DefaultApplyEffectsKey Boolean, src3h Real, src3v Real, src1v Real, dst3h Real, dst3v Real, src0h Real, src2h Real, dst0v Real, src2v Real, src1h Real, src0v Real, dst1h Real, dst1v Real, dst2h Real, dst2v Real, dst0h Real	MEASURED
 semantics	dictionary	the source quad is the geometric bounds, corner order TL TR BL BR	src0 90,330 src1 340,330 src2 90,100 src3 340,100	entries 17 src (90,330 340,330 90,100 340,100) dst (90,330 340,330 90,100 340,100)	PASS
-semantics	keys	src2v (Real) 100 -> 137		drawing changed; restoring the value restores it exactly	MEASURED
-semantics	keys	dst2v (Real) 90 -> 127		drawing changed; restoring the value restores it exactly	MEASURED
-semantics	keys	src2h (Real) 90 -> 127		drawing changed; restoring the value restores it exactly	MEASURED
+semantics	keys	-DefaultApplyEffectsKey (Boolean) false -> true		drawing unchanged; restoring the value restores it exactly	MEASURED
+semantics	keys	src3h (Real) 340 -> 377		drawing changed; restoring the value restores it exactly	MEASURED
+semantics	keys	src3v (Real) 100 -> 137		drawing changed; restoring the value restores it exactly	MEASURED
 semantics	keys	src1v (Real) 330 -> 367		drawing changed; restoring the value restores it exactly	MEASURED
 semantics	keys	dst3h (Real) 360 -> 397		drawing changed; restoring the value restores it exactly	MEASURED
 semantics	keys	dst3v (Real) 120 -> 157		drawing changed; restoring the value restores it exactly	MEASURED
+semantics	keys	src0h (Real) 90 -> 127		drawing changed; restoring the value restores it exactly	MEASURED
+semantics	keys	src2h (Real) 90 -> 127		drawing changed; restoring the value restores it exactly	MEASURED
 semantics	keys	dst0v (Real) 350 -> 387		drawing changed; restoring the value restores it exactly	MEASURED
-semantics	keys	src0v (Real) 330 -> 367		drawing changed; restoring the value restores it exactly	MEASURED
+semantics	keys	src2v (Real) 100 -> 137		drawing changed; restoring the value restores it exactly	MEASURED
 semantics	keys	src1h (Real) 340 -> 377		drawing changed; restoring the value restores it exactly	MEASURED
+semantics	keys	src0v (Real) 330 -> 367		drawing changed; restoring the value restores it exactly	MEASURED
+semantics	keys	dst1h (Real) 390 -> 427		drawing changed; restoring the value restores it exactly	MEASURED
 semantics	keys	dst1v (Real) 320 -> 357		drawing changed; restoring the value restores it exactly	MEASURED
 semantics	keys	dst2h (Real) 70 -> 107		drawing changed; restoring the value restores it exactly	MEASURED
-semantics	keys	src3h (Real) 340 -> 377		drawing changed; restoring the value restores it exactly	MEASURED
-semantics	keys	src3v (Real) 100 -> 137		drawing changed; restoring the value restores it exactly	MEASURED
-semantics	keys	dst1h (Real) 390 -> 427		drawing changed; restoring the value restores it exactly	MEASURED
+semantics	keys	dst2v (Real) 90 -> 127		drawing changed; restoring the value restores it exactly	MEASURED
 semantics	keys	dst0h (Real) 110 -> 147		drawing changed; restoring the value restores it exactly	MEASURED
-semantics	keys	src0h (Real) 90 -> 127		drawing changed; restoring the value restores it exactly	MEASURED
-semantics	keys	-DefaultApplyEffectsKey (Boolean) false -> true		drawing unchanged; restoring the value restores it exactly	MEASURED
 semantics	keys	-DefaultApplyEffectsKey can be absent without changing the drawing	unchanged	unchanged	PASS
 semantics	keys	a key Adobe does not know changes nothing in the drawing	unchanged	unchanged	PASS
 semantics	keys	a key Adobe does not know, after Adobe's own edit path commits		kept	MEASURED

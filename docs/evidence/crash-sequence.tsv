@@ -1,0 +1,16 @@
+probe	group	case	expected	observed	status
+crash-sequence	Adobe Select Tool	run 1 with Adobe Select Tool active	survived	survived	PASS
+crash-sequence	VulpesNexus FreeDistort+ Tool	run 1 with VulpesNexus FreeDistort+ Tool active	survived	died during: new document; fault offset 0x00000000018162a7; last call: 17:55:09.816  FDP.doc(); app.redraw(); "ready";	FAIL
+crash-sequence	Adobe Select Tool	run 2 with Adobe Select Tool active	survived	survived	PASS
+crash-sequence	VulpesNexus FreeDistort+ Tool	run 2 with VulpesNexus FreeDistort+ Tool active	survived	survived	PASS
+crash-sequence	Adobe Select Tool	run 3 with Adobe Select Tool active	survived	survived	PASS
+crash-sequence	VulpesNexus FreeDistort+ Tool	run 3 with VulpesNexus FreeDistort+ Tool active	survived	survived	PASS
+crash-sequence	Adobe Select Tool	run 4 with Adobe Select Tool active	survived	died during: new document; fault offset 0x00000000018162a7; last call: 17:59:32.931  FDP.doc(); app.redraw(); "ready";	FAIL
+crash-sequence	VulpesNexus FreeDistort+ Tool	run 4 with VulpesNexus FreeDistort+ Tool active	survived	survived	PASS
+crash-sequence	passive, Adobe Select Tool	passive run 1 with Adobe Select Tool active	survived	survived	PASS
+crash-sequence	passive, Adobe Select Tool	passive run 2 with Adobe Select Tool active	survived	survived	PASS
+crash-sequence	passive, Adobe Select Tool	passive run 3 with Adobe Select Tool active	survived	survived	PASS
+crash-sequence	file, Adobe Select Tool	file run 1 with Adobe Select Tool active	survived	died during: new document; fault offset 0x00000000018162a7; last call: 18:06:35.552  FDP.doc(); app.redraw(); "ready";	FAIL
+crash-sequence	file, Adobe Select Tool	file run 2 with Adobe Select Tool active	survived	survived	PASS
+crash-sequence	file, Adobe Select Tool	file run 3 with Adobe Select Tool active	survived	died during: fixture	FAIL
+crash-sequence	file, Adobe Select Tool	file run 4 with Adobe Select Tool active	survived	survived	PASS

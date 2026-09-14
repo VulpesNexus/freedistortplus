@@ -1,7 +1,7 @@
-Enhanced Free Distort -- proof of concept, 2026-09-14 12:54
-Enhanced Free Distort 0.1.0-dev | plugin	EnhancedFreeDistort | decimal point	0.25 | 
+FreeDistort+ -- proof of concept, 2026-09-14 17:29
+FreeDistort+ 0.1.0-dev | plugin	FreeDistortPlus | decimal point	0.25 | 
 [PASS] the plugin adds an Adobe Free Distort to the selected object: result	0 index	0 
-[PASS] the effect is registered by Adobe, with the title the Appearance panel shows: 93	Adobe Free Distort	Free Distort	1.0	0x87	0x2
+[PASS] the effect is registered by Adobe, with the title the Appearance panel shows: 80	Adobe Free Distort	Free Distort	1.0	0x87	0x2
 [PASS] the plugin finds it again by name: object	0
 result	0
 input bounds	[90 330 340 100]
@@ -10,7 +10,7 @@ geometric bounds	[90 330 340 100]
 report	silent edit returned 0; Adobe chose source [90 330 340 100]; UndoChanges returned 0 and restored the original style;
 [PASS] Adobe's own edit path answers the input bounds: Adobe, [90 330 340 100]
 [PASS] measuring leaves the appearance exactly as it was: identical
-[PASS] measuring leaves no undo step behind: past 3
+[PASS] measuring leaves no undo step behind: past 2
 silent edit returned 0; Adobe chose source [90 330 340 100]; UndoChanges returned 0 and restored the original style; 
 write post-effect 0: source [90 330 340 100] destination (90,330 400,330 90,100 340,100) (dictionary refs with probe 3, released ours, style replaced, result 0)
 result	0

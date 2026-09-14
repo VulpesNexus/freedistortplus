@@ -1,0 +1,18 @@
+FreeDistort+ -- the copy, PDF, close, reopen, close, new document sequence, 2026-09-14 17:53
+[PASS] run 1, Adobe Select Tool: survived
+[FAIL] run 1, VulpesNexus FreeDistort+ Tool: died during: new document; fault offset 0x00000000018162a7; last call: 17:55:09.816  FDP.doc(); app.redraw(); "ready";
+[PASS] run 2, Adobe Select Tool: survived
+[PASS] run 2, VulpesNexus FreeDistort+ Tool: survived
+[PASS] run 3, Adobe Select Tool: survived
+[PASS] run 3, VulpesNexus FreeDistort+ Tool: survived
+[FAIL] run 4, Adobe Select Tool: died during: new document; fault offset 0x00000000018162a7; last call: 17:59:32.931  FDP.doc(); app.redraw(); "ready";
+[PASS] run 4, VulpesNexus FreeDistort+ Tool: survived
+FreeDistort+ -- the copy, PDF, close, reopen, close, new document sequence, variant passive, 2026-09-14 18:02
+[PASS] passive run 1, Adobe Select Tool: survived
+[PASS] passive run 2, Adobe Select Tool: survived
+[PASS] passive run 3, Adobe Select Tool: survived
+FreeDistort+ -- the copy, PDF, close, reopen, close, new document sequence, variant file, 2026-09-14 18:05
+[FAIL] file run 1, Adobe Select Tool: died during: new document; fault offset 0x00000000018162a7; last call: 18:06:35.552  FDP.doc(); app.redraw(); "ready";
+[PASS] file run 2, Adobe Select Tool: survived
+[FAIL] file run 3, Adobe Select Tool: died during: fixture
+[PASS] file run 4, Adobe Select Tool: survived

@@ -1,0 +1,11 @@
+probe	group	case	expected	observed	status
+lifecycle	deleted	after its object is deleted the editor holds no target and a drag writes nothing	target none; could not begin	target none; could not begin: nothing is selected	PASS
+lifecycle	removed	after its Free Distort is removed from the appearance a drag writes nothing and says why	could not begin: no Free Distort	could not begin: the selected object has no Free Distort; why the selected object has no Free Distort	PASS
+lifecycle	moved	with another effect moved ahead of it, a drag edits the Free Distort at its new index and leaves the other effect alone	post-effect 1; effect 0 still Adobe Transform; corner 3 at 360,80	post-effect 1; effect 0 Adobe Transform; (90,330 400,340 90,100 360,80)	PASS
+lifecycle	undo	a drag after an Undo starts from the state the Undo left, not from the undone one	(90,330 400,340 90,100 360,90)	(90,330 400,340 90,100 360,90)	PASS
+lifecycle	undo	...and after Undo, Undo, Redo	(80,340 400,340 90,100 340,100)	(80,340 400,340 90,100 340,100)	PASS
+lifecycle	close	closing the editor's document leaves it with no target, and Illustrator running	target none	target none	PASS
+lifecycle	close	...and in the document opened next, the editor edits normally	(90,330 410,350 90,100 340,100)	(90,330 410,350 90,100 340,100)	PASS
+lifecycle	stress	60 cycles of open, canceled drag, committed drag, preview, undo and redo, select, measure, and tool switch complete with Illustrator alive	alive	alive	PASS
+lifecycle	stress	...without GDI or USER objects growing	GDI 584, USER 1477, within 20	GDI 582, USER 1476	PASS
+lifecycle	stress	handles and private memory before and after		handles 2909 -> 2903; private 2975 MB -> 2854 MB	MEASURED
