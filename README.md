@@ -2,6 +2,8 @@
 
 An on-canvas editor for Adobe Illustrator's built-in *Free Distort* effect.
 
+## Why
+
 Adobe's own dialog edits the effect in a thumbnail-sized wireframe and rounds every corner to a whole point.
 <p align="center"><img src="docs/wtfisthis.jpg" alt="The default editor in big 2026." width="880"></p>
 
@@ -12,8 +14,6 @@ By double-clicking on the tool, you get access to a numerical editor for precise
 <p align="center"><img src="docs/doubleclickmenu.jpg" alt="Menu accessible by double-clicking the tool."></p>
 
 **It edits Adobe's effect; it does not replace it.** The *Appearance* panel still says *Free Distort*, because it is Adobe's *Free Distort*. A document edited with this plugin opens normally on a machine without it, draws the same, and can still be edited there in Adobe's own *Free Distort* dialog. When the plugin is back, it picks up whatever that dialog changed.
-
-Windows x64, built against the Illustrator 2026 SDK, tested on Illustrator 30.7.0 and Windows 11. Do not assume a build for one Illustrator year loads in another.
 
 ## Install
 
